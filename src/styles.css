@@ -1,173 +1,251 @@
-/* Estructura principal */
+/* Reseteo ligero: elimina márgenes/padding por defecto */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Fuente monoespaciada y fondo gris clásico */
+body {
+  font-family: "Courier New", Courier, monospace;
+  background-color: #C0C0C0; /* Gris Windows 95 */
+  color: #000;
+}
+
+/* Contenedor principal */
 .gmail-container {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
-  
-  .header {
-    display: flex;
-    align-items: center;
-    background-color: #eee;
-    padding: 0.5rem 1rem;
-    justify-content: space-between;
-  }
-  
-  .header-left {
-    display: flex;
-    align-items: center;
-  }
-  
-  .header-left .hamburger {
-    font-size: 1.2rem;
-    margin-right: 1rem;
-  }
-  
-  .header-left .logo {
-    height: 30px;
-    margin-right: 1rem;
-  }
-  
-  .header-center {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .header-center input {
-    width: 50%;
-    padding: 0.4rem;
-  }
-  
-  .header-right button {
-    margin-left: 0.5rem;
-    cursor: pointer;
-  }
-  
-  .indicators {
-    display: flex;
-    justify-content: space-around;
-    background-color: #fafafa;
-    padding: 0.5rem;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .content {
-    display: flex;
-    flex: 1;
-    height: calc(100vh - 100px); /* Ajusta si es necesario */
-  }
-  
-  .sidebar {
-    width: 200px;
-    border-right: 1px solid #ccc;
-    padding: 1rem;
-  }
-  
-  .compose {
-    background-color: #c22;
-    color: #fff;
-    border: none;
-    padding: 0.5rem;
-    width: 100%;
-    margin-bottom: 1rem;
-    cursor: pointer;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sidebar li {
-    padding: 0.5rem 0;
-    cursor: pointer;
-  }
-  
-  .sidebar li.active {
-    font-weight: bold;
-  }
-  
-  /* Sección de correos */
-  .email-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .tabs {
-    display: flex;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .tab {
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border: none;
-    background: none;
-  }
-  
-  .tab.active {
-    border-bottom: 2px solid #4285f4;
-    font-weight: bold;
-  }
-  
-  .email-list {
-    flex: 1;
-    overflow-y: auto;
-  }
-  
-  .email-item {
-    padding: 0.5rem;
-    border-bottom: 1px solid #ccc;
-    cursor: pointer;
-  }
-  
-  /* Resaltamos los correos que no están revisados */
-  .email-item.unread {
-    font-weight: bold;
-    background-color: #fdf7e2;
-  }
-  
-  .email-item .subject {
-    display: block;
-    margin-bottom: 0.3rem;
-    font-size: 1rem;
-  }
-  
-  .email-item .snippet {
-    color: #666;
-    font-size: 0.9rem;
-  }
-  
-  /* Panel de visualización de correo */
-  .email-viewer {
-    width: 400px;
-    border-left: 1px solid #ccc;
-    padding: 1rem;
-    overflow-y: auto;
-  }
-  
-  .email-viewer h2 {
-    margin-top: 0;
-  }
-  
-  .email-viewer button {
-    margin-right: 0.5rem;
-    cursor: pointer;
-    padding: 0.3rem 0.6rem;
-  }
-  
-  .approve {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-  }
-  
-  .reject {
-    background-color: #f44336;
-    color: white;
-    border: none;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  border: 2px solid #000; /* Borde negro para el contenedor, muy 90s */
+}
+
+/* Cabecera */
+.header {
+  display: flex;
+  align-items: center;
+  /* Pequeño gradiente 90s */
+  background: linear-gradient(to bottom, #fff 0%, #ccc 100%);
+  border-bottom: 2px solid #000;
+  padding: 0.5rem;
+}
+
+/* Parte izquierda de la cabecera */
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+/* Botón hamburguesa estilo 3D */
+.header-left .hamburger {
+  font-size: 1rem;
+  margin-right: 1rem;
+  padding: 0.2rem 0.6rem;
+  border: 2px outset #eee;
+  background-color: #ddd;
+  cursor: pointer;
+}
+.header-left .hamburger:active {
+  border: 2px inset #999;
+}
+
+/* Logo (podrías usar un GIF para más nostalgia) */
+.header-left .logo {
+  height: 32px;
+  margin-right: 1rem;
+}
+
+/* Barra de búsqueda */
+.header-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.header-center input {
+  width: 50%;
+  padding: 0.2rem;
+  border: 2px inset #aaa;
+  background-color: #eee;
+  color: #000;
+}
+
+/* Parte derecha de la cabecera */
+.header-right button {
+  margin-left: 0.5rem;
+  cursor: pointer;
+  border: 2px outset #eee;
+  background-color: #ddd;
+  padding: 0.3rem 0.6rem;
+}
+.header-right button:active {
+  border: 2px inset #999;
+}
+
+/* Indicadores (métricas) */
+.indicators {
+  display: flex;
+  justify-content: space-around;
+  background-color: #e0e0e0;
+  padding: 0.5rem;
+  border-bottom: 2px ridge #999;
+}
+.indicators span {
+  font-weight: bold;
+}
+
+/* Contenido general: sidebar + lista de correos + visor */
+.content {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 100px); /* Ajustar según cabecera e indicadores */
+}
+
+/* Sidebar, con estilo 90s: bordes y botones 3D */
+.sidebar {
+  width: 200px;
+  border-right: 2px solid #000;
+  padding: 0.5rem;
+  background-color: #d3d3d3;
+}
+
+/* Botón "Redactar" 3D */
+.compose {
+  border: 2px outset #eee;
+  background-color: #ddd;
+  color: #000;
+  padding: 0.3rem 0.6rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+}
+.compose:active {
+  border: 2px inset #999;
+}
+
+/* Lista de opciones en el sidebar */
+.sidebar ul {
+  list-style: none;
+  margin-top: 0.5rem;
+}
+
+.sidebar li {
+  padding: 0.3rem 0.2rem;
+  cursor: pointer;
+}
+
+.sidebar li.active {
+  background-color: #bbb;
+  border: 1px inset #777;
+}
+
+/* Sección de correos: Tabs + EmailList */
+.email-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f0f0;
+  border-right: 2px inset #999;
+}
+
+/* Tabs con look 90s */
+.tabs {
+  display: flex;
+  border-bottom: 2px groove #999;
+  background-color: #ccc;
+  padding: 0.3rem;
+}
+
+.tab {
+  margin-right: 0.2rem;
+  padding: 0.3rem 0.6rem;
+  border: 2px outset #eee;
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+.tab:active {
+  border: 2px inset #999;
+}
+
+.tab.active {
+  border: 2px inset #999;
+  background-color: #bbb;
+  font-weight: bold;
+}
+
+/* Lista de correos */
+.email-list {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #e6e6e6;
+  border-top: 2px inset #999;
+}
+
+/* Cada item de la lista */
+.email-item {
+  padding: 0.5rem;
+  border-bottom: 1px solid #aaa;
+  cursor: pointer;
+}
+
+/* Correo "no leído" -> negrita y fondo un poco más claro */
+.email-item.unread {
+  font-weight: bold;
+  background-color: #fdf7e2;
+}
+
+.email-item .subject {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 1rem;
+}
+
+.email-item .snippet {
+  color: #333;
+  font-size: 0.9rem;
+}
+
+/* Visor de correo a la derecha */
+.email-viewer {
+  width: 400px;
+  border-left: 2px solid #000;
+  padding: 0.5rem;
+  background-color: #dcdcdc;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Título del correo */
+.email-viewer h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Botones de decisión */
+.email-viewer button {
+  margin-right: 0.5rem;
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  border: 2px outset #eee;
+  background-color: #ddd;
+  color: #000;
+  font-weight: bold;
+}
+
+.email-viewer button:active {
+  border: 2px inset #999;
+}
+
+.approve {
+  /* Verde tenue noventero */
+  background-color: #8f8;
+}
+
+.reject {
+  /* Rojo tenue noventero */
+  background-color: #f88;
+}

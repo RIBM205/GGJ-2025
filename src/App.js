@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import Indicators from "./components/indicators/Indicators";
+import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "./components/sidebar/SideBar";
 import EmailList from "./components/emailList/EmailList";
 import EmailViewer from "./components/emailViewer/EmailViewer";
 import Tabs from "./components/tabs/Tabjs.jsx";
+import Indicators from "./components/Indicators/Indicators";
 import "./styles.css"; // Asegúrate de importar los estilos si usas create-react-app
 
+import Click from "./Sound/Click.wav"; // Ensure this path is correct and the file exists
+import newMail from "./Sound/NewMail.wav"; // Ensure this path is correct and the file exists
 const App = () => {
   // ==================================
   // Estados de las métricas del juego
@@ -27,6 +29,7 @@ const App = () => {
         Los gobiernos están en disputa sobre cómo manejar la situación.
       `,
       revisado: false,
+      decision: false,
       effects: {
         approve: { credibilidad: -10, polarizacion: +5,  economia: +10 },
         reject:  { credibilidad: +5,  polarizacion:  0,  economia: -5  },
@@ -40,6 +43,7 @@ const App = () => {
         Investigadores afirman haber descubierto una nueva fuente de energía renovable que podría cambiar el destino del planeta.
       `,
       revisado: false,
+      decision: false,
       effects: {
         approve: { credibilidad: +10, polarizacion: -5,  economia: +15 },
         reject:  { credibilidad: -5,  polarizacion: +5,  economia: -10 },
@@ -54,6 +58,7 @@ const App = () => {
         para evitar conflictos territoriales y escasez de recursos en el futuro.
       `,
       revisado: false,
+      decision: false,
       effects: {
         approve: { credibilidad: +2, polarizacion: +5,  economia: +5 },
         reject:  { credibilidad: -2, polarizacion: -5,  economia: -2 },
@@ -68,6 +73,7 @@ const App = () => {
         de las lunas del sistema Beta, marcando un hito en la búsqueda de vida.
       `,
       revisado: false,
+      decision: false,
       effects: {
         approve: { credibilidad: +5, polarizacion: -3,  economia: +2 },
         reject:  { credibilidad: -5, polarizacion: +3,  economia: -2 },
@@ -82,6 +88,7 @@ const App = () => {
         y compartir recursos con el resto de la galaxia.
       `,
       revisado: false,
+      decision: false,
       effects: {
         approve: { credibilidad: +5, polarizacion: -2,  economia: +10 },
         reject:  { credibilidad: -5, polarizacion: +2,  economia: -10 },
@@ -108,22 +115,6 @@ const App = () => {
   //   3) Si hay < 3 sin leer y quedan correos, cargamos otro
   // ==================================================
   const handleEmailClick = (email) => {
-    if (!email.revisado) {
-      // Marcarlo como leído
-      const updatedEmails = emails.map((e) =>
-        e.id === email.id ? { ...e, revisado: true } : e
-      );
-      setEmails(updatedEmails);
-
-      // Ver cuántos sin leer quedan
-      const unreadCount = updatedEmails.filter((e) => !e.revisado).length;
-      // Cargar uno nuevo si quedan menos de 3 y hay correos disponibles
-      if (unreadCount < 3 && nextEmailIndex < allEmailsData.length) {
-        const newEmail = allEmailsData[nextEmailIndex];
-        setNextEmailIndex((prev) => prev + 1);
-        setEmails([...updatedEmails, newEmail]);
-      }
-    }
 
     // Seleccionar para mostrar en vista lateral
     setSelectedEmail(email);
@@ -133,7 +124,9 @@ const App = () => {
   // Maneja la decisión del jugador (Aprobar/Rechazar)
   // y aplica los cambios en métricas
   // ==================================================
+  const newMailAudioRef = useRef(null);
   const handleDecision = (emailId, action) => {
+    newMailAudioRef.current = new Audio(newMail);
     const email = emails.find((em) => em.id === emailId);
     if (!email) return;
 
@@ -146,10 +139,57 @@ const App = () => {
     setEconomia((prev) => Math.max(0, Math.min(100, prev + effects.economia)));
 
     // Cierra el panel de lectura
+    if (!email.revisado) {
+      // Marcarlo como leído
+      const updatedEmails = emails.map((e) =>
+        e.id === email.id ? { ...e, revisado: true, decision: true } : e
+      
+      );
+
+      setEmails(updatedEmails);
+
+      // Ver cuántos sin leer quedan
+      const unreadCount = updatedEmails.filter((e) => !e.revisado).length;
+      // Cargar uno nuevo si quedan menos de 3 y hay correos disponibles
+      if (unreadCount < 3 && nextEmailIndex < allEmailsData.length) {
+        const newEmail = allEmailsData[nextEmailIndex];
+        setNextEmailIndex((prev) => prev + 1);
+        setEmails([newEmail, ...updatedEmails]);
+        newMailAudioRef.current.play().catch(error => {
+          console.error("Error playing audio:", error);
+        });
+      }
+    }
     setSelectedEmail(null);
   };
 
+  const clickAudioRef = useRef(null);
+
+  useEffect(() => {
+    clickAudioRef.current = new Audio(Click);
+
+    clickAudioRef.current.addEventListener('error', (e) => {
+      console.error("Error loading audio:", e);
+    });
+
+    function handleMouseDown(e) {
+      if (e.button === 0 || e.button === 2) {
+        clickAudioRef.current.play().catch(error => {
+          console.error("Error playing audio:", error);
+        });
+      }
+    }
+
+    window.addEventListener('mousedown', handleMouseDown);
+
+    return () => {
+      window.removeEventListener('mousedown', handleMouseDown);
+    };
+  }, []);
+
+  
   return (
+    <div>s
     <div className="gmail-container">
       <header className="header">
         <div className="header-left">
@@ -183,6 +223,7 @@ const App = () => {
           goBack={() => setSelectedEmail(null)}
         />
       </div>
+    </div>
     </div>
   );
 };

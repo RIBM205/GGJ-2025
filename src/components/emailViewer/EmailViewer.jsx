@@ -8,7 +8,21 @@ const EmailViewer = ({ email, handleDecision, goBack }) => {
       </section>
     );
   }
+  const isDisabled = email.decision;
 
+
+  if(isDisabled == true ) {
+    return (
+      <section className="email-viewer">
+        <h2>{email.subject}</h2>
+        <div dangerouslySetInnerHTML={{ __html: email.content }} />
+        <button disabled>Aprobar</button>
+        <button disabled>Rechazar</button>
+        <button onClick={goBack}>Volver</button>
+      </section>
+    );
+  }
+  else{
   return (
     <section className="email-viewer">
       <h2>{email.subject}</h2>
@@ -23,5 +37,6 @@ const EmailViewer = ({ email, handleDecision, goBack }) => {
     </section>
   );
 };
+}
 
 export default EmailViewer;
