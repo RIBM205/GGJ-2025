@@ -1,0 +1,173 @@
+/* Estructura principal */
+.gmail-container {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    background-color: #eee;
+    padding: 0.5rem 1rem;
+    justify-content: space-between;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header-left .hamburger {
+    font-size: 1.2rem;
+    margin-right: 1rem;
+  }
+  
+  .header-left .logo {
+    height: 30px;
+    margin-right: 1rem;
+  }
+  
+  .header-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .header-center input {
+    width: 50%;
+    padding: 0.4rem;
+  }
+  
+  .header-right button {
+    margin-left: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .indicators {
+    display: flex;
+    justify-content: space-around;
+    background-color: #fafafa;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .content {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 100px); /* Ajusta si es necesario */
+  }
+  
+  .sidebar {
+    width: 200px;
+    border-right: 1px solid #ccc;
+    padding: 1rem;
+  }
+  
+  .compose {
+    background-color: #c22;
+    color: #fff;
+    border: none;
+    padding: 0.5rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar li {
+    padding: 0.5rem 0;
+    cursor: pointer;
+  }
+  
+  .sidebar li.active {
+    font-weight: bold;
+  }
+  
+  /* Sección de correos */
+  .email-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .tab {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
+  
+  .tab.active {
+    border-bottom: 2px solid #4285f4;
+    font-weight: bold;
+  }
+  
+  .email-list {
+    flex: 1;
+    overflow-y: auto;
+  }
+  
+  .email-item {
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+  }
+  
+  /* Resaltamos los correos que no están revisados */
+  .email-item.unread {
+    font-weight: bold;
+    background-color: #fdf7e2;
+  }
+  
+  .email-item .subject {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-size: 1rem;
+  }
+  
+  .email-item .snippet {
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  /* Panel de visualización de correo */
+  .email-viewer {
+    width: 400px;
+    border-left: 1px solid #ccc;
+    padding: 1rem;
+    overflow-y: auto;
+  }
+  
+  .email-viewer h2 {
+    margin-top: 0;
+  }
+  
+  .email-viewer button {
+    margin-right: 0.5rem;
+    cursor: pointer;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .approve {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+  }
+  
+  .reject {
+    background-color: #f44336;
+    color: white;
+    border: none;
+  }
+  
