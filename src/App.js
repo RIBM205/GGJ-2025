@@ -28,6 +28,8 @@ const App = () => {
         El planeta Alpha está enfrentando una grave crisis económica debido a la escasez de recursos.
         Los gobiernos están en disputa sobre cómo manejar la situación.
       `,
+      cooldown: false,
+      loop: true,
       revisado: false,
       decision: false,
       effects: {
@@ -42,6 +44,8 @@ const App = () => {
       content: `
         Investigadores afirman haber descubierto una nueva fuente de energía renovable que podría cambiar el destino del planeta.
       `,
+      cooldown: false,
+      loop:true,
       revisado: false,
       decision: false,
       effects: {
@@ -57,6 +61,8 @@ const App = () => {
         La asamblea galáctica debate nuevas regulaciones sobre los viajes y exploraciones espaciales
         para evitar conflictos territoriales y escasez de recursos en el futuro.
       `,
+      cooldown: false,
+      loop:true,
       revisado: false,
       decision: false,
       effects: {
@@ -72,6 +78,8 @@ const App = () => {
         Un equipo de científicos confirma la presencia de microbios en las zonas subterráneas
         de las lunas del sistema Beta, marcando un hito en la búsqueda de vida.
       `,
+      cooldown: false,
+      loop:true,
       revisado: false,
       decision: false,
       effects: {
@@ -87,6 +95,8 @@ const App = () => {
         Los líderes del sistema Gamma firman un nuevo tratado para abrir rutas de comercio
         y compartir recursos con el resto de la galaxia.
       `,
+      cooldown: false,
+      loop:true,
       revisado: false,
       decision: false,
       effects: {
@@ -187,43 +197,59 @@ const App = () => {
     };
   }, []);
 
-  
+  const overlayOpacity = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--overlay-opacity'));
+  let overlayOpacityVariation = overlayOpacity + 0.2;
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const specialEventsTimer = async () => {
+    if (true) {
+      overlayOpacityVariation = Math.min(1, overlayOpacityVariation); // Ensure opacity does not exceed 1
+      document.documentElement.style.setProperty('--overlay-opacity', overlayOpacityVariation);
+      await delay(1000);
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(specialEventsTimer, 1000); // Call the function every second
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, []);
+
   return (
-    <div>s
-    <div className="gmail-container">
-      <header className="header">
-        <div className="header-left">
-          <button className="hamburger">&#9776;</button>
-          <img src="gmail-logo.png" alt="Gmail" className="logo" />
-        </div>
-        <div className="header-center">
-          <input type="text" placeholder="Buscar en correos" />
-        </div>
-        <div className="header-right">
-          <button className="apps">🔳</button>
-          <button className="profile">👤</button>
-        </div>
-      </header>
+    <div>
+      <div className="ligthsOut"></div>
+      <div className="gmail-container">
+        <header className="header">
+          <div className="header-left">
+            <button className="hamburger">&#9776;</button>
+            <img src="gmail-logo.png" alt="Gmail" className="logo" />
+          </div>
+          <div className="header-center">
+            <input type="text" placeholder="Buscar en correos" />
+          </div>
+          <div className="header-right">
+            <button className="apps">🔳</button>
+            <button className="profile">👤</button>
+          </div>
+        </header>
 
-      <Indicators
-        credibilidad={credibilidad}
-        polarizacion={polarizacion}
-        economia={economia}
-      />
-
-      <div className="content">
-        <Sidebar />
-        <main className="email-section">
-          <Tabs />
-          <EmailList emails={emails} onEmailClick={handleEmailClick} />
-        </main>
-        <EmailViewer
-          email={selectedEmail}
-          handleDecision={handleDecision}
-          goBack={() => setSelectedEmail(null)}
+        <Indicators
+          credibilidad={credibilidad}
+          polarizacion={polarizacion}
+          economia={economia}
         />
+
+        <div className="content">
+          <Sidebar />
+          <main className="email-section">
+            <Tabs />
+            <EmailList emails={emails} onEmailClick={handleEmailClick} />
+          </main>
+          <EmailViewer
+            email={selectedEmail}
+            handleDecision={handleDecision}
+            goBack={() => setSelectedEmail(null)}
+          />
+        </div>
       </div>
-    </div>
     </div>
   );
 };

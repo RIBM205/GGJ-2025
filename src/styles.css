@@ -249,3 +249,16 @@ body {
   /* Rojo tenue noventero */
   background-color: #f88;
 }
+
+:root {
+  --overlay-opacity: 0.5;
+}
+
+.ligthsOut{
+  position: fixed;
+  background: rgba(0, 0, 0, var(--overlay-opacity));
+  z-index: 1;
+  pointer-events: none;
+  width: 100vw;
+  height: 100vh;
+}
