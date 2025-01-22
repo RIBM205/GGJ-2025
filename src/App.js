@@ -1,37 +1,41 @@
 import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "./components/sidebar/SideBar";
-import EmailList from "./components/emailList/EmailList";
-import EmailViewer from "./components/emailViewer/EmailViewer";
-import Tabs from "./components/tabs/Tabjs.jsx";
 import Indicators from "./components/Indicators/Indicators";
-import "./styles.css"; // Asegúrate de importar los estilos si usas create-react-app
+import Tabs from "./components/tabs/Tabjs";
+import EmailViewer from "./components/emailViewer/EmailViewer";
 
-import Click from "./Sound/Click.wav"; // Ensure this path is correct and the file exists
-import newMail from "./Sound/NewMail.wav"; // Ensure this path is correct and the file exists
+// Nuestras dos listas separadas
+import EmailListActivos from "./components/emailList/EmailListActivos";
+import EmailListUsados from "./components/emailList/EmailListUsados";
+
+import "./styles.css";
+
+// Sonidos
+import Click from "./Sound/Click.wav";
+import NewMail from "./Sound/NewMail.wav";
+
 const App = () => {
-  // ==================================
-  // Estados de las métricas del juego
-  // ==================================
+  // ==============================
+  // MÉTRICAS DEL JUEGO
+  // ==============================
   const [credibilidad, setCredibilidad] = useState(100);
   const [polarizacion, setPolarizacion] = useState(50);
   const [economia, setEconomia] = useState(70);
 
-  // =========================
-  // Lista completa de correos
-  // =========================
-  const allEmailsData = [
+  // ==============================
+  // DATOS (POOL) DE TODOS LOS CORREOS
+  // ==============================
+  const initialPool = [
     {
       id: 1,
       subject: "Crisis económica en el planeta Alpha",
       snippet: "Lee más sobre la reciente crisis...",
-      content: `
-        El planeta Alpha está enfrentando una grave crisis económica debido a la escasez de recursos.
-        Los gobiernos están en disputa sobre cómo manejar la situación.
-      `,
-      cooldown: false,
-      loop: true,
-      revisado: false,
-      decision: false,
+      content: `El planeta Alpha enfrenta una grave crisis económica...`,
+      loop: true,             // repetible
+      cooldown: 2,           // cada 2 “turns” puede reaparecer
+      used: false,           // en el pool: si es único y se usó, se marca true
+      unlocked: true,        // si está habilitado al inicio
+      nextAvailableTurn: 0,  // para cooldown
       effects: {
         approve: { credibilidad: -10, polarizacion: +5,  economia: +10 },
         reject:  { credibilidad: +5,  polarizacion:  0,  economia: -5  },
@@ -41,47 +45,42 @@ const App = () => {
       id: 2,
       subject: "Avance científico revolucionario",
       snippet: "Un nuevo avance promete energía infinita.",
-      content: `
-        Investigadores afirman haber descubierto una nueva fuente de energía renovable que podría cambiar el destino del planeta.
-      `,
-      cooldown: false,
-      loop:true,
-      revisado: false,
-      decision: false,
+      content: `Investigadores afirman haber descubierto...`,
+      loop: false,           // único
+      cooldown: 0,
+      used: false,
+      unlocked: true,
+      nextAvailableTurn: 0,
       effects: {
-        approve: { credibilidad: +10, polarizacion: -5,  economia: +15 },
-        reject:  { credibilidad: -5,  polarizacion: +5,  economia: -10 },
+        approve: { credibilidad: +10, polarizacion: -5, economia: +15 },
+        reject:  { credibilidad: -5,  polarizacion: +5, economia: -10 },
       },
     },
     {
       id: 3,
       subject: "Reforma en la ley de exploración espacial",
       snippet: "Nuevos límites para las misiones internacionales.",
-      content: `
-        La asamblea galáctica debate nuevas regulaciones sobre los viajes y exploraciones espaciales
-        para evitar conflictos territoriales y escasez de recursos en el futuro.
-      `,
-      cooldown: false,
-      loop:true,
-      revisado: false,
-      decision: false,
+      content: `La asamblea galáctica debate nuevas regulaciones...`,
+      loop: true,
+      cooldown: 0,
+      used: false,
+      unlocked: true,
+      nextAvailableTurn: 0,
       effects: {
-        approve: { credibilidad: +2, polarizacion: +5,  economia: +5 },
-        reject:  { credibilidad: -2, polarizacion: -5,  economia: -2 },
+        approve: { credibilidad: +2,  polarizacion: +5,  economia: +5 },
+        reject:  { credibilidad: -2,  polarizacion: -5,  economia: -2 },
       },
     },
     {
       id: 4,
       subject: "Descubrimiento de vida microbiana",
       snippet: "Se ha hallado vida en las lunas de Beta.",
-      content: `
-        Un equipo de científicos confirma la presencia de microbios en las zonas subterráneas
-        de las lunas del sistema Beta, marcando un hito en la búsqueda de vida.
-      `,
-      cooldown: false,
-      loop:true,
-      revisado: false,
-      decision: false,
+      content: `Un equipo de científicos confirma la presencia de microbios...`,
+      loop: true,
+      cooldown: 3,
+      used: false,
+      unlocked: true,
+      nextAvailableTurn: 0,
       effects: {
         approve: { credibilidad: +5, polarizacion: -3,  economia: +2 },
         reject:  { credibilidad: -5, polarizacion: +3,  economia: -2 },
@@ -90,129 +89,224 @@ const App = () => {
     {
       id: 5,
       subject: "Nuevas rutas comerciales",
-      snippet: "Las rutas comerciales con Gamma se amplían.",
-      content: `
-        Los líderes del sistema Gamma firman un nuevo tratado para abrir rutas de comercio
-        y compartir recursos con el resto de la galaxia.
-      `,
-      cooldown: false,
-      loop:true,
-      revisado: false,
-      decision: false,
+      snippet: "Las rutas con Gamma se amplían.",
+      content: `Los líderes del sistema Gamma firman un nuevo tratado...`,
+      loop: true,
+      cooldown: 0,
+      used: false,
+      unlocked: true,
+      nextAvailableTurn: 0,
       effects: {
-        approve: { credibilidad: +5, polarizacion: -2,  economia: +10 },
-        reject:  { credibilidad: -5, polarizacion: +2,  economia: -10 },
+        approve: { credibilidad: +5,  polarizacion: -2,  economia: +10 },
+        reject:  { credibilidad: -5,  polarizacion: +2,  economia: -10 },
       },
     },
-    // ... Puedes agregar más correos si deseas
+    // ... Agrega más si deseas
   ];
 
-  // =========================
-  // Correos cargados y visibles
-  // =========================
-  // Iniciamos con los primeros 3 (3 sin leer)
-  const [emails, setEmails] = useState(allEmailsData.slice(0, 3));
-  // Índice que señala el próximo correo a cargar
-  const [nextEmailIndex, setNextEmailIndex] = useState(3);
+  // POOL => todos los correos
+  const [pool, setPool] = useState(initialPool);
 
-  // Correo seleccionado para ver en el panel derecho
+  // LISTA DE CORREOS ACTIVOS (máx 3, con botones)
+  const [activeEmails, setActiveEmails] = useState([]);
+
+  // LISTA DE CORREOS USADOS (historial, sin botones)
+  const [usedEmails, setUsedEmails] = useState([]);
+
+  // Contador de turnos (decisiones) para cooldown
+  const [turn, setTurn] = useState(0);
+
+  // Correo seleccionado para ver en EmailViewer
   const [selectedEmail, setSelectedEmail] = useState(null);
 
-  // ==================================================
-  // Cuando se hace clic en un correo de la lista:
-  //   1) Lo marcamos como leído (revisado = true)
-  //   2) Vemos cuántos sin leer quedan
-  //   3) Si hay < 3 sin leer y quedan correos, cargamos otro
-  // ==================================================
-  const handleEmailClick = (email) => {
+  // Refs de audio
+  const clickAudioRef = useRef(null);
+  const newMailAudioRef = useRef(null);
 
-    // Seleccionar para mostrar en vista lateral
+  // Al montar => rellenar la lista de correos activos
+  useEffect(() => {
+    fillActives();
+  }, []);
+
+  // ==========================================
+  // fillActives => rellena hasta 3 correos activos
+  // ==========================================
+  const fillActives = () => {
+    setActiveEmails((currActives) => {
+      let newActives = [...currActives];
+
+      // Mientras haya menos de 3, intenta sacar otro correo
+      while (newActives.length < 3) {
+        const next = pickNextEmail(newActives);
+        if (!next) break;
+
+        // lo agregamos al inicio => aparece “arriba”
+        newActives.unshift(next);
+      }
+
+      // Por seguridad, si pasara de 3 (poco probable),
+      // cortamos a 3
+      return newActives.slice(0, 3);
+    });
+  };
+
+  // ==========================================
+  // pickNextEmail => elige 1 correo del pool
+  //   que no esté duplicado como activo,
+  //   que cumpla cooldown, etc.
+  // ==========================================
+  const pickNextEmail = (currentActives) => {
+    // 1) Filtrar candidatos
+    const candidates = pool.filter((em) => {
+      // Debe estar desbloqueado
+      if (!em.unlocked) return false;
+      // Si es único y ya se marcó used en pool
+      if (!em.loop && em.used) return false;
+      // Si es repetible y cooldown no se cumple
+      if (em.loop && turn < em.nextAvailableTurn) return false;
+
+      // Evitar duplicado activo
+      const alreadyActive = currentActives.some((a) => a.id === em.id);
+      if (alreadyActive) return false;
+
+      return true;
+    });
+
+    if (candidates.length === 0) {
+      return null;
+    }
+
+    // 2) Escoger uno aleatorio
+    const randIndex = Math.floor(Math.random() * candidates.length);
+    const chosen = candidates[randIndex];
+
+    // 3) Si es único => en el pool se marca used=true
+    if (!chosen.loop) {
+      setPool((prevPool) =>
+        prevPool.map((p) =>
+          p.id === chosen.id ? { ...p, used: true } : p
+        )
+      );
+    } else {
+      // repetible => definimos cooldown
+      setPool((prevPool) =>
+        prevPool.map((p) =>
+          p.id === chosen.id
+            ? { ...p, nextAvailableTurn: turn + chosen.cooldown }
+            : p
+        )
+      );
+    }
+
+    // 4) Creamos la instancia activa
+    return {
+      ...chosen,
+      revisado: false,
+      decision: false,
+      used: false, // dentro de "activeEmails", used=false => se puede usar
+    };
+  };
+
+  // ==========================================
+  // handleEmailClick => abrir un correo (marcar leído)
+  // ==========================================
+  const handleEmailClick = (email) => {
+    // Marcar revisado en la lista activa
+    setActiveEmails((prev) =>
+      prev.map((a) =>
+        a.id === email.id ? { ...a, revisado: true } : a
+      )
+    );
     setSelectedEmail(email);
   };
 
-  // ==================================================
-  // Maneja la decisión del jugador (Aprobar/Rechazar)
-  // y aplica los cambios en métricas
-  // ==================================================
-  const newMailAudioRef = useRef(null);
+  // ==========================================
+  // handleDecision => el usuario Aprueba/Rechaza
+  //   => mover de activeEmails a usedEmails
+  // ==========================================
   const handleDecision = (emailId, action) => {
-    newMailAudioRef.current = new Audio(newMail);
-    const email = emails.find((em) => em.id === emailId);
+    const email = activeEmails.find((a) => a.id === emailId);
     if (!email) return;
 
-    const effects = email.effects[action];
-    if (!effects) return;
-
-    // Ajustamos métricas
-    setCredibilidad((prev) => Math.max(0, Math.min(100, prev + effects.credibilidad)));
-    setPolarizacion((prev) => Math.max(0, Math.min(100, prev + effects.polarizacion)));
-    setEconomia((prev) => Math.max(0, Math.min(100, prev + effects.economia)));
-
-    // Cierra el panel de lectura
-    if (!email.revisado) {
-      // Marcarlo como leído
-      const updatedEmails = emails.map((e) =>
-        e.id === email.id ? { ...e, revisado: true, decision: true } : e
-      
-      );
-
-      setEmails(updatedEmails);
-
-      // Ver cuántos sin leer quedan
-      const unreadCount = updatedEmails.filter((e) => !e.revisado).length;
-      // Cargar uno nuevo si quedan menos de 3 y hay correos disponibles
-      if (unreadCount < 3 && nextEmailIndex < allEmailsData.length) {
-        const newEmail = allEmailsData[nextEmailIndex];
-        setNextEmailIndex((prev) => prev + 1);
-        setEmails([newEmail, ...updatedEmails]);
-        newMailAudioRef.current.play().catch(error => {
-          console.error("Error playing audio:", error);
-        });
-      }
+    // Aplica efectos de la decisión
+    const fx = email.effects[action];
+    if (fx) {
+      setCredibilidad((prev) => Math.max(0, Math.min(100, prev + fx.credibilidad)));
+      setPolarizacion((prev) => Math.max(0, Math.min(100, prev + fx.polarizacion)));
+      setEconomia((prev) => Math.max(0, Math.min(100, prev + fx.economia)));
     }
+
+    // Marcarlo como “used” en la lista activa (para sacarlo)
+    // y moverlo a usedEmails
+    const decidedEmail = {
+      ...email,
+      used: true,
+      revisado: true,
+      decision: action,
+    };
+
+    // 1) Sacar de la lista activa
+    setActiveEmails((prev) => prev.filter((a) => a.id !== emailId));
+
+    // 2) Agregarlo a la lista de usados (puede haber duplicados
+    //    si loop:true y aparece muchas veces)
+    setUsedEmails((prev) => [decidedEmail, ...prev]);
+
+    // 3) Subir el contador de turn => cooldown
+    setTurn((prev) => prev + 1);
+
+    // 4) Rellenar la lista de activos
+    newMailAudioRef.current = new Audio(NewMail);
+    setTimeout(() => {
+      fillActives();
+      newMailAudioRef.current.play().catch(() => {});
+    }, 500);
+
+    // 5) Cerrar panel de lectura
     setSelectedEmail(null);
   };
 
-  const clickAudioRef = useRef(null);
-
+  // ============================
+  // Manejar audio de clic (izq/der)
+  // ============================
   useEffect(() => {
     clickAudioRef.current = new Audio(Click);
-
-    clickAudioRef.current.addEventListener('error', (e) => {
-      console.error("Error loading audio:", e);
-    });
-
-    function handleMouseDown(e) {
+    const mouseDownHandler = (e) => {
       if (e.button === 0 || e.button === 2) {
-        clickAudioRef.current.play().catch(error => {
-          console.error("Error playing audio:", error);
-        });
+        clickAudioRef.current.play().catch(() => {});
       }
-    }
+    };
 
-    window.addEventListener('mousedown', handleMouseDown);
-
+    window.addEventListener("mousedown", mouseDownHandler);
     return () => {
-      window.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener("mousedown", mouseDownHandler);
     };
   }, []);
 
-  const overlayOpacity = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--overlay-opacity'));
+  // ============================
+  // Efecto opacidad (specialEventsTimer)
+  // ============================
+  const overlayOpacity = parseFloat(
+    getComputedStyle(document.documentElement).getPropertyValue("--overlay-opacity")
+  );
   let overlayOpacityVariation = overlayOpacity + 0.2;
+
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
   const specialEventsTimer = async () => {
-    if (true) {
-      overlayOpacityVariation = Math.min(1, overlayOpacityVariation); // Ensure opacity does not exceed 1
-      document.documentElement.style.setProperty('--overlay-opacity', overlayOpacityVariation);
-      await delay(1000);
-    }
+    overlayOpacityVariation = Math.min(1, overlayOpacityVariation);
+    document.documentElement.style.setProperty("--overlay-opacity", overlayOpacityVariation);
+    await delay(1000);
   };
 
   useEffect(() => {
-    const interval = setInterval(specialEventsTimer, 1000); // Call the function every second
-    return () => clearInterval(interval); // Cleanup interval on component unmount
+    const interval = setInterval(specialEventsTimer, 1000);
+    return () => clearInterval(interval);
   }, []);
 
+  // ============================
+  // RENDER
+  // ============================
   return (
     <div>
       <div className="ligthsOut"></div>
@@ -239,10 +333,25 @@ const App = () => {
 
         <div className="content">
           <Sidebar />
+
           <main className="email-section">
             <Tabs />
-            <EmailList emails={emails} onEmailClick={handleEmailClick} />
+
+            {/* 1) Lista de correos activos (máx 3) */}
+            <h2>Correos Activos</h2>
+            <EmailListActivos
+              emails={activeEmails}
+              onEmailClick={handleEmailClick}
+            />
+
+            {/* 2) Lista de correos usados (historial) */}
+            <h2>Historial (Usados)</h2>
+            <EmailListUsados
+              emails={usedEmails}
+            />
           </main>
+
+          {/* Panel de lectura */}
           <EmailViewer
             email={selectedEmail}
             handleDecision={handleDecision}
