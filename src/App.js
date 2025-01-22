@@ -286,22 +286,35 @@ const App = () => {
   // ============================
   // Efecto opacidad (specialEventsTimer)
   // ============================
-  const overlayOpacity = parseFloat(
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  let overlayOpacity = parseFloat(
     getComputedStyle(document.documentElement).getPropertyValue("--overlay-opacity")
   );
-  let overlayOpacityVariation = overlayOpacity + 0.2;
 
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
+  /*
   const specialEventsTimer = async () => {
-    overlayOpacityVariation = Math.min(1, overlayOpacityVariation);
+    const overlayOpacityVariation = Math.min(1, overlayOpacity + 0.1); // Ensure opacity does not exceed 1
     document.documentElement.style.setProperty("--overlay-opacity", overlayOpacityVariation);
+    overlayOpacity = overlayOpacityVariation; // Update overlayOpacity for the next iteration
     await delay(1000);
   };
 
   useEffect(() => {
     const interval = setInterval(specialEventsTimer, 1000);
     return () => clearInterval(interval);
+  }, []);
+  */
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      document.documentElement.style.setProperty("--pointerX", e.clientX + "px");
+      document.documentElement.style.setProperty("--pointerY", e.clientY + "px");
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
   }, []);
 
   // ============================

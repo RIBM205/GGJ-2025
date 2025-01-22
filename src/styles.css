@@ -251,14 +251,22 @@ body {
 }
 
 :root {
-  --overlay-opacity: 0.5;
+  --pointerX: 50vw;
+  --pointerY: 50vh;
 }
 
-.ligthsOut{
+.ligthsOut {
   position: fixed;
-  background: rgba(0, 0, 0, var(--overlay-opacity));
-  z-index: 1;
+  top: 0;
+  left: 0;
+  z-index: 9999;
   pointer-events: none;
   width: 100vw;
   height: 100vh;
+  /* Directly create a "hole" with the radial gradient */
+  background: radial-gradient(
+    circle 10vmax at var(--pointerX) var(--pointerY),
+    transparent 0%,
+    rgba(0,0,0,0.989)
+  );
 }
