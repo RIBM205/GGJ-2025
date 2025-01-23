@@ -3,7 +3,7 @@ import Sidebar from "./components/sidebar/SideBar";
 import Indicators from "./components/Indicators/Indicators";
 import Tabs from "./components/tabs/Tabjs";
 import EmailViewer from "./components/emailViewer/EmailViewer";
-
+import WeatherClockLocation from "./components/weatherClockLocation/weatherClockLocation";
 // Nuestras dos listas separadas
 import EmailListActivos from "./components/emailList/EmailListActivos";
 import EmailListUsados from "./components/emailList/EmailListUsados";
@@ -13,7 +13,7 @@ import "./styles.css";
 // Sonidos
 import Click from "./Sound/Click.wav";
 import NewMail from "./Sound/NewMail.wav";
-
+import MusicPlayer from "./components/musicPlayer/MusicPlayer";
 const App = () => {
   // ==============================
   // MÉTRICAS DEL JUEGO
@@ -291,7 +291,7 @@ const App = () => {
     getComputedStyle(document.documentElement).getPropertyValue("--overlay-opacity")
   );
 
-  /*
+  
   const specialEventsTimer = async () => {
     const overlayOpacityVariation = Math.min(1, overlayOpacity + 0.1); // Ensure opacity does not exceed 1
     document.documentElement.style.setProperty("--overlay-opacity", overlayOpacityVariation);
@@ -300,10 +300,17 @@ const App = () => {
   };
 
   useEffect(() => {
-    const interval = setInterval(specialEventsTimer, 1000);
+    const interval = setInterval(() => {
+      specialEventsTimer();
+      if (economia < 60) {
+        document.documentElement.style.setProperty("--ligths", "visible");
+      } else {
+        document.documentElement.style.setProperty("--ligths", "hidden");
+      }
+    }, 1000);
+
     return () => clearInterval(interval);
-  }, []);
-  */
+  }, [economia]);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -345,7 +352,11 @@ const App = () => {
         />
 
         <div className="content">
-          <Sidebar />
+        <Sidebar 
+  economia={economia} 
+  credibilidad={credibilidad} 
+  polarizacion={polarizacion} 
+/>
 
           <main className="email-section">
             <Tabs />
@@ -369,7 +380,9 @@ const App = () => {
             email={selectedEmail}
             handleDecision={handleDecision}
             goBack={() => setSelectedEmail(null)}
+          
           />
+            <WeatherClockLocation />
         </div>
       </div>
     </div>

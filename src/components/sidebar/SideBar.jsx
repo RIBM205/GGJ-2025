@@ -1,6 +1,7 @@
 import React from "react";
+import MusicPlayer from "../musicPlayer/MusicPlayer";
 
-const Sidebar = () => {
+const Sidebar = ({ economia, credibilidad, polarizacion }) => {
   return (
     <aside className="sidebar">
       <button className="compose">Redactar</button>
@@ -11,6 +12,11 @@ const Sidebar = () => {
         <li><span>📄</span> Borradores</li>
         <li><span>🗑️</span> Papelera</li>
       </ul>
+
+      {/* Reproductor de música */}
+      <div className="music-player-sidebar">
+        <MusicPlayer economia={economia} credibilidad={credibilidad} polarizacion={polarizacion} />
+      </div>
     </aside>
   );
 };

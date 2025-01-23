@@ -1,118 +1,118 @@
-/* Reseteo ligero: elimina márgenes/padding por defecto */
+/* 
+   Windows 95 Style + Paleta Pastel/Lilac complementaria al magenta #CF01CE.
+   Se conservan bordes 3D y color principal #CF01CE para acentos.
+*/
+
+/* Reseteo básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Fuente monoespaciada y fondo gris clásico */
+/* BODY: Fondo lavanda pálido */
 body {
   font-family: "Courier New", Courier, monospace;
-  background-color: #C0C0C0; /* Gris Windows 95 */
-  color: #000;
+  background-color: #F5EAF8; /* Lavanda/rosado suave */
+  color: #000; /* Texto negro para buena legibilidad */
 }
 
-/* Contenedor principal */
+/* Contenedor principal (gmail-container) */
 .gmail-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  border: 2px solid #000; /* Borde negro para el contenedor, muy 90s */
+  border: 2px solid #CF01CE; /* Borde magenta */
+  box-shadow: 4px 4px 0 #9B008F; /* Sombra plana, tono oscuro magenta */
 }
 
-/* Cabecera */
+/* CABECERA (header) */
 .header {
   display: flex;
   align-items: center;
-  /* Pequeño gradiente 90s */
-  background: linear-gradient(to bottom, #fff 0%, #ccc 100%);
-  border-bottom: 2px solid #000;
+  background-color: #ECD3EE; /* Pastel lila */
+  border-bottom: 2px solid #CF01CE;
   padding: 0.5rem;
+  box-shadow: inset 2px 2px 0 #9B008F; /* Sombra interna */
 }
 
-/* Parte izquierda de la cabecera */
-.header-left {
-  display: flex;
-  align-items: center;
-}
-
-/* Botón hamburguesa estilo 3D */
+/* Parte izquierda (logo + hamburguesa) */
 .header-left .hamburger {
   font-size: 1rem;
   margin-right: 1rem;
   padding: 0.2rem 0.6rem;
-  border: 2px outset #eee;
-  background-color: #ddd;
+  border: 2px outset #EBD8F0; /* Botón 3D */
+  background-color: #EBD8F0;
   cursor: pointer;
 }
 .header-left .hamburger:active {
-  border: 2px inset #999;
+  border: 2px inset #CF01CE;
 }
-
-/* Logo (podrías usar un GIF para más nostalgia) */
 .header-left .logo {
   height: 32px;
   margin-right: 1rem;
 }
 
-/* Barra de búsqueda */
+/* Barra de búsqueda (header-center) */
 .header-center {
   flex: 1;
   display: flex;
   justify-content: center;
 }
-
 .header-center input {
   width: 50%;
   padding: 0.2rem;
-  border: 2px inset #aaa;
-  background-color: #eee;
+  border: 2px inset #CF01CE;
+  background-color: #EBD8F0;
   color: #000;
 }
 
-/* Parte derecha de la cabecera */
+/* Parte derecha (botones apps/profile) */
 .header-right button {
   margin-left: 0.5rem;
   cursor: pointer;
-  border: 2px outset #eee;
-  background-color: #ddd;
+  border: 2px outset #EBD8F0;
+  background-color: #EBD8F0;
   padding: 0.3rem 0.6rem;
 }
 .header-right button:active {
-  border: 2px inset #999;
+  border: 2px inset #CF01CE;
 }
 
-/* Indicadores (métricas) */
+/* INDICADORES (métricas) */
 .indicators {
   display: flex;
   justify-content: space-around;
-  background-color: #e0e0e0;
+  background-color: #EEDBF3; /* Pastel rosado-lila */
   padding: 0.5rem;
-  border-bottom: 2px ridge #999;
+  border-bottom: 2px solid #CF01CE;
+  box-shadow: inset 2px 2px 0 #9B008F;
 }
 .indicators span {
   font-weight: bold;
 }
 
-/* Contenido general: sidebar + lista de correos + visor */
+/* CONTENIDO (sidebar + email-section + visor) */
 .content {
   display: flex;
   flex: 1;
-  height: calc(100vh - 100px); /* Ajustar según cabecera e indicadores */
 }
 
-/* Sidebar, con estilo 90s: bordes y botones 3D */
+/* SIDEBAR */
 .sidebar {
-  width: 200px;
-  border-right: 2px solid #000;
-  padding: 0.5rem;
-  background-color: #d3d3d3;
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  background-color: #E6D1EB; /* Lila suave */
+  padding: 1rem;
+  border-right: 2px solid #CF01CE;
+  box-shadow: inset 2px 2px 0 #9B008F;
 }
 
-/* Botón "Redactar" 3D */
+/* Botón "Redactar" (compose) */
 .compose {
-  border: 2px outset #eee;
-  background-color: #ddd;
+  border: 2px outset #EBD8F0;
+  background-color: #EBD8F0;
   color: #000;
   padding: 0.3rem 0.6rem;
   width: 100%;
@@ -122,140 +122,145 @@ body {
   text-align: center;
 }
 .compose:active {
-  border: 2px inset #999;
+  border: 2px inset #CF01CE;
 }
 
-/* Lista de opciones en el sidebar */
+/* Lista lateral en sidebar */
 .sidebar ul {
   list-style: none;
   margin-top: 0.5rem;
 }
-
 .sidebar li {
   padding: 0.3rem 0.2rem;
   cursor: pointer;
 }
-
 .sidebar li.active {
-  background-color: #bbb;
-  border: 1px inset #777;
+  background-color: #CFB2D9; /* Lila un poco más oscuro */
+  border: 1px inset #9B008F;
 }
 
-/* Sección de correos: Tabs + EmailList */
+/* Reproductor de música en sidebar */
+.music-player-sidebar {
+  margin-top: auto;
+  border-top: 2px dashed #CF01CE;
+  padding-top: 1rem;
+}
+
+/* SECCIÓN DE CORREOS => email-section */
 .email-section {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: #f0f0f0;
-  border-right: 2px inset #999;
-}
-
-/* Tabs con look 90s */
-.tabs {
-  display: flex;
-  border-bottom: 2px groove #999;
-  background-color: #ccc;
+  background-color: #F2E1F5; /* Pastel rosado-lila */
+  box-shadow: inset 2px 2px 0 #9B008F;
   padding: 0.3rem;
 }
 
+/* TABS */
+.tabs {
+  display: flex;
+  border-bottom: 2px solid #CF01CE;
+  background-color: #EBD8F0;
+  padding: 0.3rem;
+  box-shadow: inset 2px 2px 0 #9B008F;
+}
 .tab {
   margin-right: 0.2rem;
   padding: 0.3rem 0.6rem;
-  border: 2px outset #eee;
-  background-color: #ddd;
+  border: 2px outset #EBD8F0;
+  background-color: #EBD8F0;
   cursor: pointer;
 }
-
 .tab:active {
-  border: 2px inset #999;
+  border: 2px inset #CF01CE;
 }
-
 .tab.active {
-  border: 2px inset #999;
-  background-color: #bbb;
+  border: 2px inset #CF01CE;
+  background-color: #CFB2D9;
   font-weight: bold;
 }
 
-/* Lista de correos */
+/* LISTAS DE EMAIL => .email-list */
 .email-list {
   flex: 1;
   overflow-y: auto;
-  background-color: #e6e6e6;
-  border-top: 2px inset #999;
+  background-color: #F8EEF9; 
+  border-top: 2px inset #CF01CE;
+  box-shadow: inset 2px 2px 0 #9B008F;
+  padding: 0.5rem;
 }
-
-/* Cada item de la lista */
 .email-item {
   padding: 0.5rem;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid #CF01CE;
   cursor: pointer;
 }
 
-/* Correo "no leído" -> negrita y fondo un poco más claro */
+/* Correo no leído => bold + fondo clarito */
 .email-item.unread {
   font-weight: bold;
-  background-color: #fdf7e2;
+  background-color: #F3DCF6; /* un pastel más clarito */
 }
 
-.email-item .subject {
-  display: block;
+/* Correo USADO (historial) */
+.email-item.used {
+  color: #666;
+  background-color: #EBD8F0;
+  border-left: 2px solid #CF01CE;
+  cursor: default;
   margin-bottom: 0.3rem;
-  font-size: 1rem;
+}
+.used-decision {
+  display: block;
+  font-size: 0.8rem;
+  color: #444;
 }
 
-.email-item .snippet {
-  color: #333;
-  font-size: 0.9rem;
-}
-
-/* Visor de correo a la derecha */
+/* VISOR DE CORREO => .email-viewer */
 .email-viewer {
   width: 400px;
-  border-left: 2px solid #000;
+  border-left: 2px solid #CF01CE;
   padding: 0.5rem;
-  background-color: #dcdcdc;
+  background-color: #EBD8F0; /* pastel lila */
   display: flex;
   flex-direction: column;
+  box-shadow: inset 2px 2px 0 #9B008F;
+  margin-left: 0.5rem;
 }
-
-/* Título del correo */
 .email-viewer h2 {
   margin-top: 0;
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
 }
 
-/* Botones de decisión */
+/* Botones (Aprobar/Rechazar) */
 .email-viewer button {
   margin-right: 0.5rem;
   cursor: pointer;
   padding: 0.3rem 0.6rem;
-  border: 2px outset #eee;
-  background-color: #ddd;
+  border: 2px outset #EBD8F0;
+  background-color: #EBD8F0;
   color: #000;
   font-weight: bold;
 }
-
 .email-viewer button:active {
-  border: 2px inset #999;
+  border: 2px inset #CF01CE;
 }
-
 .approve {
-  /* Verde tenue noventero */
-  background-color: #8f8;
+  background-color: #C9F2C9; /* verde pastel suave */
 }
-
 .reject {
-  /* Rojo tenue noventero */
-  background-color: #f88;
+  background-color: #F2C9C9; /* rojo pastel suave */
 }
 
+/* EFECTO LUCES => .ligthsOut */
 :root {
   --pointerX: 50vw;
   --pointerY: 50vh;
+  --ligths: hidden;
+  --overlay-opacity: 0;
 }
-
 .ligthsOut {
+  visibility: var(--ligths);
   position: fixed;
   top: 0;
   left: 0;
@@ -263,10 +268,79 @@ body {
   pointer-events: none;
   width: 100vw;
   height: 100vh;
-  /* Directly create a "hole" with the radial gradient */
   background: radial-gradient(
     circle 10vmax at var(--pointerX) var(--pointerY),
     transparent 0%,
-    rgba(0,0,0,0.989)
+    rgba(0,0,0,0.98)
   );
+  opacity: var(--overlay-opacity);
+}
+
+/* MUSIC PLAYER */
+.music-player-container {
+  width: 100%;
+  background-color: #F3DCF6;
+  padding: 0.5rem;
+  border: 2px inset #CF01CE;
+}
+.music-player-track-list h4 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #000; 
+}
+.music-player-track-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.music-player-track-list .track-item {
+  padding: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #000;
+  border-bottom: 1px dashed #CF01CE;
+  transition: background-color 0.2s, color 0.2s;
+}
+.music-player-track-list .track-item:hover {
+  background-color: #EBD8F0;
+  color: #000;
+}
+.music-player-track-list .track-item.active {
+  font-weight: bold;
+  background-color: #CF01CE; 
+  color: #fff;
+  border-radius: 4px;
+}
+.music-player-track-list .track-item.locked {
+  color: #999;
+  cursor: not-allowed;
+}
+.music-player-track-list .track-item.locked:hover {
+  background-color: transparent;
+  color: #999;
+}
+
+.weather-clock-location {
+  background-color: #EBD8F0; /* Fondo complementario */
+  border: 2px outset #CF01CE;
+  padding: 1rem;
+  margin: 1rem;
+  color: #000; /* Texto negro para contraste */
+  font-family: "Courier New", Courier, monospace;
+  box-shadow: 4px 4px 0 #9B008F; /* Sombra 3D */
+}
+
+.weather-clock-location h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.weather-clock-location p {
+  font-size: 1rem;
+  margin: 0.3rem 0;
+}
+
+.error {
+  color: #CF0100; /* Rojo para errores */
+  font-weight: bold;
 }
