@@ -1,6 +1,6 @@
 import React from "react";
 
-const EmailListActivos = ({ emails, onEmailClick, onToggleStar }) => {
+const EmailListPromotions = ({ emails, onEmailClick, onToggleStar }) => {
   return (
     <div className="email-list">
       {emails.map((email) => {
@@ -22,4 +22,4 @@ const EmailListActivos = ({ emails, onEmailClick, onToggleStar }) => {
   );
 };
 
-export default EmailListActivos;
+export default EmailListPromotions;

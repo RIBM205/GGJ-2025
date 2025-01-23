@@ -22,13 +22,13 @@ const MusicPlayer = ({ economia, credibilidad, polarizacion }) => {
   };
 
   const evaluateTrackUnlock = () => {
-    const newUnlockedTracks = [...unlockedTracks];
-    tracks.forEach((track, index) => {
-      if (track.condition && track.condition() && !newUnlockedTracks.includes(index)) {
-        newUnlockedTracks.push(index);
+    const newUnlocked = [...unlockedTracks];
+    tracks.forEach((track, i) => {
+      if (track.condition && track.condition() && !newUnlocked.includes(i)) {
+        newUnlocked.push(i);
       }
     });
-    setUnlockedTracks(newUnlockedTracks);
+    setUnlockedTracks(newUnlocked);
   };
 
   useEffect(() => {
@@ -41,15 +41,15 @@ const MusicPlayer = ({ economia, credibilidad, polarizacion }) => {
       <div className="music-player-track-list">
         <h4>Lista de Reproducción</h4>
         <ul>
-          {tracks.map((track, index) => (
+          {tracks.map((track, i) => (
             <li
-              key={index}
-              onClick={() => handleTrackSelection(index)}
+              key={i}
+              onClick={() => handleTrackSelection(i)}
               className={`track-item ${
-                currentTrackIndex === index ? "active" : ""
-              } ${unlockedTracks.includes(index) ? "" : "locked"}`}
+                currentTrackIndex === i ? "active" : ""
+              } ${unlockedTracks.includes(i) ? "" : "locked"}`}
             >
-              {track.name} {unlockedTracks.includes(index) ? "" : "(Bloqueado)"}
+              {track.name} {unlockedTracks.includes(i) ? "" : "(Bloqueado)"}
             </li>
           ))}
         </ul>

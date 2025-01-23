@@ -1,6 +1,6 @@
 /* 
-   Windows 95 Style + Paleta Pastel/Lilac complementaria al magenta #CF01CE.
-   Se conservan bordes 3D y color principal #CF01CE para acentos.
+   Windows 95 Style en tonos grises 
+   + Toques de azul para resaltar (sutil).
 */
 
 /* Reseteo básico */
@@ -10,11 +10,11 @@
   box-sizing: border-box;
 }
 
-/* BODY: Fondo lavanda pálido */
+/* BODY: Fondo gris Win95 */
 body {
   font-family: "Courier New", Courier, monospace;
-  background-color: #F5EAF8; /* Lavanda/rosado suave */
-  color: #000; /* Texto negro para buena legibilidad */
+  background-color: #C0C0C0; /* Gris Win95 */
+  color: #000; /* Texto negro */
 }
 
 /* Contenedor principal (gmail-container) */
@@ -22,18 +22,18 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  border: 2px solid #CF01CE; /* Borde magenta */
-  box-shadow: 4px 4px 0 #9B008F; /* Sombra plana, tono oscuro magenta */
+  border: 2px solid #000;  /* Borde grueso al estilo 95 */
+  box-shadow: 4px 4px 0 #888;  /* Sombra plana gris más oscuro */
 }
 
 /* CABECERA (header) */
 .header {
   display: flex;
   align-items: center;
-  background-color: #ECD3EE; /* Pastel lila */
-  border-bottom: 2px solid #CF01CE;
+  background-color: #E4E4E4; /* Gris claro */
+  border-bottom: 2px solid #000;
   padding: 0.5rem;
-  box-shadow: inset 2px 2px 0 #9B008F; /* Sombra interna */
+  box-shadow: inset 2px 2px 0 #999; /* Sombra interna */
 }
 
 /* Parte izquierda (logo + hamburguesa) */
@@ -41,12 +41,12 @@ body {
   font-size: 1rem;
   margin-right: 1rem;
   padding: 0.2rem 0.6rem;
-  border: 2px outset #EBD8F0; /* Botón 3D */
-  background-color: #EBD8F0;
+  border: 2px outset #ddd; 
+  background-color: #ddd;
   cursor: pointer;
 }
 .header-left .hamburger:active {
-  border: 2px inset #CF01CE;
+  border: 2px inset #999;
 }
 .header-left .logo {
   height: 32px;
@@ -62,8 +62,8 @@ body {
 .header-center input {
   width: 50%;
   padding: 0.2rem;
-  border: 2px inset #CF01CE;
-  background-color: #EBD8F0;
+  border: 2px inset #aaa;
+  background-color: #eee;
   color: #000;
 }
 
@@ -71,22 +71,22 @@ body {
 .header-right button {
   margin-left: 0.5rem;
   cursor: pointer;
-  border: 2px outset #EBD8F0;
-  background-color: #EBD8F0;
+  border: 2px outset #ddd;
+  background-color: #ddd;
   padding: 0.3rem 0.6rem;
 }
 .header-right button:active {
-  border: 2px inset #CF01CE;
+  border: 2px inset #999;
 }
 
 /* INDICADORES (métricas) */
 .indicators {
   display: flex;
   justify-content: space-around;
-  background-color: #EEDBF3; /* Pastel rosado-lila */
+  background-color: #D0D0D0;
   padding: 0.5rem;
-  border-bottom: 2px solid #CF01CE;
-  box-shadow: inset 2px 2px 0 #9B008F;
+  border-bottom: 2px solid #000;
+  box-shadow: inset 2px 2px 0 #999;
 }
 .indicators span {
   font-weight: bold;
@@ -103,16 +103,16 @@ body {
   display: flex;
   flex-direction: column;
   width: 220px;
-  background-color: #E6D1EB; /* Lila suave */
+  background-color: #D3D3D3;
   padding: 1rem;
-  border-right: 2px solid #CF01CE;
-  box-shadow: inset 2px 2px 0 #9B008F;
+  border-right: 2px solid #000;
+  box-shadow: inset 2px 2px 0 #999;
 }
 
 /* Botón "Redactar" (compose) */
 .compose {
-  border: 2px outset #EBD8F0;
-  background-color: #EBD8F0;
+  border: 2px outset #ddd;
+  background-color: #ddd;
   color: #000;
   padding: 0.3rem 0.6rem;
   width: 100%;
@@ -122,7 +122,7 @@ body {
   text-align: center;
 }
 .compose:active {
-  border: 2px inset #CF01CE;
+  border: 2px inset #999;
 }
 
 /* Lista lateral en sidebar */
@@ -135,48 +135,48 @@ body {
   cursor: pointer;
 }
 .sidebar li.active {
-  background-color: #CFB2D9; /* Lila un poco más oscuro */
-  border: 1px inset #9B008F;
+  background-color: #B0B0FF; /* Toque de azul en item activo */
+  border: 1px inset #777;
 }
 
 /* Reproductor de música en sidebar */
 .music-player-sidebar {
   margin-top: auto;
-  border-top: 2px dashed #CF01CE;
+  border-top: 2px dashed #999; 
   padding-top: 1rem;
 }
 
 /* SECCIÓN DE CORREOS => email-section */
 .email-section {
+  /* Mantener flex, pero no cambies el layout */
+  /* inside we might put display: flex in code if needed */
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  background-color: #F2E1F5; /* Pastel rosado-lila */
-  box-shadow: inset 2px 2px 0 #9B008F;
+  background-color: #ECECEC;
+  box-shadow: inset 2px 2px 0 #999;
   padding: 0.3rem;
 }
 
 /* TABS */
 .tabs {
   display: flex;
-  border-bottom: 2px solid #CF01CE;
-  background-color: #EBD8F0;
+  border-bottom: 2px solid #000;
+  background-color: #ccc;
   padding: 0.3rem;
-  box-shadow: inset 2px 2px 0 #9B008F;
+  box-shadow: inset 2px 2px 0 #999;
 }
 .tab {
   margin-right: 0.2rem;
   padding: 0.3rem 0.6rem;
-  border: 2px outset #EBD8F0;
-  background-color: #EBD8F0;
+  border: 2px outset #ddd;
+  background-color: #ddd;
   cursor: pointer;
 }
 .tab:active {
-  border: 2px inset #CF01CE;
+  border: 2px inset #999;
 }
 .tab.active {
-  border: 2px inset #CF01CE;
-  background-color: #CFB2D9;
+  border: 2px inset #999;
+  background-color: #B0B0FF; 
   font-weight: bold;
 }
 
@@ -184,28 +184,28 @@ body {
 .email-list {
   flex: 1;
   overflow-y: auto;
-  background-color: #F8EEF9; 
-  border-top: 2px inset #CF01CE;
-  box-shadow: inset 2px 2px 0 #9B008F;
+  background-color: #E5E5E5; 
+  border-top: 2px inset #999;
+  box-shadow: inset 2px 2px 0 #999;
   padding: 0.5rem;
 }
 .email-item {
   padding: 0.5rem;
-  border-bottom: 1px solid #CF01CE;
+  border-bottom: 1px solid #aaa;
   cursor: pointer;
 }
 
 /* Correo no leído => bold + fondo clarito */
 .email-item.unread {
   font-weight: bold;
-  background-color: #F3DCF6; /* un pastel más clarito */
+  background-color: #F4F4F4;
 }
 
 /* Correo USADO (historial) */
 .email-item.used {
   color: #666;
-  background-color: #EBD8F0;
-  border-left: 2px solid #CF01CE;
+  background-color: #ddd;
+  border-left: 2px solid #999;
   cursor: default;
   margin-bottom: 0.3rem;
 }
@@ -218,12 +218,12 @@ body {
 /* VISOR DE CORREO => .email-viewer */
 .email-viewer {
   width: 400px;
-  border-left: 2px solid #CF01CE;
+  border-left: 2px solid #000;
   padding: 0.5rem;
-  background-color: #EBD8F0; /* pastel lila */
+  background-color: #DCDCDC; 
   display: flex;
   flex-direction: column;
-  box-shadow: inset 2px 2px 0 #9B008F;
+  box-shadow: inset 2px 2px 0 #999;
   margin-left: 0.5rem;
 }
 .email-viewer h2 {
@@ -237,19 +237,19 @@ body {
   margin-right: 0.5rem;
   cursor: pointer;
   padding: 0.3rem 0.6rem;
-  border: 2px outset #EBD8F0;
-  background-color: #EBD8F0;
+  border: 2px outset #ddd;
+  background-color: #ddd;
   color: #000;
   font-weight: bold;
 }
 .email-viewer button:active {
-  border: 2px inset #CF01CE;
+  border: 2px inset #999;
 }
 .approve {
-  background-color: #C9F2C9; /* verde pastel suave */
+  background-color: #9AD0FF; /* Azul clarito para "Aprobar" */
 }
 .reject {
-  background-color: #F2C9C9; /* rojo pastel suave */
+  background-color: #FF9A9A; /* Rojizo clarito para "Rechazar" */
 }
 
 /* EFECTO LUCES => .ligthsOut */
@@ -279,14 +279,15 @@ body {
 /* MUSIC PLAYER */
 .music-player-container {
   width: 100%;
-  background-color: #F3DCF6;
+  background-color: #D3D3D3;
   padding: 0.5rem;
-  border: 2px inset #CF01CE;
+  border: 2px inset #999;
 }
+
 .music-player-track-list h4 {
   font-size: 1rem;
   margin-bottom: 0.5rem;
-  color: #000; 
+  color: #000;
 }
 .music-player-track-list ul {
   list-style-type: none;
@@ -298,17 +299,17 @@ body {
   cursor: pointer;
   font-size: 0.9rem;
   color: #000;
-  border-bottom: 1px dashed #CF01CE;
+  border-bottom: 1px dashed #999;
   transition: background-color 0.2s, color 0.2s;
 }
 .music-player-track-list .track-item:hover {
-  background-color: #EBD8F0;
+  background-color: #ccc;
   color: #000;
 }
 .music-player-track-list .track-item.active {
   font-weight: bold;
-  background-color: #CF01CE; 
-  color: #fff;
+  background-color: #9AD0FF; /* Azul clarito */
+  color: #000;
   border-radius: 4px;
 }
 .music-player-track-list .track-item.locked {
@@ -320,27 +321,63 @@ body {
   color: #999;
 }
 
+/* WEATHER CLOCK LOCATION */
 .weather-clock-location {
-  background-color: #EBD8F0; /* Fondo complementario */
-  border: 2px outset #CF01CE;
+  background-color: #D3D3D3; /* Gris */
+  border: 2px outset #999;
   padding: 1rem;
   margin: 1rem;
-  color: #000; /* Texto negro para contraste */
-  font-family: "Courier New", Courier, monospace;
-  box-shadow: 4px 4px 0 #9B008F; /* Sombra 3D */
+  color: #000;
+  box-shadow: 4px 4px 0 #666; /* Sombra 3D */
 }
-
 .weather-clock-location h2 {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
 }
-
 .weather-clock-location p {
   font-size: 1rem;
   margin: 0.3rem 0;
 }
-
 .error {
-  color: #CF0100; /* Rojo para errores */
+  color: #C00; /* Rojo para errores */
   font-weight: bold;
+}
+
+/* POPUP estilo Win95 (PopupWindow95) */
+.popup95-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup95-window {
+  width: 400px;
+  background-color: #ddd;
+  border: 2px outset #999;
+  box-shadow: 4px 4px 0 #666;
+  position: relative;
+}
+
+.popup95-titlebar {
+  background-color: #ccc;
+  padding: 0.3rem;
+  border-bottom: 2px solid #999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popup95-closeBtn {
+  border: 2px outset #ddd;
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+.popup95-content {
+  padding: 0.5rem;
 }

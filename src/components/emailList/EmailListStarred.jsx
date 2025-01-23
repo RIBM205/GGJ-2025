@@ -1,8 +1,12 @@
 import React from "react";
 
-const EmailListActivos = ({ emails, onEmailClick, onToggleStar }) => {
+const EmailListStarred = ({ emails, onEmailClick, onToggleStar }) => {
   return (
     <div className="email-list">
+      {emails.length === 0 && (
+        <p>No hay correos destacados</p>
+      )}
+
       {emails.map((email) => {
         const unreadClass = email.revisado ? "" : "unread";
         return (
@@ -22,4 +26,4 @@ const EmailListActivos = ({ emails, onEmailClick, onToggleStar }) => {
   );
 };
 
-export default EmailListActivos;
+export default EmailListStarred;

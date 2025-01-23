@@ -6,21 +6,16 @@ const WeatherClockLocation = () => {
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState(null);
 
-  // Actualizar la hora cada segundo
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
-
+    const interval = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(interval);
   }, []);
 
-  // Obtener ubicación del usuario
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
+        (pos) => {
+          const { latitude, longitude } = pos.coords;
           setLocation({ latitude, longitude });
           fetchWeather(latitude, longitude);
         },
@@ -29,19 +24,18 @@ const WeatherClockLocation = () => {
         }
       );
     } else {
-      setError("Geolocalización no soportada en este navegador.");
+      setError("Geolocalización no soportada.");
     }
   }, []);
 
-  // Obtener clima desde la API de OpenWeatherMap
   const fetchWeather = async (lat, lon) => {
     try {
-      const apiKey = "cd4bf4c33cd4521c23ea93e303b5accf"; // Reemplaza con tu API key
-      const response = await fetch(
+      const apiKey = "TU_API_KEY";
+      const resp = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=es&appid=${apiKey}`
       );
-      const data = await response.json();
-      if (response.ok) {
+      const data = await resp.json();
+      if (resp.ok) {
         setWeather({
           description: data.weather[0].description,
           temperature: data.main.temp,
@@ -50,20 +44,18 @@ const WeatherClockLocation = () => {
       } else {
         setError("No se pudo obtener el clima.");
       }
-    } catch (err) {
+    } catch (e) {
       setError("Error al obtener el clima.");
     }
   };
 
   return (
     <div className="weather-clock-location">
-      {/* Hora */}
       <div className="clock">
         <h2>Hora actual</h2>
         <p>{time.toLocaleTimeString()}</p>
       </div>
 
-      {/* Ubicación */}
       {location && (
         <div className="location">
           <h2>Ubicación</h2>
@@ -74,7 +66,6 @@ const WeatherClockLocation = () => {
         </div>
       )}
 
-      {/* Clima */}
       {weather && (
         <div className="weather">
           <h2>Clima</h2>
@@ -84,7 +75,6 @@ const WeatherClockLocation = () => {
         </div>
       )}
 
-      {/* Error */}
       {error && <div className="error">{error}</div>}
     </div>
   );
