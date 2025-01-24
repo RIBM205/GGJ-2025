@@ -148,8 +148,6 @@ body {
 
 /* SECCIÓN DE CORREOS => email-section */
 .email-section {
-  /* Mantener flex, pero no cambies el layout */
-  /* inside we might put display: flex in code if needed */
   flex: 1;
   background-color: #ECECEC;
   box-shadow: inset 2px 2px 0 #999;

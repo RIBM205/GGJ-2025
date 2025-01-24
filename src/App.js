@@ -44,7 +44,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   // ==============================
-  // PRINCIPAL: 3 correos activos
+  // PRINCIPAL => 3 correos activos
   // ==============================
   const initialPool = [
     {
@@ -97,17 +97,16 @@ const App = () => {
     },
   ];
   const [pool, setPool] = useState(initialPool);
-  const [activeEmails, setActiveEmails] = useState([]); // 3 correos activos
-  const [usedEmails, setUsedEmails] = useState([]);     // Historial
+  const [activeEmails, setActiveEmails] = useState([]);
+  const [usedEmails, setUsedEmails] = useState([]);
   const [turn, setTurn] = useState(0);
   const [selectedEmail, setSelectedEmail] = useState(null);
 
-  // Al montar => rellenar "activeEmails"
+  // Al montar => fillActives
   useEffect(() => {
     fillActives();
   }, []);
 
-  // fillActives => mantener 3 correos
   const fillActives = () => {
     setActiveEmails((curr) => {
       let newActives = [...curr];
@@ -120,7 +119,6 @@ const App = () => {
     });
   };
 
-  // pickNextEmail => saca uno del pool si cumple condiciones
   const pickNextEmail = (currActives) => {
     const candidates = pool.filter((em) => {
       if (!em.unlocked) return false;
@@ -135,13 +133,11 @@ const App = () => {
     const randIndex = Math.floor(Math.random() * candidates.length);
     const chosen = candidates[randIndex];
 
-    // Si era único => marcarlo used en pool
     if (!chosen.loop) {
       setPool((prev) =>
         prev.map((p) => (p.id === chosen.id ? { ...p, used: true } : p))
       );
     } else {
-      // Repetible => define cooldown
       setPool((prev) =>
         prev.map((p) =>
           p.id === chosen.id
@@ -158,7 +154,6 @@ const App = () => {
     };
   };
 
-  // Click en un correo principal
   const handleEmailClick = (email) => {
     setActiveEmails((prev) =>
       prev.map((a) => (a.id === email.id ? { ...a, revisado: true } : a))
@@ -166,7 +161,6 @@ const App = () => {
     setSelectedEmail(email);
   };
 
-  // Decidir (aprobar/rechazar)
   const handleDecision = (emailId, action) => {
     const email = activeEmails.find((a) => a.id === emailId);
     if (!email) return;
@@ -192,9 +186,7 @@ const App = () => {
     setSelectedEmail(null);
   };
 
-  // Destacar un correo de la lista principal
   const handleToggleStarPrincipal = (emailId) => {
-    // Actualiza en "activeEmails" y en "pool"
     setActiveEmails((prev) =>
       prev.map((em) => (em.id === emailId ? { ...em, starred: !em.starred } : em))
     );
@@ -233,7 +225,6 @@ const App = () => {
     );
     setSelectedEmailSocial(email);
   };
-
   const handleToggleStarSocial = (emailId) => {
     setSocialPool((prev) =>
       prev.map((em) => (em.id === emailId ? { ...em, starred: !em.starred } : em))
@@ -270,7 +261,6 @@ const App = () => {
     );
     setSelectedEmailPromo(email);
   };
-
   const handleToggleStarPromo = (emailId) => {
     setPromotionsPool((prev) =>
       prev.map((em) => (em.id === emailId ? { ...em, starred: !em.starred } : em))
@@ -287,12 +277,11 @@ const App = () => {
     const principalStarred = [
       ...activeEmails.filter((e) => e.starred),
       ...usedEmails.filter((e) => e.starred),
-      // plus correos en pool no "active" ni "used" pero con starred
       ...pool.filter((p) => p.starred && !p.used),
     ];
     // social
     const socialStar = socialPool.filter((s) => s.starred);
-    // promotions
+    // promos
     const promoStar = promotionsPool.filter((p) => p.starred);
 
     return [...principalStarred, ...socialStar, ...promoStar];
@@ -301,9 +290,8 @@ const App = () => {
   const handleEmailClickStarred = (email) => {
     setSelectedEmailStarred(email);
   };
-  // Toggle star genérico => mira dónde está
   const handleToggleStarGeneric = (emailId) => {
-    // 1) Revisa si está en pool
+    // revisamos dónde está ese correo
     if (pool.some((p) => p.id === emailId)) {
       handleToggleStarPrincipal(emailId);
     } else if (socialPool.some((p) => p.id === emailId)) {
@@ -330,7 +318,7 @@ const App = () => {
       setShowErrorPopup(true);
       return;
     }
-    alert("Correo enviado (fingido): " + composeText);
+    alert("Correo enviado (fingido):\n" + composeText);
     setShowComposePopup(false);
     setComposeText("");
   };
@@ -342,7 +330,7 @@ const App = () => {
   };
 
   // ==============================
-  // Audio clic
+  // Audio Clic
   // ==============================
   const clickAudioRef = useRef(null);
   useEffect(() => {
@@ -358,7 +346,9 @@ const App = () => {
     };
   }, []);
 
-  // Efecto “luces”
+  // ==============================
+  // Efecto Luces
+  // ==============================
   useEffect(() => {
     let overlayOpacity = parseFloat(
       getComputedStyle(document.documentElement).getPropertyValue("--overlay-opacity")
@@ -394,9 +384,8 @@ const App = () => {
   }, []);
 
   // ==============================
-  // RENDER
+  // RENDER => MANTENER LA ESTRUCTURA
   // ==============================
-  // Starred => si activeList === "starred", recogemos correos
   let starredEmails = [];
   if (activeList === "starred") {
     starredEmails = getAllStarredEmails();
@@ -455,126 +444,112 @@ const App = () => {
         />
 
         <div className="content">
-          {/* Sidebar */}
+          {/* Sidebar a la izquierda */}
           <Sidebar
             economia={economia}
             credibilidad={credibilidad}
             polarizacion={polarizacion}
             onCompose={() => setShowComposePopup(true)}
             onShowError={() => {
-              setErrorMessage("Error fingido");
+              setErrorMessage("Error fingido.");
               setShowErrorPopup(true);
             }}
             onShowStarred={() => setActiveList("starred")}
           />
 
-          {/* Sección principal => TABS + Lista + Visor a la derecha */}
-          <main className="email-section" style={{ display: "flex", flex: 1 }}>
-            <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
-              <Tabs activeList={activeList} setActiveList={setActiveList} />
+          {/* Sección principal => TABS + Lista */}
+          <main className="email-section">
+            <Tabs activeList={activeList} setActiveList={setActiveList} />
 
-              {/* FILA: Lista a la izquierda, Visor a la derecha */}
-              <div style={{ flex: 1, display: "flex" }}>
-                {/* Lista a la izquierda */}
-                <div style={{ flex: 1 }}>
-                  {activeList === "principal" && (
-                    <>
-                      <h2>Correos Activos</h2>
-                      <EmailListActivos
-                        emails={activeEmails}
-                        onEmailClick={handleEmailClick}
-                        onToggleStar={handleToggleStarPrincipal}
-                      />
+            {activeList === "principal" && (
+              <>
+                <h2>Correos Activos</h2>
+                <EmailListActivos
+                  emails={activeEmails}
+                  onEmailClick={handleEmailClick}
+                  onToggleStar={handleToggleStarPrincipal}
+                />
 
-                      <h2>Historial (Usados)</h2>
-                      <EmailListUsados
-                        emails={usedEmails}
-                        onToggleStar={handleToggleStarPrincipal}
-                      />
-                    </>
-                  )}
+                <h2>Historial (Usados)</h2>
+                <EmailListUsados
+                  emails={usedEmails}
+                  onToggleStar={handleToggleStarPrincipal}
+                />
+              </>
+            )}
 
-                  {activeList === "social" && (
-                    <>
-                      <h2>Correos Sociales</h2>
-                      <EmailListSocial
-                        emails={socialPool}
-                        onEmailClick={handleEmailClickSocial}
-                        onToggleStar={handleToggleStarSocial}
-                      />
-                    </>
-                  )}
+            {activeList === "social" && (
+              <>
+                <h2>Correos Sociales</h2>
+                <EmailListSocial
+                  emails={socialPool}
+                  onEmailClick={handleEmailClickSocial}
+                  onToggleStar={handleToggleStarSocial}
+                />
+              </>
+            )}
 
-                  {activeList === "promotions" && (
-                    <>
-                      <h2>Promociones</h2>
-                      <EmailListPromotions
-                        emails={promotionsPool}
-                        onEmailClick={handleEmailClickPromo}
-                        onToggleStar={handleToggleStarPromo}
-                      />
-                    </>
-                  )}
+            {activeList === "promotions" && (
+              <>
+                <h2>Promociones</h2>
+                <EmailListPromotions
+                  emails={promotionsPool}
+                  onEmailClick={handleEmailClickPromo}
+                  onToggleStar={handleToggleStarPromo}
+                />
+              </>
+            )}
 
-                  {activeList === "starred" && (
-                    <>
-                      <h2>Destacados</h2>
-                      <EmailListStarred
-                        emails={starredEmails}
-                        onEmailClick={handleEmailClickStarred}
-                        onToggleStar={handleToggleStarGeneric}
-                      />
-                    </>
-                  )}
-                </div>
-
-                {/* Visor a la derecha (400px) */}
-                <div style={{ width: "400px" }}>
-                  {/* Principal */}
-                  {activeList === "principal" && selectedEmail && (
-                    <EmailViewer
-                      email={selectedEmail}
-                      handleDecision={handleDecision}
-                      goBack={() => setSelectedEmail(null)}
-                      onToggleStar={handleToggleStarPrincipal}
-                    />
-                  )}
-
-                  {/* Social */}
-                  {activeList === "social" && selectedEmailSocial && (
-                    <EmailViewer
-                      email={selectedEmailSocial}
-                      handleDecision={null} // sin aprobar/rechazar
-                      goBack={() => setSelectedEmailSocial(null)}
-                      onToggleStar={(id) => handleToggleStarSocial(id)}
-                    />
-                  )}
-
-                  {/* Promotions */}
-                  {activeList === "promotions" && selectedEmailPromo && (
-                    <EmailViewer
-                      email={selectedEmailPromo}
-                      handleDecision={null}
-                      goBack={() => setSelectedEmailPromo(null)}
-                      onToggleStar={(id) => handleToggleStarPromo(id)}
-                    />
-                  )}
-
-                  {/* Destacados */}
-                  {activeList === "starred" && selectedEmailStarred && (
-                    <EmailViewer
-                      email={selectedEmailStarred}
-                      handleDecision={null}
-                      goBack={() => setSelectedEmailStarred(null)}
-                      onToggleStar={(id) => handleToggleStarGeneric(id)}
-                    />
-                  )}
-                </div>
-              </div>
-            </div>
+            {activeList === "starred" && (
+              <>
+                <h2>Destacados</h2>
+                <EmailListStarred
+                  emails={starredEmails}
+                  onEmailClick={handleEmailClickStarred}
+                  onToggleStar={handleToggleStarGeneric}
+                />
+              </>
+            )}
           </main>
 
-          {/* Clima + hora */}
+          {/* Visor a la derecha */}
+          <EmailViewer
+            email={
+              activeList === "principal"
+                ? selectedEmail
+                : activeList === "social"
+                ? selectedEmailSocial
+                : activeList === "promotions"
+                ? selectedEmailPromo
+                : activeList === "starred"
+                ? selectedEmailStarred
+                : null
+            }
+            handleDecision={
+              activeList === "principal" ? handleDecision : null
+            }
+            onToggleStar={
+              activeList === "principal"
+                ? handleToggleStarPrincipal
+                : activeList === "social"
+                ? handleToggleStarSocial
+                : activeList === "promotions"
+                ? handleToggleStarPromo
+                : activeList === "starred"
+                ? handleToggleStarGeneric
+                : null
+            }
+            goBack={() => {
+              if (activeList === "principal") setSelectedEmail(null);
+              else if (activeList === "social") setSelectedEmailSocial(null);
+              else if (activeList === "promotions") setSelectedEmailPromo(null);
+              else if (activeList === "starred") setSelectedEmailStarred(null);
+            }}
+          />
+
+          {/* WeatherClockLocation en la misma fila, 
+              si lo quieres abajo del visor, podrías moverlo 
+              a otra parte */}
           <WeatherClockLocation />
         </div>
       </div>
