@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import mainMusic from "../../music/Main.wav";
+
 
 const MusicPlayer = ({ economia, credibilidad, polarizacion }) => {
   const audioRef = useRef(null);
@@ -6,10 +8,10 @@ const MusicPlayer = ({ economia, credibilidad, polarizacion }) => {
   const [unlockedTracks, setUnlockedTracks] = useState([0]);
 
   const tracks = [
-    { name: "Tema Neutral", src: "/music/neutral.mp3", id: "neutral" },
-    { name: "Tema Económico", src: "/music/economia.mp3", id: "economia", condition: () => economia < 30 },
-    { name: "Tema Polarización Alta", src: "/music/polarizacion.mp3", id: "polarizacion", condition: () => polarizacion > 75 },
-    { name: "Tema Credibilidad Baja", src: "/music/credibilidad.mp3", id: "credibilidad", condition: () => credibilidad < 50 },
+    { name: "Tema Neutral", src: mainMusic, id: "neutral" },
+   /* { name: "Tema Económico", src: economyMusic, id: "economia", condition: () => economia < 30 },
+    { name: "Tema Polarización Alta", src: polarMusic, id: "polarizacion", condition: () => polarizacion > 75 },
+    { name: "Tema Credibilidad Baja", src: credMusic, id: "credibilidad", condition: () => credibilidad < 50 },*/
   ];
 
   const handleTrackSelection = (index) => {
@@ -18,6 +20,7 @@ const MusicPlayer = ({ economia, credibilidad, polarizacion }) => {
     if (audioRef.current) {
       audioRef.current.src = tracks[index].src;
       audioRef.current.play();
+      audioRef.current.volume = 0.5;
     }
   };
 

@@ -1,6 +1,11 @@
 import React from "react";
 
-const EmailViewer = ({ email, handleDecision, goBack, onToggleStar }) => {
+const EmailViewer = ({
+  email,
+  handleIntroDecision,
+  handleDecision,
+  goBack,
+}) => {
   if (!email) {
     return (
       <section className="email-viewer">
@@ -9,32 +14,24 @@ const EmailViewer = ({ email, handleDecision, goBack, onToggleStar }) => {
     );
   }
 
-  const isDecidable = !!email.effects;
-
   return (
     <section className="email-viewer">
       <h2>{email.subject}</h2>
-      <div dangerouslySetInnerHTML={{ __html: email.content }} />
+      <div style={{ whiteSpace: "pre-line" }}>{email.content}</div>
 
-      {isDecidable && handleDecision && (
-        <>
-          <button className="approve" onClick={() => handleDecision(email.id, "approve")}>
-            Aprobar
-          </button>
-          <button className="reject" onClick={() => handleDecision(email.id, "reject")}>
-            Rechazar
-          </button>
-        </>
-      )}
-
-      {onToggleStar && (
-        <button
-          onClick={() => onToggleStar(email.id)}
-          style={{ backgroundColor: email.starred ? "#FFD700" : "#ddd" }}
-        >
-          {email.starred ? "★ Destacado" : "☆ Destacar"}
+      {/* Si es el introEmail => las opciones saltan a line "A","B","C" */}
+      {email.id === "intro" && handleIntroDecision && email.options?.map((opt, idx) => (
+        <button key={idx} onClick={() => handleIntroDecision(opt.line)}>
+          {opt.label}
         </button>
-      )}
+      ))}
+
+      {/* Si es un paso de la línea => cada option => handleDecision(option) */}
+      {email.id !== "intro" && handleDecision && email.options?.map((opt, idx) => (
+        <button key={idx} onClick={() => handleDecision(opt)}>
+          {opt.label}
+        </button>
+      ))}
 
       <button onClick={goBack}>Volver</button>
     </section>
