@@ -30,7 +30,7 @@ const WeatherClockLocation = () => {
 
   const fetchWeather = async (lat, lon) => {
     try {
-      const apiKey = "TU_API_KEY";
+      const apiKey = "cd4bf4c33cd4521c23ea93e303b5accf";
       const resp = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=es&appid=${apiKey}`
       );

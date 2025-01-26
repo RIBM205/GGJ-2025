@@ -1,3 +1,6 @@
+// NOTA: Mantengo los comentarios y nombres de funciones en español, 
+// solo se traducen al inglés los textos que ve el usuario en la interfaz.
+
 import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "./components/sidebar/SideBar";
 import Indicators from "./components/Indicators/Indicators";
@@ -17,7 +20,9 @@ import PopupWindow95 from "./components/popUpWindow95/PopUpWindows95";
 // Sonidos, estilos y Music
 import "./styles.css";
 import Click from "./Sound/Click.wav";
-import NewMail from "./Sound/NewMail.wav"; // si lo usas
+import NewMail from "./Sound/NewMail.wav"; 
+import Error from "./Sound/Error.wav"; 
+import Important from "./Sound/Important.wav"; 
 import MusicPlayer from "./components/musicPlayer/MusicPlayer"; // opcional
 
 // ====================================================
@@ -28,27 +33,27 @@ import MusicPlayer from "./components/musicPlayer/MusicPlayer"; // opcional
 const storylineAccesoGlobal = [
   {
     id: "1.1",
-    subject: "Control sobre la distribución global",
-    content: `Hay países que están usando la tecnología sin restricciones...
-¿Imponemos un control centralizado o dejamos que cada país administre libremente?`,
-    snippet: "¿Control central o libertad total?",
+    subject: "Control over global distribution",
+    content: `Several countries are using the technology without restrictions, leading to inequalities and tensions. 
+What editorial stance will we take?`,
+    snippet: "Central control or total freedom?",
     options: [
       {
-        label: "A) Centralizar",
+        label: "A) Centralize",
         cred: 0,
         econ: -10,
         polar: -15,
         nextStep: "1.2",
       },
       {
-        label: "B) Libertad total",
+        label: "B) Total freedom",
         cred: +10,
         econ: -10,
         polar: +20,
         nextStep: "1.2",
       },
       {
-        label: "C) Comité internacional",
+        label: "C) International committee",
         cred: +5,
         econ: -5,
         polar: -10,
@@ -58,29 +63,27 @@ const storylineAccesoGlobal = [
   },
   {
     id: "1.2",
-    subject: "Uso ético de la tecnología",
-    snippet: "La tecnología se está usando para armamento avanzado...",
-    content: `¿Prohibimos este uso o dejamos libertad?
-(A) Prohibir armamento (+15 cred -10 econ +10 polar)
-(B) Dejar libertad (-15 cred +20 econ) 
-(C) Vender licencias (+0 cred +0 econ +5 polar)`,
+    subject: "Ethical use of technology",
+    content: `The technology is being used for advanced weaponry, raising global concerns. 
+What position will we take in our publications?`,
+    snippet: "Prohibit, allow, or license weaponry use?",
     options: [
       {
-        label: "Prohibir armamento",
+        label: "A) Prohibit weaponry use",
         cred: +15,
         econ: -10,
         polar: +10,
         nextStep: "1.3",
       },
       {
-        label: "Dejar libertad",
+        label: "B) Allow freedom",
         cred: -15,
         econ: +20,
         polar: 0,
         nextStep: "1.3",
       },
       {
-        label: "Vender licencias",
+        label: "C) Sell licenses selectively",
         cred: 0,
         econ: 0,
         polar: +5,
@@ -90,21 +93,111 @@ const storylineAccesoGlobal = [
   },
   {
     id: "1.3",
-    subject: "Fin (ejemplo)",
-    snippet: "Has llegado al fin de la línea A (ejemplo).",
-    content: `Aquí podrías chequear si credibilidad >80 etc. 
-y mostrar un final. Ajusta para tu 1.3, 1.4, 1.5...`,
+    subject: "Exposing misuse",
+    content: `Accusations of misuse, including espionage and manipulation, have surfaced. 
+Should we publish this information or keep it confidential?`,
+    snippet: "Expose or keep silent about misuse?",
+    options: [
+      {
+        label: "A) Publish accusations",
+        cred: +20,
+        econ: -15,
+        polar: +10,
+        nextStep: "1.4",
+      },
+      {
+        label: "B) Keep accusations confidential",
+        cred: -15,
+        econ: +10,
+        polar: 0,
+        nextStep: "1.4",
+      },
+      {
+        label: "C) Propose a joint investigation",
+        cred: 0,
+        econ: -10,
+        polar: -10,
+        nextStep: "1.4",
+      },
+    ],
+  },
+  {
+    id: "1.4",
+    subject: "Prioritizing access for developing countries",
+    content: `Developing countries are requesting priority access to the technology, arguing it would resolve humanitarian crises. 
+What position will we take?`,
+    snippet: "Prioritize developing nations?",
+    options: [
+      {
+        label: "A) Promote priority access",
+        cred: +25,
+        econ: -20,
+        polar: +10,
+        nextStep: "1.5",
+      },
+      {
+        label: "B) Deny priority access",
+        cred: -15,
+        econ: +15,
+        polar: 0,
+        nextStep: "1.5",
+      },
+      {
+        label: "C) Negotiate agreements",
+        cred: +10,
+        econ: -10,
+        polar: +10,
+        nextStep: "1.5",
+      },
+    ],
+  },
+  {
+    id: "1.5",
+    subject: "Democratic governance",
+    content: `A global democratic committee is proposed to manage the technology. 
+Will we support this transition in our editorial line?`,
+    snippet: "Support democratic governance?",
+    options: [
+      {
+        label: "A) Support governance",
+        cred: +25,
+        econ: -10,
+        polar: 0,
+        nextStep: "end",
+      },
+      {
+        label: "B) Maintain current control",
+        cred: -15,
+        econ: 0,
+        polar: 0,
+        nextStep: "end",
+      },
+      {
+        label: "C) Propose a hybrid model",
+        cred: +10,
+        econ: 0,
+        polar: +10,
+        nextStep: "end",
+      },
+    ],
+  },
+  {
+    id: "end",
+    subject: "Final Outcome",
+    content: `Evaluate the final state of credibility, economy, and polarization to determine the ending.`,
+    snippet: "Your decisions lead to the final outcome.",
     options: [],
   },
 ];
+
 
 // --- Línea B: Monopolio ---
 const storylineMonopolio = [
   {
     id: "1.1",
-    subject: "Decisión: Monopolizar la tecnología",
-    snippet: "Has decidido controlar todo el mercado...",
-    content: "Consecuencias iniciales... (aquí va tu texto)...",
+    subject: "Decision: Monopolize the technology",
+    snippet: "You have decided to control the entire market...",
+    content: "Initial consequences... (your text here)...",
     options: [
       // Personaliza los pasos de tu historia
     ],
@@ -116,9 +209,9 @@ const storylineMonopolio = [
 const storylineRegulada = [
   {
     id: "1.1",
-    subject: "Decisión: Regular la tecnología",
-    snippet: "Un uso regulado y supervisado.",
-    content: "Has elegido un sistema de licencias reguladas...",
+    subject: "Decision: Regulate technology",
+    snippet: "A regulated and supervised use.",
+    content: "You have chosen a system of regulated licenses...",
     options: [
       // Personaliza los pasos de tu historia
     ],
@@ -129,15 +222,17 @@ const storylineRegulada = [
 // Correo inicial (intro)
 const initialEmail = {
   id: "intro",
-  subject: "Tecnología Revolucionaria: Elige tu enfoque",
-  snippet: "Acceso global, Monopolio, o Regulada",
-  content: `Un grupo de científicos ha desarrollado una tecnología
-capaz de generar energía ilimitada. 
-¿Permitir acceso global (línea A), monopolizar (línea B) o regular (línea C)?`,
+  subject: "Revolutionary Technology: Choose your approach",
+  snippet: "Global access, Monopoly, or Regulated",
+  content: `A revolutionary discovery has emerged: a technology capable of generating unlimited energy. The possibilities are endless—ending poverty, powering innovation, reshaping humanity’s future. But such immense power demands an even greater decision.
+  Will you choose to share this miracle with the world, risking chaos in the name of equality? Will you guard its secrets, monopolizing its benefits for the select few? Or will you enforce strict regulation, seeking to balance control and progress?
+
+  Every choice has consequences. Every path will alter history. The eyes of the world are on you—what kind of legacy will you leave?`,
+  
   options: [
-    { label: "Acceso Global", line: "A" },
-    { label: "Monopolio", line: "B" },
-    { label: "Regulada", line: "C" },
+    { label: "Global Access", line: "A" },
+    { label: "Monopoly", line: "B" },
+    { label: "Regulated", line: "C" },
   ],
 };
 
@@ -147,17 +242,17 @@ capaz de generar energía ilimitada.
 const initialSocialPool = [
   {
     id: 101,
-    subject: "Invitación a evento social",
-    snippet: "Fiesta galáctica el próximo sábado...",
-    content: "Correo social #1...",
+    subject: "Invitation to a social event",
+    snippet: "Galactic party next Saturday...",
+    content: "Social mail #1...",
     revisado: false,
     starred: false,
   },
   {
     id: 102,
-    subject: "Reunión de vecinos estelares",
-    snippet: "Nos juntamos a celebrar...",
-    content: "Correo social #2...",
+    subject: "Meeting of stellar neighbors",
+    snippet: "We're getting together to celebrate...",
+    content: "Social mail #2...",
     revisado: false,
     starred: false,
   },
@@ -166,17 +261,17 @@ const initialSocialPool = [
 const initialPromotionsPool = [
   {
     id: 201,
-    subject: "Descuentos interestelares",
-    snippet: "Ofertas de viaje...",
-    content: "Promociones en rutas galácticas.",
+    subject: "Interstellar discounts",
+    snippet: "Travel offers...",
+    content: "Promotions on galactic routes.",
     revisado: false,
     starred: false,
   },
   {
     id: 202,
-    subject: "Cupón especial",
-    snippet: "Descuento del 20%...",
-    content: "Promoción limitada.",
+    subject: "Special coupon",
+    snippet: "20% discount...",
+    content: "Limited promotion.",
     revisado: false,
     starred: false,
   },
@@ -242,6 +337,67 @@ function App() {
   // SONIDO DE CLIC EN CADA MOUSE DOWN
   // ====================================================
   const clickAudioRef = useRef(null);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  // ====================================================
+  // EFECTO GLITCH
+  // ====================================================
+  const [glitchActive, setGlitchActive] = useState(false);
+
+  // Función para activar el efecto glitch
+  const triggerGlitchEffect = (duration = 500) => {
+    setGlitchActive(true); // Activa el glitch
+
+    setTimeout(() => {
+      setGlitchActive(false); // Desactiva el glitch después de la duración
+    }, duration);
+  };
+// ====================================================
+// Mensaje importante
+// ====================================================
+
+const [isVisible, setIsVisible] = useState(false);
+const [message, setMessage] = useState("");
+
+// Método para mostrar el mensaje importante
+const importantAudioRef = useRef(null);
+const showImportantMessage = (msg) => {
+  importantAudioRef.current = new Audio(Important);
+  setMessage(msg);
+  setIsVisible(true);
+  importantAudioRef.current.play().catch(() => {});
+};
+
+// Método para cerrar el mensaje
+const closeImportantMessage = () => {
+  setIsVisible(false);
+  setMessage("");
+};
+
+// Registrar la función globalmente para mostrar el mensaje
+useEffect(() => {
+  window.showImportantMessage = showImportantMessage;
+  return () => {
+    // Limpieza al desmontar el componente
+    delete window.showImportantMessage;
+  };
+}, []);
+  // ====================================================
+  // Componente pop up
+  // ====================================================
+  const audioErrorRef = useRef(null);
+  const handleShowPopup = (message) => {
+    audioErrorRef.current = new Audio(Error);
+    setPopupMessage(message);
+    setShowPopup(true);
+    audioErrorRef.current.play().catch(() => {});
+    triggerGlitchEffect(); // Activa el efecto glitch
+  };
+  
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    setPopupMessage("");
+  };
 
   useEffect(() => {
     clickAudioRef.current = new Audio(Click);
@@ -275,16 +431,22 @@ function App() {
       await delay(1000);
     };
 
+    let ligths = false; // Flip-flop inicializado
+
     const interval = setInterval(() => {
       specialEventsTimer();
-
+    
       if (economia < 60) {
         document.documentElement.style.setProperty("--ligths", "visible");
+        if (!ligths) { // Solo mostrar el mensaje si aún no se ha mostrado
+          showImportantMessage("Our economy can no longer support paying for electricity, and as a result, our computers and other essential electrical devices are at risk of failing.");
+          ligths = true; // Activar el flip-flop
+        }
       } else {
         document.documentElement.style.setProperty("--ligths", "hidden");
+        ligths = false; // Resetear el flip-flop cuando la economía sube
       }
     }, 1000);
-
     return () => clearInterval(interval);
   }, [economia]);
 
@@ -313,12 +475,12 @@ function App() {
   };
   const handleSendCompose = () => {
     if (!composeText.trim()) {
-      setErrorMessage("No puedes enviar un correo vacío.");
+      setErrorMessage("You cannot send an empty email.");
       setShowErrorPopup(true);
       setShowComposePopup(false);
       return;
     }
-    alert("Correo enviado (fingido): " + composeText);
+    alert("Email sent (mocked): " + composeText);
     setShowComposePopup(false);
     setComposeText("");
   };
@@ -364,6 +526,7 @@ function App() {
     setCurrentLine(line);
     setCurrentStepIndex(0);
     setSelectedEmail(null);
+    handleShowPopup(`This will have consequences...`);
     newAudioMail.current = new Audio(NewMail);
     newAudioMail.current.play().catch(() => {});
   };
@@ -401,7 +564,7 @@ function App() {
       setSelectedEmail(null);
     } else {
       // No hay next => fin
-      alert("Has llegado a un final (o no se encontró el siguiente paso).");
+      alert("You've reached an ending (or the next step was not found).");
       setSelectedEmail(null);
     }
   };
@@ -451,22 +614,11 @@ function App() {
   // STARRED => recolectar de la historia + social + promos
   // ====================================================
   const getAllStarredEmails = () => {
-    // 1) Pasos de la historia actual
-    //    - El currentStep no tiene "starred" en su config,
-    //      podrías agregárselo si deseas. Por simplicidad,
-    //      omitimos starred en la historia. 
-    //      O si quisieras, podrías extender la lógica.
-    //    - Igualmente, "usedSteps" tampoco se marcó starred.
-    //      Se podría soportar pero no está en el ejemplo.
-    //    - Si lo quieres implementar, deberías darle un 
-    //      'starred' a cada step en el state.
-
+    // 1) Pasos de la historia actual (no implementado starring)
     // 2) Social
     const socialStarred = socialPool.filter((em) => em.starred);
-
     // 3) Promotions
     const promoStarred = promotionsPool.filter((em) => em.starred);
-
     // Retorna todos
     return [...socialStarred, ...promoStarred];
   };
@@ -482,7 +634,6 @@ function App() {
     } else if (promotionsPool.some((em) => em.id === emailId)) {
       handleToggleStarPromo(emailId);
     }
-    // O si tuvieras principal con starred, lo manejarías también
   };
 
   // ====================================================
@@ -496,18 +647,36 @@ function App() {
   return (
     <div>
       {/* ============ POPUP “Redactar” ============ */}
+      <div
+        className={`glitch-container ${glitchActive ? "glitch-active" : ""}`}
+      >
+        <div className="glitch-overlay"></div>
+        <div className="glitch-overlay"></div>
+        <div className="glitch-overlay"></div>
+      </div>
+     {/* ============ POPUP “importante” ============ */}
+      {isVisible && (
+        <div className="important-message">
+          <div className="important-message-content">
+            <p>{message}</p>
+            <button className="close-button" onClick={closeImportantMessage}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
       {showComposePopup && (
-        <PopupWindow95 title="Redactar" onClose={handleCloseCompose}>
+        <PopupWindow95 title="Compose" onClose={handleCloseCompose}>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <textarea
               style={{ width: "300px", height: "150px" }}
               value={composeText}
               onChange={(e) => setComposeText(e.target.value)}
-              placeholder="Escribe tu correo aquí..."
+              placeholder="Write your email here..."
             />
             <div style={{ marginTop: "0.5rem" }}>
-              <button onClick={handleSendCompose}>Enviar</button>
-              <button onClick={handleCloseCompose}>Cerrar</button>
+              <button onClick={handleSendCompose}>Send</button>
+              <button onClick={handleCloseCompose}>Close</button>
             </div>
           </div>
         </PopupWindow95>
@@ -517,11 +686,16 @@ function App() {
       {showErrorPopup && (
         <PopupWindow95 title="Error" onClose={handleCloseError}>
           <p style={{ color: "red", fontWeight: "bold" }}>{errorMessage}</p>
-          <button onClick={handleCloseError}>Cerrar</button>
+          <button onClick={handleCloseError}>Close</button>
         </PopupWindow95>
       )}
-
-      <div className="ligthsOut"></div>
+    {showPopup && (
+      <PopupWindow95 title="Notice" onClose={handleClosePopup}>
+        <p>{popupMessage}</p>
+        <button onClick={handleClosePopup}>Close</button>
+      </PopupWindow95>
+    )}
+          <div className="ligthsOut"></div>
       <div className="gmail-container">
         {/* ======= HEADER ======= */}
         <header className="header">
@@ -530,13 +704,13 @@ function App() {
             <img src="gmail-logo.png" alt="Gmail" className="logo" />
           </div>
           <div className="header-center">
-            <input type="text" placeholder="Buscar en correos" />
+            <input type="text" placeholder="Search in emails" />
           </div>
           <div className="header-right">
-            <button className="apps" onClick={() => alert("Abrir 'Apps' (fingido)")}>
+            <button className="apps" onClick={() => alert("Open 'Apps' (mocked)")}>
               🔳
             </button>
-            <button className="profile" onClick={() => alert("Ver perfil (fingido)")}>
+            <button className="profile" onClick={() => alert("View profile (mocked)")}>
               👤
             </button>
           </div>
@@ -557,7 +731,7 @@ function App() {
             polarizacion={polarizacion}
             onCompose={() => setShowComposePopup(true)}
             onShowError={() => {
-              setErrorMessage("Error fingido");
+              setErrorMessage("Mock error");
               setShowErrorPopup(true);
             }}
             onShowStarred={() => setActiveList("starred")}
@@ -570,7 +744,7 @@ function App() {
             {/* Pestaña PRINCIPAL => historia lineal */}
             {activeList === "principal" && (
               <div>
-                <h2>Línea Principal</h2>
+                <h2>Main Line</h2>
                 <div className="email-list">
                   {/* Solo 1 “correo” => currentStep (o intro) */}
                   {currentStep && (
@@ -585,7 +759,7 @@ function App() {
                   )}
                 </div>
 
-                <h2>Historial (Pasos usados)</h2>
+                <h2>History (Used Steps)</h2>
                 <EmailListUsados emails={usedSteps} />
               </div>
             )}
@@ -593,7 +767,7 @@ function App() {
             {/* Pestaña SOCIAL */}
             {activeList === "social" && (
               <>
-                <h2>Correos Sociales</h2>
+                <h2>Social Emails</h2>
                 <EmailListSocial
                   emails={socialPool}
                   onEmailClick={handleEmailClickSocial}
@@ -605,7 +779,7 @@ function App() {
             {/* Pestaña PROMOTIONS */}
             {activeList === "promotions" && (
               <>
-                <h2>Promociones</h2>
+                <h2>Promotions</h2>
                 <EmailListPromotions
                   emails={promotionsPool}
                   onEmailClick={handleEmailClickPromo}
@@ -617,7 +791,7 @@ function App() {
             {/* Pestaña STARRED */}
             {activeList === "starred" && (
               <>
-                <h2>Destacados</h2>
+                <h2>Starred</h2>
                 <EmailListStarred
                   emails={starredEmails}
                   onEmailClick={handleEmailClickStarred}

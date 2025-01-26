@@ -379,3 +379,101 @@ body {
 .popup95-content {
   padding: 0.5rem;
 }
+
+.glitch-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* No interfiere con los clics */
+  z-index: 9999; /* Encima de todo */
+  opacity: 0; /* Oculto por defecto */
+  transition: opacity 0.2s ease-in-out;
+}
+
+.glitch-container.glitch-active {
+  opacity: 1; /* Visible cuando está activo */
+}
+
+/* Capas del glitch */
+.glitch-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: inherit; /* Puede ajustarse si no funciona */
+  mix-blend-mode: hue; /* Mezcla los colores */
+  animation: glitch-animation 0.2s infinite; /* Animación constante */
+}
+
+.glitch-overlay:nth-child(2) {
+  transform: translate(5px, -5px);
+  filter: hue-rotate(90deg); /* Cambia el tono */
+  animation-delay: 0.05s;
+}
+
+.glitch-overlay:nth-child(3) {
+  transform: translate(-5px, 5px);
+  filter: hue-rotate(-90deg); /* Cambia el tono */
+  animation-delay: 0.1s;
+}
+
+/* Animación del glitch */
+@keyframes glitch-animation {
+  0%, 100% {
+    clip-path: inset(0% 0% 0% 0%);
+    transform: none;
+  }
+  33% {
+    clip-path: inset(10% 5% 80% 5%); /* Recortes aleatorios */
+    transform: translate(3px, -3px);
+  }
+  66% {
+    clip-path: inset(80% 5% 10% 5%);
+    transform: translate(-3px, 3px);
+  }
+}
+
+/* Alternativa: Si background: inherit no funciona */
+.glitch-overlay {
+  background: rgba(255, 0, 0, 1);
+}
+
+.important-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: #C0C0C0; /* Gris clásico de Win95 */
+  color: #000; /* Texto negro */
+  padding: 15px 25px;
+  border: 2px outset #fff; /* Borde 3D estilo Win95 */
+  box-shadow: 4px 4px 0 #666; /* Sombra para efecto 3D */
+  text-align: center;
+  font-family: "Courier New", Courier, monospace; /* Fuente retro */
+}
+
+.important-message-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.close-button {
+  margin-top: 15px;
+  padding: 5px 15px;
+  border: 2px outset #ddd; /* Botón clásico Win95 */
+  background-color: #ddd;
+  color: #000;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+}
+
+.close-button:active {
+  border: 2px inset #999; /* Cambio de estado activo */
+  background-color: #ccc;
+}
