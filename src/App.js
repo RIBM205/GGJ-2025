@@ -134,9 +134,9 @@ const storylineAccesoGlobal = [
       },
       {
         label: "C) International committee",
-        cred: +5,
-        econ: -5,
-        polar: -10,
+        cred: +10,
+        econ: -10,
+        polar: -20,
         nextStep: "1.2",
         socialEmails: [
           {
@@ -176,7 +176,7 @@ const storylineAccesoGlobal = [
         label: "A) Prohibit weaponry use",
         cred: +15,
         econ: -10,
-        polar: +10,
+        polar: +20,
         nextStep: "1.3",
         socialEmails: [
           {
@@ -225,8 +225,8 @@ const storylineAccesoGlobal = [
       {
         label: "C) Sell licenses selectively",
         cred: 0,
-        econ: 0,
-        polar: +5,
+        econ: +5,
+        polar: +30,
         nextStep: "1.3",
         socialEmails: [
           {
@@ -622,7 +622,7 @@ const storylineMonopolio = [
     options: [
       {
         label: "A) Focus on customers",
-        cred: -10,
+        cred: -40,
         econ: +15,
         polar: 0,
         nextStep: "3.3",
@@ -1394,6 +1394,8 @@ useEffect(() => {
       await delay(1000);
     };
     let ligths = false; 
+    let broken = false;
+    let spectrum = false;
     const interval = setInterval(() => {
       specialEventsTimer();
       if (economia < 60) {
@@ -1405,6 +1407,26 @@ useEffect(() => {
       } else {
         document.documentElement.style.setProperty("--ligths", "hidden");
         ligths = false; 
+      }
+      if(credibilidad < 70) {
+        if (!broken) {
+          showImportantMessage("The credibility of our organization is at an all-time low. We must take immediate action to restore trust and confidence in our decisions, multiple protest have rise.");
+          triggerBrokenScreenEffect(10000);
+          broken = true;
+        }
+
+      } else {
+        broken = false;
+      }
+      if(polarizacion < 30 || polarizacion > 70) {
+        if (!spectrum) {
+          showImportantMessage("The polarization of our society is reaching dangerous levels, hackers have taken control of our screens and are broadcasting messages of hate and division.");
+          startSpectrumHackEffect(10000,1000);
+          spectrum = true;
+        }
+
+      } else {
+        spectrum = false;
       }
     }, 1000);
     return () => clearInterval(interval);

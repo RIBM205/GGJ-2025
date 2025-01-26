@@ -12,7 +12,7 @@ const Tabs = ({ activeList, setActiveList, socialPool, promotionsPool }) => {
       {/* Pestaña Principal (Main) */}
       <button
         className={`tab ${activeList === "main" ? "active" : ""}`}
-        onClick={() => setActiveList("main")}
+        onClick={() => setActiveList("principal")}
       >
         Main
       </button>

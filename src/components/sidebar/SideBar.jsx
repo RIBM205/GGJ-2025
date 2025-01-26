@@ -35,9 +35,7 @@ const Sidebar = ({
         <li><span>🗑️</span> Trash</li>
       </ul>
 
-      <button style={{ marginTop: "1rem" }} onClick={onShowError}>
-        Simulate Error
-      </button>
+
 
       <div className="music-player-sidebar">
         <MusicPlayer

@@ -1,6 +1,7 @@
+s
 
 import React from "react";
-
+import "./TutorialOverlay.css"; 
 
 const TutorialOverlay = ({ onComplete }) => {
   return (
