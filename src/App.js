@@ -17,6 +17,9 @@ import Important from "./Sound/Important.wav";
 import MusicPlayer from "./components/musicPlayer/MusicPlayer"; 
 import Broken from "./images/broken.png";
 
+import Button from "./components/StyledButton";
+import Options from "./components/options/Options";
+import StartMenu from "./components/startMenu/StartMenu";
 
 
 const SPECTRUM_COLORS = [
@@ -1294,20 +1297,41 @@ function App() {
   const [popupMessage, setPopupMessage] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [glitchActive, setGlitchActive] = useState(false);
+  const [showStartMenu, setShowStartMenu] = useState(true);
+  const [showOptionsMenu, setShowOptionsMenu] = useState(false);
   const triggerGlitchEffect = (duration = 500) => {
     setGlitchActive(true); 
     setTimeout(() => {
       setGlitchActive(false); 
     }, duration);
   };
+  const [volume, setVolume] = useState(50);
+  const [isMuted, setIsMuted] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+  
+
+
+  const [musicVolume, setMusicVolume] = useState(50);
+  const [sfxVolume, setSfxVolume] = useState(50);
+  const [isMusicMuted, setIsMusicMuted] = useState(false);
+  const [isSfxMuted, setIsSfxMuted] = useState(false);
+ 
+ 
+  const sfxVolumeRef = useRef(sfxVolume);
+  const isSfxMutedRef = useRef(isSfxMuted);
+  const [showTutorial, setShowTutorial] = useState(true);
 const [isVisible, setIsVisible] = useState(false);
 const [message, setMessage] = useState("");
 const importantAudioRef = useRef(null);
+
 const showImportantMessage = (msg) => {
   importantAudioRef.current = new Audio(Important);
   setMessage(msg);
   setIsVisible(true);
-  importantAudioRef.current.play().catch(() => {});
+  importantAudioRef.current.addEventListener('canplaythrough', () => {
+    importantAudioRef.current.volume = isSfxMutedRef.current ? 0 : sfxVolumeRef.current / 100;
+    importantAudioRef.current.play().catch(() => {});
+  });
 };
 const closeImportantMessage = () => {
   setIsVisible(false);
@@ -1325,29 +1349,38 @@ useEffect(() => {
     setPopupMessage(message);
     setShowPopup(true);
     audioErrorRef.current.addEventListener('canplaythrough', () => {
-      audioErrorRef.current.volume = 1;
+      audioErrorRef.current.volume =  isSfxMutedRef.current ? 0 : sfxVolumeRef.current / 100;
       audioErrorRef.current.play().catch(() => {});
     }); 
     triggerGlitchEffect(); 
   };
+  useEffect(() => {
+    sfxVolumeRef.current = sfxVolume;
+  }, [sfxVolume]);
+
+  useEffect(() => {
+    isSfxMutedRef.current = isSfxMuted;
+  }, [isSfxMuted]);
+  useEffect(() => {
+  if (clickAudioRef.current) {
+    clickAudioRef.current.volume = isSfxMuted ? 0 : sfxVolume / 100;
+  }
+}, [sfxVolume, isSfxMuted]);
+
+useEffect(() => {
+  if (audioErrorRef.current) {
+    audioErrorRef.current.volume = isSfxMuted ? 0 : sfxVolume / 100;
+  }
+}, [sfxVolume, isSfxMuted]);
   
   const handleClosePopup = () => {
     setShowPopup(false);
     setPopupMessage("");
   };
-
-  useEffect(() => {
-    clickAudioRef.current = new Audio(Click);
-    const mouseDownHandler = (e) => {
-      if (e.button === 0 || e.button === 2) {
-        clickAudioRef.current.play().catch(() => {});
-      }
-    };
-    window.addEventListener("mousedown", mouseDownHandler);
-    return () => {
-      window.removeEventListener("mousedown", mouseDownHandler);
-    };
-  }, []);
+  const handleTutorialComplete = () => {
+    setShowTutorial(false);
+  };
+  
  
   useEffect(() => {
     let overlayOpacity = parseFloat(
@@ -1411,7 +1444,7 @@ const triggerBrokenScreenEffect = (duration = 3000) => {
       setShowComposePopup(false);
       return;
     }
-    alert("Email sent (mocked): " + composeText);
+
     setShowComposePopup(false);
     setComposeText("");
   };
@@ -1421,12 +1454,64 @@ const triggerBrokenScreenEffect = (duration = 3000) => {
     setErrorMessage("");
   };
 
+  const handleStartGame = () => {
+    setShowStartMenu(false);
+  };
+
+  // Ejemplo de handler para “Opciones”
+  const handleShowOptions = () => {
+   
+    // Por ejemplo:
+    setShowStartMenu(false);
+    setShowOptionsMenu(true);
+  };
+
+  const handleCloseOptions = () => {
+    setShowOptionsMenu(false);
+    // setShowStartMenu(true); // SOLO si quieres regresar al menú
+  };
+
   function getStoryline() {
     if (currentLine === "A") return storylineAccesoGlobal;
     if (currentLine === "B") return storylineMonopolio;
     if (currentLine === "C") return storylineRegulada;
     return null; 
   }
+
+  const handleMusicVolumeChange = (event) => {
+    const newVol = +event.target.value;
+    setMusicVolume(newVol);
+    // Si tienes un audioRef para la música, 
+    // podrías hacer audioRef.current.volume = newVol / 100
+  };
+  const toggleMusicMute = () => {
+    setIsMusicMuted((prev) => !prev);
+    // Igualmente, si hay un audioRef, 
+    // audioRef.current.muted = !audioRef.current.muted
+  };
+
+  // Lo mismo para los SFX
+  const handleSfxVolumeChange = (event) => {
+    const newVol = +event.target.value;
+    setSfxVolume(newVol);
+    // Si tienes referenciados tus sonidos SFX, ajusta su volumen.
+  };
+  const toggleSfxMute = () => {
+    setIsSfxMuted((prev) => !prev);
+  };
+
+
+  const handleVolumeChange = (event) => {
+    setVolume(event.target.value);
+  };
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+  };
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
 
   function getCurrentStep() {
     if (!currentLine) {
@@ -1436,7 +1521,18 @@ const triggerBrokenScreenEffect = (duration = 3000) => {
     if (!line || currentStepIndex == null) return null;
     return line[currentStepIndex];
   }
+  useEffect(() => {
+    if (clickAudioRef.current) {
+      clickAudioRef.current.volume = isSfxMuted ? 0 : sfxVolume / 100;
+    }
+  }, [sfxVolume, isSfxMuted]);
 
+  useEffect(() => {
+    if (audioErrorRef.current) {
+      audioErrorRef.current.volume = isSfxMuted ? 0 : sfxVolume / 100;
+    }
+  }, [sfxVolume, isSfxMuted]);
+  
   const newAudioMail = useRef(null);
   const handleIntroDecision = (line) => {
     setCurrentLine(line);
@@ -1446,10 +1542,24 @@ const triggerBrokenScreenEffect = (duration = 3000) => {
     handleShowPopup(`This will have consequences...`);
     newAudioMail.current = new Audio(NewMail);
     newAudioMail.current.addEventListener('canplaythrough', () => {
-      newAudioMail.current.volume = 0.5;
+      newAudioMail.current.volume = isSfxMutedRef.current ? 0 : sfxVolumeRef.current / 100;
       newAudioMail.current.play().catch(() => {});
     });
   };
+  useEffect(() => {
+    clickAudioRef.current = new Audio(Click);
+
+    const mouseDownHandler = (e) => {
+      if (e.button === 0 || e.button === 2) {
+        clickAudioRef.current.volume = isSfxMuted ? 0 : (sfxVolume / 100);
+        clickAudioRef.current.play().catch(() => {});
+      }
+    };
+    window.addEventListener("mousedown", mouseDownHandler);
+    return () => {
+      window.removeEventListener("mousedown", mouseDownHandler);
+    };
+  }, []);
 
 const handleFinalOutcome = () => {
   // Resumen de estado final
@@ -1578,7 +1688,39 @@ const handleFinalOutcome = () => {
   if (activeList === "starred") {
     starredEmails = getAllStarredEmails();
   }
+ if (showStartMenu && !showOptionsMenu) {
+    return (
+      <div className="app-container">
+        <StartMenu onStartGame={handleStartGame} onOptions={handleShowOptions} />
+      </div>
+    );
+  }
 
+  // =============================
+  // Render condicional del Menú de Opciones
+  // =============================
+  if (showOptionsMenu) {
+    return (
+      <div className="app-container">
+<Options
+  // Música
+  volume={musicVolume}
+  isMuted={isMusicMuted}
+  onVolumeChange={(e) => setMusicVolume(Number(e.target.value))}
+  onMuteToggle={() => setIsMusicMuted((prev) => !prev)}
+
+  // Efectos de sonido
+  sfxVolume={sfxVolume}
+  isSfxMuted={isSfxMuted}
+  onSfxVolumeChange={(e) => setSfxVolume(Number(e.target.value))}
+  onSfxMuteToggle={() => setIsSfxMuted((prev) => !prev)}
+
+  // Cerrar menú
+  onClose={handleCloseOptions}
+/>
+      </div>
+    );
+  }
   return (
     <div>
       <div className={`glitch-container ${glitchActive ? "glitch-active" : ""}`}>
@@ -1658,16 +1800,19 @@ const handleFinalOutcome = () => {
           economia={economia}
         />
         <div className="content">
-          <Sidebar
-            economia={economia}
-            credibilidad={credibilidad}
-            polarizacion={polarizacion}
+        <Sidebar
+            economy={economia}
+            credibility={credibilidad}
+            polarization={polarizacion}
             onCompose={() => setShowComposePopup(true)}
             onShowError={() => {
               setErrorMessage("Mock error");
               setShowErrorPopup(true);
             }}
             onShowStarred={() => setActiveList("starred")}
+            isMusicMuted={isMusicMuted}
+            musicVolume={musicVolume}
+            isTutorialActive={showTutorial} // Pass the tutorial state
           />
           <main className="email-section">
           <Tabs

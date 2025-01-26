@@ -1,11 +1,11 @@
 /* 
-   Windows 95 Style en tonos grises 
-   + Toques de azul para resaltar (sutil).
+   Windows 95 Style in gray tones 
+   + Blue highlights (subtle).
 
-   Ahora con variables CSS en los colores principales.
+   Now with CSS variables for main colors.
 */
 
-/* Reseteo básico */
+/* Basic reset */
 * {
   margin: 0;
   padding: 0;
@@ -13,30 +13,30 @@
 }
 
 /* ================================
-   VARIABLES DE COLOR
+   COLOR VARIABLES
    ================================ */
 :root {
-  /* Colores principales */
-  --color-bg-body: #C0C0C0;         /* Fondo gris Win95 */
-  --color-text: #000;               /* Texto negro */
-  --color-border-strong: #000;      /* Bordes fuertes (negro) */
-  --color-shadow-win95: #888;       /* Sombra gris más oscuro */
-  --color-shadow-inset: #999;       /* Sombra interna gris */
-  --color-bg-header: #E4E4E4;       /* Gris claro del header */
-  --color-bg-outset: #ddd;          /* Efecto 3D "outset" */
-  --color-bg-hover: #ccc;           /* Gris intermedio para hover */
-  --color-bg-active: #999;          /* Gris más oscuro para "active" */
-  --color-bg-special-blue: #B0B0FF; /* Azul clarito de resalte */
-  --color-bg-approve: #9AD0FF;      /* Azul clarito para aprobar */
-  --color-bg-reject: #FF9A9A;       /* Rojizo clarito para rechazar */
+  /* Main colors */
+  --color-bg-body: #C0C0C0;         /* Win95 gray background */
+  --color-text: #000;               /* Black text */
+  --color-border-strong: #000;      /* Strong borders (black) */
+  --color-shadow-win95: #888;       /* Darker gray shadow */
+  --color-shadow-inset: #999;       /* Inset gray shadow */
+  --color-bg-header: #E4E4E4;       /* Light gray header */
+  --color-bg-outset: #ddd;          /* 3D "outset" effect */
+  --color-bg-hover: #ccc;           /* Intermediate gray for hover */
+  --color-bg-active: #999;          /* Darker gray for "active" */
+  --color-bg-special-blue: #B0B0FF; /* Light blue highlight */
+  --color-bg-approve: #9AD0FF;      /* Light blue for approve */
+  --color-bg-reject: #FF9A9A;       /* Light reddish for reject */
 
-  /* Colores complementarios */
-  --color-text-dim: #666;           /* Texto gris oscuro */
-  --color-border-dashed: #999;      /* Borde punteado o sombra interna */
-  --color-border-light: #aaa;       /* Borde claro intermedio */
-  --color-error: #C00;              /* Rojo para errores */
+  /* Complementary colors */
+  --color-text-dim: #666;           /* Dark gray text */
+  --color-border-dashed: #999;      /* Dashed border or inset shadow */
+  --color-border-light: #aaa;       /* Intermediate light border */
+  --color-error: #C00;              /* Red for errors */
 
-  /* Fondos adicionales */
+  /* Additional backgrounds */
   --color-bg-f4: #F4F4F4;
   --color-bg-ec: #ECECEC;
   --color-bg-d3: #D3D3D3;
@@ -45,14 +45,14 @@
   --color-bg-dc: #DCDCDC;
 }
 
-/* BODY: Fondo gris Win95 */
+/* BODY: Win95 gray background */
 body {
   font-family: "Courier New", Courier, monospace;
   background-color: var(--color-bg-body);
   color: var(--color-text);
 }
 
-/* Contenedor principal (gmail-container) */
+/* Main container (gmail-container) */
 .gmail-container {
   display: flex;
   flex-direction: column;
@@ -61,17 +61,19 @@ body {
   box-shadow: 4px 4px 0 var(--color-shadow-win95);
 }
 
-/* CABECERA (header) */
+/* HEADER */
 .header {
   display: flex;
   align-items: center;
-  background-color: var(--color-bg-header);
+  background-color: #ffffff;
+  padding: 15px;
+  text-align: left;
   border-bottom: 2px solid var(--color-border-strong);
   padding: 0.5rem;
   box-shadow: inset 2px 2px 0 var(--color-shadow-inset);
 }
 
-/* Parte izquierda (logo + hamburguesa) */
+/* Left part (logo + hamburger) */
 .header-left .hamburger {
   font-size: 1rem;
   margin-right: 1rem;
@@ -88,7 +90,7 @@ body {
   margin-right: 1rem;
 }
 
-/* Barra de búsqueda (header-center) */
+/* Search bar (header-center) */
 .header-center {
   flex: 1;
   display: flex;
@@ -102,7 +104,7 @@ body {
   color: var(--color-text);
 }
 
-/* Parte derecha (botones apps/profile) */
+/* Right part (apps/profile buttons) */
 .header-right button {
   margin-left: 0.5rem;
   cursor: pointer;
@@ -114,7 +116,7 @@ body {
   border: 2px inset var(--color-bg-active);
 }
 
-/* INDICADORES (métricas) */
+/* INDICATORS (metrics) */
 .indicators {
   display: flex;
   justify-content: space-around;
@@ -127,7 +129,7 @@ body {
   font-weight: bold;
 }
 
-/* CONTENIDO (sidebar + email-section + visor) */
+/* CONTENT (sidebar + email-section + viewer) */
 .content {
   display: flex;
   flex: 1;
@@ -144,7 +146,7 @@ body {
   box-shadow: inset 2px 2px 0 var(--color-shadow-inset);
 }
 
-/* Botón "Redactar" (compose) */
+/* "Compose" button */
 .compose {
   border: 2px outset var(--color-bg-outset);
   background-color: var(--color-bg-outset);
@@ -160,7 +162,7 @@ body {
   border: 2px inset var(--color-bg-active);
 }
 
-/* Lista lateral en sidebar */
+/* Sidebar list */
 .sidebar ul {
   list-style: none;
   margin-top: 0.5rem;
@@ -170,18 +172,18 @@ body {
   cursor: pointer;
 }
 .sidebar li.active {
-  background-color: var(--color-bg-special-blue); /* Toque de azul en item activo */
-  border: 1px inset #777; /* Podrías hacer otra var si quieres */
+  background-color: var(--color-bg-special-blue); /* Blue highlight for active item */
+  border: 1px inset #777; /* You could make another var if you want */
 }
 
-/* Reproductor de música en sidebar */
+/* Music player in sidebar */
 .music-player-sidebar {
   margin-top: auto;
   border-top: 2px dashed var(--color-border-shadow-inset);
   padding-top: 1rem;
 }
 
-/* SECCIÓN DE CORREOS => email-section */
+/* EMAIL SECTION => email-section */
 .email-section {
   flex: 1;
   background-color: var(--color-bg-ec);
@@ -213,12 +215,12 @@ body {
   font-weight: bold;
 }
 
-/* LISTAS DE EMAIL => .email-list */
+/* EMAIL LIST => .email-list */
 .email-list {
   flex: 1;
   overflow-y: auto;
   background-color: var(--color-bg-e5);
-  border-top: 2px inset var(--color-shadow-inset);
+  border-top: 2px inset var (--color-shadow-inset);
   box-shadow: inset 2px 2px 0 var(--color-shadow-inset);
   padding: 0.5rem;
 }
@@ -228,13 +230,13 @@ body {
   cursor: pointer;
 }
 
-/* Correo no leído => bold + fondo clarito */
+/* Unread email => bold + light background */
 .email-item.unread {
   font-weight: bold;
   background-color: var(--color-bg-f4);
 }
 
-/* Correo USADO (historial) */
+/* USED email (history) */
 .email-item.used {
   color: var(--color-text-dim);
   background-color: var(--color-bg-outset);
@@ -245,10 +247,10 @@ body {
 .used-decision {
   display: block;
   font-size: 0.8rem;
-  color: #444; /* Podrías usar otra var si quieres */
+  color: #444; /* You could use another var if you want */
 }
 
-/* VISOR DE CORREO => .email-viewer */
+/* EMAIL VIEWER => .email-viewer */
 .email-viewer {
   width: 400px;
   border-left: 2px solid var(--color-border-strong);
@@ -265,7 +267,7 @@ body {
   margin-bottom: 0.5rem;
 }
 
-/* Botones (Aprobar/Rechazar) */
+/* Buttons (Approve/Reject) */
 .email-viewer button {
   margin-right: 0.5rem;
   cursor: pointer;
@@ -285,7 +287,7 @@ body {
   background-color: var(--color-bg-reject);
 }
 
-/* EFECTO LUCES => .ligthsOut */
+/* LIGHTS EFFECT => .ligthsOut */
 :root {
   --pointerX: 50vw;
   --pointerY: 50vh;
@@ -342,7 +344,7 @@ body {
 .music-player-track-list .track-item.active {
   font-weight: bold;
   background-color: var(--color-bg-approve);
-  color: var(--color-text);
+  color: var (--color-text);
   border-radius: 4px;
 }
 .music-player-track-list .track-item.locked {
@@ -361,7 +363,7 @@ body {
   padding: 1rem;
   margin: 1rem;
   color: var(--color-text);
-  box-shadow: 4px 4px 0 #666; /* Sombra 3D, si quieres podrías cambiar a var también. */
+  box-shadow: 4px 4px 0 #666; /* 3D shadow, you could change to var too. */
 }
 .weather-clock-location h2 {
   font-size: 1.2rem;
@@ -376,7 +378,7 @@ body {
   font-weight: bold;
 }
 
-/* POPUP estilo Win95 (PopupWindow95) */
+/* POPUP Win95 style (PopupWindow95) */
 .popup95-overlay {
   position: fixed;
   top: 0; left: 0;
@@ -431,7 +433,7 @@ body {
   opacity: 1;
 }
 
-/* Capas del glitch */
+/* Glitch layers */
 .glitch-overlay {
   position: absolute;
   width: 100%;
@@ -466,7 +468,7 @@ body {
   }
 }
 
-/* Alternativa: Si background: inherit no funciona */
+/* Alternative: If background: inherit doesn't work */
 .glitch-overlay {
   background: rgba(255, 0, 0, 1);
 }
@@ -509,7 +511,7 @@ body {
   background-color: var(--color-bg-hover);
 }
 
-/* Imágenes de las pestañas */
+/* Tab images */
 .tab-icon {
   height: 1em;
   margin-left: 0.3rem;
@@ -528,6 +530,474 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  z-index: 9999; /* Siempre por encima */
-  pointer-events: none; /* No interfiere con clics */
+  z-index: 9999; /* Always on top */
+  pointer-events: none; /* Doesn't interfere with clicks */
+}
+
+.start-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  text-align: center;
+}
+
+.menu-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.menu-buttons button {
+  padding: 10px 20px;
+  font-size: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.menu-buttons button:hover {
+  background-color: #0056b3;
+}
+
+
+/* General container styles */
+.app-container {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: linear-gradient(to right, #c1e1ff, #f7e1ff);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.title {
+  font-size: 36px;
+  color: #333;
+  text-shadow: 2px 2px 5px #aaa;
+}
+
+/* Button styles */
+.animated-button {
+  background: linear-gradient(to bottom, #fff, #e0e0e0);
+  border: 2px solid #333;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px #666;
+  margin: 10px;
+  transition: all 0.3s;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.animated-button:hover {
+  box-shadow: 5px 5px 0px #444;
+  transform: translate(-2px, -2px);
+}
+
+.options-container {
+  background-color: var(--color-bg-outset);
+  border: 2px outset var(--color-shadow-inset);
+  box-shadow: inset 2px 2px 0 var(--color-shadow-inset);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  color: var(--color-text);
+}
+.subtitle {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+/* Volume control */
+.volume-control {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #333;
+}
+
+.slider {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Mute button */
+.mute-button {
+  background: #ff9999;
+  border: 2px solid #cc3333;
+  color: #fff;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 2px 2px 0px #aa3333;
+  transition: all 0.2s;
+}
+
+.mute-button:hover {
+  background: #ff6666;
+}
+
+/* =========================
+   Start Menu
+   ========================= */
+   .start-menu {
+    /* Make it a Win95-type popup style */
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 400px;
+    height: auto;
+    background-color: var(--color-bg-outset);
+    border: 2px outset var(--color-shadow-inset);
+    box-shadow: 4px 4px 0 var(--color-shadow-win95);
+    z-index: 9999;
+    padding: 1rem;
+    /* Center on screen */
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Start menu buttons in Win95 style */
+  .menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 1rem;
+  }
+  .menu-buttons button {
+    border: 2px outset var(--color-bg-outset);
+    background-color: var(--color-bg-outset);
+    color: var(--color-text);
+    font-size: 16px;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+  }
+  .menu-buttons button:active {
+    border: 2px inset var(--color-bg-active);
+  }
+  
+  /* =========================
+     Options Menu
+     ========================= */
+  .options-container {
+    background-color: var(--color-bg-outset);
+    border: 2px outset var(--color-shadow-inset);
+    box-shadow: inset 2px 2px 0 var(--color-shadow-inset);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    color: var(--color-text);
+  }
+  
+  .subtitle {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-dim);
+  }
+  
+  /* Volume control and sliders -> keep Win95 style */
+  .volume-control {
+    margin-bottom: 1rem;
+  }
+  .label {
+    display: block;
+    margin-bottom: 4px;
+  }
+  .slider {
+    width: 100%;
+    margin-top: 4px;
+    border: 1px inset var(--color-shadow-inset);
+  }
+  
+  /* Mute button with Win95 style */
+  .mute-button {
+    border: 2px outset var(--color-bg-outset);
+    background-color: var(--color-bg-outset);
+    color: var(--color-text);
+    font-size: 14px;
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+    margin-top: 4px;
+  }
+  .mute-button:active {
+    border: 2px inset var(--color-bg-active);
+  }
+
+
+  /* components/TutorialOverlay.css */
+
+.tutorial-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000; /* Ensure it's on top */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tutorial-content {
+  position: relative;
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 300px;
+}
+
+.tutorial-arrow {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -10px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid #fff;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+
+
+/* styles.css or Sidebar.css */
+
+/* Highlight the Inbox tab during the tutorial */
+.sidebar ul li.highlight {
+  border: 2px solid #f39c12; /* Orange border */
+  border-radius: 4px;
+  position: relative;
+  animation: pulse 2s infinite;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(243, 156, 18, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(243, 156, 18, 0);
+  }
+}
+
+
+/* styles.css */
+
+/* ===========================
+   Tutorial Overlay Styles
+   =========================== */
+
+   .tutorial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000; /* Ensures the overlay is on top */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .tutorial-content {
+    position: relative;
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .tutorial-content p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .tutorial-content button {
+    padding: 10px 20px;
+    background-color: #f39c12; /* Orange color */
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .tutorial-content button:hover {
+    background-color: #d68910; /* Darker orange on hover */
+  }
+  
+  .tutorial-arrow {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -10px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid #fff;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+  }
+  
+  /* ===========================
+     Highlight Styles for Sidebar
+     =========================== */
+  
+  /* Highlight the Inbox tab during the tutorial */
+  .sidebar ul li.highlight {
+    border: 2px solid #f39c12; /* Orange border */
+    border-radius: 4px;
+    position: relative;
+    animation: pulse 2s infinite;
+    cursor: pointer; /* Indicates it's clickable */
+  }
+  
+  .sidebar ul li.highlight:hover {
+    background-color: rgba(243, 156, 18, 0.1); /* Light orange background on hover */
+  }
+  
+  /* Pulse animation */
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.7);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(243, 156, 18, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(243, 156, 18, 0);
+    }
+  }
+   /* styles.css */
+
+/* ===========================
+   Tutorial Overlay Styles
+   =========================== */
+
+.tutorial-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000; /* Ensures the overlay is on top */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tutorial-content {
+  position: relative;
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tutorial-content p {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #333;
+}
+
+.tutorial-content button {
+  padding: 10px 20px;
+  background-color: #f39c12; /* Orange color */
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.tutorial-content button:hover {
+  background-color: #d68910; /* Darker orange on hover */
+}
+
+.tutorial-arrow {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -10px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid #fff;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+
+/* ===========================
+   Highlight Styles for Sidebar
+   =========================== */
+
+/* Highlight the Inbox tab during the tutorial */
+.sidebar ul li.highlight {
+  border: 2px solid #f39c12; /* Orange border */
+  border-radius: 4px;
+  position: relative;
+  animation: pulse 2s infinite;
+  cursor: pointer; /* Indicates it's clickable */
+}
+
+.sidebar ul li.highlight:hover {
+  background-color: rgba(243, 156, 18, 0.1); /* Light orange background on hover */
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(243, 156, 18, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(243, 156, 18, 0);
+  }
 }

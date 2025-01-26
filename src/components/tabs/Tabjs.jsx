@@ -3,18 +3,21 @@ import NewMailSprite from "./sprites/newMailSprite.png";
 import NoNew from "./sprites/noNew.png";
 
 const Tabs = ({ activeList, setActiveList, socialPool, promotionsPool }) => {
-  // Verificar si hay correos no leídos en cada pestaña
-  const hasNewSocial = socialPool.some((email) => !email.revisado);
-  const hasNewPromotions = promotionsPool.some((email) => !email.revisado);
+  // Verifica si hay nuevos correos en Social y Promotions
+  const hasNewSocial = socialPool.some((email) => !email.read);
+  const hasNewPromotions = promotionsPool.some((email) => !email.read);
 
   return (
     <div className="tabs">
+      {/* Pestaña Principal (Main) */}
       <button
-        className={`tab ${activeList === "principal" ? "active" : ""}`}
-        onClick={() => setActiveList("principal")}
+        className={`tab ${activeList === "main" ? "active" : ""}`}
+        onClick={() => setActiveList("main")}
       >
-        Principal
+        Main
       </button>
+
+      {/* Pestaña Social */}
       <button
         className={`tab ${activeList === "social" ? "active" : ""}`}
         onClick={() => setActiveList("social")}
@@ -26,11 +29,13 @@ const Tabs = ({ activeList, setActiveList, socialPool, promotionsPool }) => {
           className="tab-icon"
         />
       </button>
+
+      {/* Pestaña Promotions */}
       <button
         className={`tab ${activeList === "promotions" ? "active" : ""}`}
         onClick={() => setActiveList("promotions")}
       >
-        Promociones
+        Promotions
         <img
           src={hasNewPromotions ? NewMailSprite : NoNew}
           alt={hasNewPromotions ? "New Mail" : "No New Mail"}

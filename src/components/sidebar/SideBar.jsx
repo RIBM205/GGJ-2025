@@ -1,34 +1,51 @@
+// Sidebar.js
+
 import React from "react";
 import MusicPlayer from "../musicPlayer/MusicPlayer";
 
 const Sidebar = ({
-  economia,
-  credibilidad,
-  polarizacion,
+  economy,
+  credibility,
+  polarization,
   onCompose,
   onShowError,
   onShowStarred,
+  isMusicMuted,
+  musicVolume,
+  isTutorialActive, // New prop
 }) => {
   return (
     <aside className="sidebar">
-      <button className="compose" onClick={onCompose}>Redactar</button>
+      <button className="compose" onClick={onCompose}>Compose</button>
       <ul>
-        <li className="active"><span>📥</span> Recibidos</li>
-        <li onClick={onShowStarred}><span>⭐</span> Destacados</li>
-        <li><span>📤</span> Enviados</li>
-        <li><span>📄</span> Borradores</li>
-        <li><span>🗑️</span> Papelera</li>
+        <li
+          className={`active ${isTutorialActive ? "highlight" : ""}`}
+          onClick={() => {
+            if (isTutorialActive) {
+              // Optional: Automatically complete the tutorial when the user clicks the email
+              // This can be managed via a callback prop
+            }
+          }}
+        >
+          <span>📥</span> Inbox
+        </li>
+        <li onClick={onShowStarred}><span>⭐</span> Starred</li>
+        <li><span>📤</span> Sent</li>
+        <li><span>📄</span> Drafts</li>
+        <li><span>🗑️</span> Trash</li>
       </ul>
 
       <button style={{ marginTop: "1rem" }} onClick={onShowError}>
-        Simular Error
+        Simulate Error
       </button>
 
       <div className="music-player-sidebar">
         <MusicPlayer
-          economia={economia}
-          credibilidad={credibilidad}
-          polarizacion={polarizacion}
+          economy={economy}
+          credibility={credibility}
+          polarization={polarization}
+          isMusicMuted={isMusicMuted}
+          musicVolume={musicVolume}
         />
       </div>
     </aside>
