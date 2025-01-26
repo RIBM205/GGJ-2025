@@ -9,7 +9,6 @@ const MusicPlayer = ({ economia, credibilidad, polarizacion }) => {
 
   const tracks = [
     { name: "Tema Neutral", src: mainMusic, id: "neutral" },
-    // Otros tracks...
   ];
 
   const handleTrackSelection = (index) => {
@@ -38,12 +37,10 @@ const MusicPlayer = ({ economia, credibilidad, polarizacion }) => {
   };
 
   useEffect(() => {
-    // Agregar listener para detectar interacción del usuario
     window.addEventListener("click", handleUserInteraction);
     window.addEventListener("keydown", handleUserInteraction);
 
     return () => {
-      // Limpiar listeners
       window.removeEventListener("click", handleUserInteraction);
       window.removeEventListener("keydown", handleUserInteraction);
     };

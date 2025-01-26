@@ -1,6 +1,8 @@
 /* 
    Windows 95 Style en tonos grises 
    + Toques de azul para resaltar (sutil).
+
+   Ahora con variables CSS en los colores principales.
 */
 
 /* Reseteo básico */
@@ -10,11 +12,44 @@
   box-sizing: border-box;
 }
 
+/* ================================
+   VARIABLES DE COLOR
+   ================================ */
+:root {
+  /* Colores principales */
+  --color-bg-body: #C0C0C0;         /* Fondo gris Win95 */
+  --color-text: #000;               /* Texto negro */
+  --color-border-strong: #000;      /* Bordes fuertes (negro) */
+  --color-shadow-win95: #888;       /* Sombra gris más oscuro */
+  --color-shadow-inset: #999;       /* Sombra interna gris */
+  --color-bg-header: #E4E4E4;       /* Gris claro del header */
+  --color-bg-outset: #ddd;          /* Efecto 3D "outset" */
+  --color-bg-hover: #ccc;           /* Gris intermedio para hover */
+  --color-bg-active: #999;          /* Gris más oscuro para "active" */
+  --color-bg-special-blue: #B0B0FF; /* Azul clarito de resalte */
+  --color-bg-approve: #9AD0FF;      /* Azul clarito para aprobar */
+  --color-bg-reject: #FF9A9A;       /* Rojizo clarito para rechazar */
+
+  /* Colores complementarios */
+  --color-text-dim: #666;           /* Texto gris oscuro */
+  --color-border-dashed: #999;      /* Borde punteado o sombra interna */
+  --color-border-light: #aaa;       /* Borde claro intermedio */
+  --color-error: #C00;              /* Rojo para errores */
+
+  /* Fondos adicionales */
+  --color-bg-f4: #F4F4F4;
+  --color-bg-ec: #ECECEC;
+  --color-bg-d3: #D3D3D3;
+  --color-bg-d0: #D0D0D0;
+  --color-bg-e5: #E5E5E5;
+  --color-bg-dc: #DCDCDC;
+}
+
 /* BODY: Fondo gris Win95 */
 body {
   font-family: "Courier New", Courier, monospace;
-  background-color: #C0C0C0; /* Gris Win95 */
-  color: #000; /* Texto negro */
+  background-color: var(--color-bg-body);
+  color: var(--color-text);
 }
 
 /* Contenedor principal (gmail-container) */
@@ -22,18 +57,18 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  border: 2px solid #000;  /* Borde grueso al estilo 95 */
-  box-shadow: 4px 4px 0 #888;  /* Sombra plana gris más oscuro */
+  border: 2px solid var(--color-border-strong);
+  box-shadow: 4px 4px 0 var(--color-shadow-win95);
 }
 
 /* CABECERA (header) */
 .header {
   display: flex;
   align-items: center;
-  background-color: #E4E4E4; /* Gris claro */
-  border-bottom: 2px solid #000;
+  background-color: var(--color-bg-header);
+  border-bottom: 2px solid var(--color-border-strong);
   padding: 0.5rem;
-  box-shadow: inset 2px 2px 0 #999; /* Sombra interna */
+  box-shadow: inset 2px 2px 0 var(--color-shadow-inset);
 }
 
 /* Parte izquierda (logo + hamburguesa) */
@@ -41,12 +76,12 @@ body {
   font-size: 1rem;
   margin-right: 1rem;
   padding: 0.2rem 0.6rem;
-  border: 2px outset #ddd; 
-  background-color: #ddd;
+  border: 2px outset var(--color-bg-outset);
+  background-color: var(--color-bg-outset);
   cursor: pointer;
 }
 .header-left .hamburger:active {
-  border: 2px inset #999;
+  border: 2px inset var(--color-bg-active);
 }
 .header-left .logo {
   height: 32px;
@@ -62,31 +97,31 @@ body {
 .header-center input {
   width: 50%;
   padding: 0.2rem;
-  border: 2px inset #aaa;
-  background-color: #eee;
-  color: #000;
+  border: 2px inset var(--color-shadow-inset);
+  background-color: var(--color-bg-hover);
+  color: var(--color-text);
 }
 
 /* Parte derecha (botones apps/profile) */
 .header-right button {
   margin-left: 0.5rem;
   cursor: pointer;
-  border: 2px outset #ddd;
-  background-color: #ddd;
+  border: 2px outset var(--color-bg-outset);
+  background-color: var(--color-bg-outset);
   padding: 0.3rem 0.6rem;
 }
 .header-right button:active {
-  border: 2px inset #999;
+  border: 2px inset var(--color-bg-active);
 }
 
 /* INDICADORES (métricas) */
 .indicators {
   display: flex;
   justify-content: space-around;
-  background-color: #D0D0D0;
+  background-color: var(--color-bg-d0);
   padding: 0.5rem;
-  border-bottom: 2px solid #000;
-  box-shadow: inset 2px 2px 0 #999;
+  border-bottom: 2px solid var(--color-border-strong);
+  box-shadow: inset 2px 2px 0 var(--color-shadow-inset);
 }
 .indicators span {
   font-weight: bold;
@@ -103,17 +138,17 @@ body {
   display: flex;
   flex-direction: column;
   width: 220px;
-  background-color: #D3D3D3;
+  background-color: var(--color-bg-d3);
   padding: 1rem;
-  border-right: 2px solid #000;
-  box-shadow: inset 2px 2px 0 #999;
+  border-right: 2px solid var(--color-border-strong);
+  box-shadow: inset 2px 2px 0 var(--color-shadow-inset);
 }
 
 /* Botón "Redactar" (compose) */
 .compose {
-  border: 2px outset #ddd;
-  background-color: #ddd;
-  color: #000;
+  border: 2px outset var(--color-bg-outset);
+  background-color: var(--color-bg-outset);
+  color: var(--color-text);
   padding: 0.3rem 0.6rem;
   width: 100%;
   margin-bottom: 1rem;
@@ -122,7 +157,7 @@ body {
   text-align: center;
 }
 .compose:active {
-  border: 2px inset #999;
+  border: 2px inset var(--color-bg-active);
 }
 
 /* Lista lateral en sidebar */
@@ -135,46 +170,46 @@ body {
   cursor: pointer;
 }
 .sidebar li.active {
-  background-color: #B0B0FF; /* Toque de azul en item activo */
-  border: 1px inset #777;
+  background-color: var(--color-bg-special-blue); /* Toque de azul en item activo */
+  border: 1px inset #777; /* Podrías hacer otra var si quieres */
 }
 
 /* Reproductor de música en sidebar */
 .music-player-sidebar {
   margin-top: auto;
-  border-top: 2px dashed #999; 
+  border-top: 2px dashed var(--color-border-shadow-inset);
   padding-top: 1rem;
 }
 
 /* SECCIÓN DE CORREOS => email-section */
 .email-section {
   flex: 1;
-  background-color: #ECECEC;
-  box-shadow: inset 2px 2px 0 #999;
+  background-color: var(--color-bg-ec);
+  box-shadow: inset 2px 2px 0 var(--color-shadow-inset);
   padding: 0.3rem;
 }
 
 /* TABS */
 .tabs {
   display: flex;
-  border-bottom: 2px solid #000;
-  background-color: #ccc;
+  border-bottom: 2px solid var(--color-border-strong);
+  background-color: var(--color-bg-hover);
   padding: 0.3rem;
-  box-shadow: inset 2px 2px 0 #999;
+  box-shadow: inset 2px 2px 0 var(--color-shadow-inset);
 }
 .tab {
   margin-right: 0.2rem;
   padding: 0.3rem 0.6rem;
-  border: 2px outset #ddd;
-  background-color: #ddd;
+  border: 2px outset var(--color-bg-outset);
+  background-color: var(--color-bg-outset);
   cursor: pointer;
 }
 .tab:active {
-  border: 2px inset #999;
+  border: 2px inset var(--color-bg-active);
 }
 .tab.active {
-  border: 2px inset #999;
-  background-color: #B0B0FF; 
+  border: 2px inset var(--color-bg-active);
+  background-color: var(--color-bg-special-blue); 
   font-weight: bold;
 }
 
@@ -182,46 +217,46 @@ body {
 .email-list {
   flex: 1;
   overflow-y: auto;
-  background-color: #E5E5E5; 
-  border-top: 2px inset #999;
-  box-shadow: inset 2px 2px 0 #999;
+  background-color: var(--color-bg-e5);
+  border-top: 2px inset var(--color-shadow-inset);
+  box-shadow: inset 2px 2px 0 var(--color-shadow-inset);
   padding: 0.5rem;
 }
 .email-item {
   padding: 0.5rem;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid var(--color-border-light);
   cursor: pointer;
 }
 
 /* Correo no leído => bold + fondo clarito */
 .email-item.unread {
   font-weight: bold;
-  background-color: #F4F4F4;
+  background-color: var(--color-bg-f4);
 }
 
 /* Correo USADO (historial) */
 .email-item.used {
-  color: #666;
-  background-color: #ddd;
-  border-left: 2px solid #999;
+  color: var(--color-text-dim);
+  background-color: var(--color-bg-outset);
+  border-left: 2px solid var(--color-shadow-inset);
   cursor: default;
   margin-bottom: 0.3rem;
 }
 .used-decision {
   display: block;
   font-size: 0.8rem;
-  color: #444;
+  color: #444; /* Podrías usar otra var si quieres */
 }
 
 /* VISOR DE CORREO => .email-viewer */
 .email-viewer {
   width: 400px;
-  border-left: 2px solid #000;
+  border-left: 2px solid var(--color-border-strong);
   padding: 0.5rem;
-  background-color: #DCDCDC; 
+  background-color: var(--color-bg-dc);
   display: flex;
   flex-direction: column;
-  box-shadow: inset 2px 2px 0 #999;
+  box-shadow: inset 2px 2px 0 var(--color-shadow-inset);
   margin-left: 0.5rem;
 }
 .email-viewer h2 {
@@ -235,19 +270,19 @@ body {
   margin-right: 0.5rem;
   cursor: pointer;
   padding: 0.3rem 0.6rem;
-  border: 2px outset #ddd;
-  background-color: #ddd;
-  color: #000;
+  border: 2px outset var(--color-bg-outset);
+  background-color: var(--color-bg-outset);
+  color: var(--color-text);
   font-weight: bold;
 }
 .email-viewer button:active {
-  border: 2px inset #999;
+  border: 2px inset var(--color-bg-active);
 }
 .approve {
-  background-color: #9AD0FF; /* Azul clarito para "Aprobar" */
+  background-color: var(--color-bg-approve);
 }
 .reject {
-  background-color: #FF9A9A; /* Rojizo clarito para "Rechazar" */
+  background-color: var(--color-bg-reject);
 }
 
 /* EFECTO LUCES => .ligthsOut */
@@ -277,15 +312,15 @@ body {
 /* MUSIC PLAYER */
 .music-player-container {
   width: 100%;
-  background-color: #D3D3D3;
+  background-color: var(--color-bg-d3);
   padding: 0.5rem;
-  border: 2px inset #999;
+  border: 2px inset var(--color-shadow-inset);
 }
 
 .music-player-track-list h4 {
   font-size: 1rem;
   margin-bottom: 0.5rem;
-  color: #000;
+  color: var(--color-text);
 }
 .music-player-track-list ul {
   list-style-type: none;
@@ -296,18 +331,18 @@ body {
   padding: 0.5rem;
   cursor: pointer;
   font-size: 0.9rem;
-  color: #000;
-  border-bottom: 1px dashed #999;
+  color: var(--color-text);
+  border-bottom: 1px dashed var(--color-border-shadow-inset);
   transition: background-color 0.2s, color 0.2s;
 }
 .music-player-track-list .track-item:hover {
-  background-color: #ccc;
-  color: #000;
+  background-color: var(--color-bg-hover);
+  color: var(--color-text);
 }
 .music-player-track-list .track-item.active {
   font-weight: bold;
-  background-color: #9AD0FF; /* Azul clarito */
-  color: #000;
+  background-color: var(--color-bg-approve);
+  color: var(--color-text);
   border-radius: 4px;
 }
 .music-player-track-list .track-item.locked {
@@ -321,12 +356,12 @@ body {
 
 /* WEATHER CLOCK LOCATION */
 .weather-clock-location {
-  background-color: #D3D3D3; /* Gris */
-  border: 2px outset #999;
+  background-color: var(--color-bg-d3);
+  border: 2px outset var(--color-shadow-inset);
   padding: 1rem;
   margin: 1rem;
-  color: #000;
-  box-shadow: 4px 4px 0 #666; /* Sombra 3D */
+  color: var(--color-text);
+  box-shadow: 4px 4px 0 #666; /* Sombra 3D, si quieres podrías cambiar a var también. */
 }
 .weather-clock-location h2 {
   font-size: 1.2rem;
@@ -337,7 +372,7 @@ body {
   margin: 0.3rem 0;
 }
 .error {
-  color: #C00; /* Rojo para errores */
+  color: var(--color-error);
   font-weight: bold;
 }
 
@@ -355,24 +390,24 @@ body {
 
 .popup95-window {
   width: 400px;
-  background-color: #ddd;
-  border: 2px outset #999;
+  background-color: var(--color-bg-outset);
+  border: 2px outset var(--color-shadow-inset);
   box-shadow: 4px 4px 0 #666;
   position: relative;
 }
 
 .popup95-titlebar {
-  background-color: #ccc;
+  background-color: var(--color-bg-hover);
   padding: 0.3rem;
-  border-bottom: 2px solid #999;
+  border-bottom: 2px solid var(--color-shadow-inset);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .popup95-closeBtn {
-  border: 2px outset #ddd;
-  background-color: #ddd;
+  border: 2px outset var(--color-bg-outset);
+  background-color: var(--color-bg-outset);
   cursor: pointer;
 }
 
@@ -386,14 +421,14 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  pointer-events: none; /* No interfiere con los clics */
-  z-index: 9999; /* Encima de todo */
-  opacity: 0; /* Oculto por defecto */
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
   transition: opacity 0.2s ease-in-out;
 }
 
 .glitch-container.glitch-active {
-  opacity: 1; /* Visible cuando está activo */
+  opacity: 1;
 }
 
 /* Capas del glitch */
@@ -401,31 +436,28 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: inherit; /* Puede ajustarse si no funciona */
-  mix-blend-mode: hue; /* Mezcla los colores */
-  animation: glitch-animation 0.2s infinite; /* Animación constante */
+  background: inherit; 
+  mix-blend-mode: hue; 
+  animation: glitch-animation 0.2s infinite;
 }
-
 .glitch-overlay:nth-child(2) {
   transform: translate(5px, -5px);
-  filter: hue-rotate(90deg); /* Cambia el tono */
+  filter: hue-rotate(90deg);
   animation-delay: 0.05s;
 }
-
 .glitch-overlay:nth-child(3) {
   transform: translate(-5px, 5px);
-  filter: hue-rotate(-90deg); /* Cambia el tono */
+  filter: hue-rotate(-90deg);
   animation-delay: 0.1s;
 }
 
-/* Animación del glitch */
 @keyframes glitch-animation {
   0%, 100% {
     clip-path: inset(0% 0% 0% 0%);
     transform: none;
   }
   33% {
-    clip-path: inset(10% 5% 80% 5%); /* Recortes aleatorios */
+    clip-path: inset(10% 5% 80% 5%);
     transform: translate(3px, -3px);
   }
   66% {
@@ -445,13 +477,13 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 9999;
-  background-color: #C0C0C0; /* Gris clásico de Win95 */
-  color: #000; /* Texto negro */
+  background-color: var(--color-bg-body);
+  color: var(--color-text);
   padding: 15px 25px;
-  border: 2px outset #fff; /* Borde 3D estilo Win95 */
-  box-shadow: 4px 4px 0 #666; /* Sombra para efecto 3D */
+  border: 2px outset #fff;
+  box-shadow: 4px 4px 0 #666;
   text-align: center;
-  font-family: "Courier New", Courier, monospace; /* Fuente retro */
+  font-family: "Courier New", Courier, monospace;
 }
 
 .important-message-content {
@@ -464,16 +496,38 @@ body {
 .close-button {
   margin-top: 15px;
   padding: 5px 15px;
-  border: 2px outset #ddd; /* Botón clásico Win95 */
-  background-color: #ddd;
-  color: #000;
+  border: 2px outset var(--color-bg-outset);
+  background-color: var(--color-bg-outset);
+  color: var(--color-text);
   font-size: 14px;
   cursor: pointer;
   font-weight: bold;
   text-align: center;
 }
-
 .close-button:active {
-  border: 2px inset #999; /* Cambio de estado activo */
-  background-color: #ccc;
+  border: 2px inset var(--color-bg-active);
+  background-color: var(--color-bg-hover);
+}
+
+/* Imágenes de las pestañas */
+.tab-icon {
+  height: 1em;
+  margin-left: 0.3rem;
+  vertical-align: middle;
+  object-fit: contain;
+  transform: scale(1.5);
+  transform-origin: center;
+}
+
+.broken-screen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 9999; /* Siempre por encima */
+  pointer-events: none; /* No interfiere con clics */
 }
