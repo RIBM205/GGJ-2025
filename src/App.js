@@ -1705,6 +1705,60 @@ const handleFinalOutcome = () => {
       handleToggleStarPromo(emailId);
     }
   };
+ // Inside your App component
+
+const resetGame = () => {
+  setCredibilidad(100);
+  setPolarizacion(50);
+  setEconomia(70);
+  setActiveList("principal");
+  setShowComposePopup(false);
+  setComposeText("");
+  setShowErrorPopup(false);
+  setErrorMessage("");
+  setCurrentLine(null);
+  setCurrentStepIndex(null);
+  setUsedSteps([]);
+  setSelectedEmail(null);
+  setSocialPool(initialSocialPool);
+  setSelectedEmailSocial(null);
+  setPromotionsPool(initialPromotionsPool);
+  setSelectedEmailPromo(null);
+  setSelectedEmailStarred(null);
+  setPopupMessage("");
+  setShowPopup(false);
+  setGlitchActive(false);
+  setShowStartMenu(true);
+  setShowOptionsMenu(false);
+  setVolume(50);
+  setIsMuted(false);
+  setShowMenu(false);
+  setMusicVolume(50);
+  setSfxVolume(50);
+  setIsMusicMuted(false);
+  setIsSfxMuted(false);
+  setShowTutorial(true);
+  setIsVisible(false);
+  setMessage("");
+  
+  // Pause and reset any playing audio
+  if (clickAudioRef.current) {
+    clickAudioRef.current.pause();
+    clickAudioRef.current.currentTime = 0;
+  }
+  if (audioErrorRef.current) {
+    audioErrorRef.current.pause();
+    audioErrorRef.current.currentTime = 0;
+  }
+  if (importantAudioRef.current) {
+    importantAudioRef.current.pause();
+    importantAudioRef.current.currentTime = 0;
+  }
+  if (newAudioMail.current) {
+    newAudioMail.current.pause();
+    newAudioMail.current.currentTime = 0;
+  }
+};
 
   let starredEmails = [];
   if (activeList === "starred") {
