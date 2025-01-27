@@ -534,29 +534,14 @@ body {
   pointer-events: none; /* Doesn't interfere with clicks */
 }
 
-.start-menu {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  text-align: center;
-}
 
 .menu-background {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
+  width: auto;
+  height: auto;
+  z-index: 1;
 }
 
 .menu-buttons {
@@ -667,16 +652,12 @@ body {
   background: #ff6666;
 }
 
-/* =========================
-   Start Menu
-   ========================= */
+
    .start-menu {
-    /* Make it a Win95-type popup style */
+
     position: fixed;
-    top: 0; 
-    left: 0;
-    width: 400px;
-    height: auto;
+    width: 90vw;
+    height: 50vh;
     background-color: var(--color-bg-outset);
     border: 2px outset var(--color-shadow-inset);
     box-shadow: 4px 4px 0 var(--color-shadow-win95);
