@@ -174,7 +174,7 @@ const storylineAccesoGlobal = [
     options: [
       {
         label: "A) Prohibit weaponry use",
-        cred: +25,
+        cred: +15,
         econ: -10,
         polar: +20,
         nextStep: "1.3",
@@ -199,7 +199,7 @@ const storylineAccesoGlobal = [
       },
       {
         label: "B) Allow freedom",
-        cred: -25,
+        cred: -15,
         econ: +20,
         polar: 0,
         nextStep: "1.3",
@@ -224,8 +224,8 @@ const storylineAccesoGlobal = [
       },
       {
         label: "C) Sell licenses selectively",
-        cred: -10,
-        econ: +15,
+        cred: 0,
+        econ: +5,
         polar: +30,
         nextStep: "1.3",
         socialEmails: [
@@ -287,9 +287,9 @@ const storylineAccesoGlobal = [
       },
       {
         label: "B) Keep accusations confidential",
-        cred: -25,
-        econ: +15,
-        polar: +20,
+        cred: -15,
+        econ: +10,
+        polar: 0,
         nextStep: "1.4",
         socialEmails: [
           {
@@ -312,9 +312,9 @@ const storylineAccesoGlobal = [
       },
       {
         label: "C) Propose a joint investigation",
-        cred: +30,
+        cred: 0,
         econ: -10,
-        polar: 0,
+        polar: -10,
         nextStep: "1.4",
         socialEmails: [
           {
@@ -350,9 +350,9 @@ const storylineAccesoGlobal = [
     options: [
       {
         label: "A) Publish accusations",
-        cred: -20,
+        cred: +20,
         econ: -15,
-        polar: +30,
+        polar: +10,
         nextStep: "1.4",
         socialEmails: [
           {
@@ -1595,7 +1595,7 @@ const handleFinalOutcome = () => {
   finalAudio.play().catch(() => {});
 
   // Activa un efecto visual (puedes usar `triggerGlitchEffect` o crear uno nuevo)
-  resetGame();
+  triggerGlitchEffect(5000);
 };
 
   const handleLineDecision = (option) => {
@@ -1652,7 +1652,7 @@ const handleFinalOutcome = () => {
         handleFinalOutcome();
       }
     } else {
-      resetGame();
+      alert("You've reached an ending (or the next step was not found).");
       setSelectedEmail(null);
     }
   };
@@ -1730,7 +1730,13 @@ const resetGame = () => {
   setGlitchActive(false);
   setShowStartMenu(true);
   setShowOptionsMenu(false);
+  setVolume(50);
+  setIsMuted(false);
   setShowMenu(false);
+  setMusicVolume(50);
+  setSfxVolume(50);
+  setIsMusicMuted(false);
+  setIsSfxMuted(false);
   setShowTutorial(true);
   setIsVisible(false);
   setMessage("");

@@ -20,11 +20,11 @@ const WeatherClockLocation = () => {
           fetchWeather(latitude, longitude);
         },
         (err) => {
-          setError("Could not access location.");
+          setError("No se pudo acceder a la ubicación.");
         }
       );
     } else {
-      setError("Geolocation not supported.");
+      setError("Geolocalización no soportada.");
     }
   }, []);
 
@@ -32,7 +32,7 @@ const WeatherClockLocation = () => {
     try {
       const apiKey = "cd4bf4c33cd4521c23ea93e303b5accf";
       const resp = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=en&appid=${apiKey}`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=es&appid=${apiKey}`
       );
       const data = await resp.json();
       if (resp.ok) {
@@ -42,23 +42,23 @@ const WeatherClockLocation = () => {
           city: data.name,
         });
       } else {
-        setError("Could not retrieve weather.");
+        setError("No se pudo obtener el clima.");
       }
     } catch (e) {
-      setError("Error fetching weather.");
+      setError("Error al obtener el clima.");
     }
   };
 
   return (
     <div className="weather-clock-location">
       <div className="clock">
-        <h2>Current Time</h2>
+        <h2>Hora actual</h2>
         <p>{time.toLocaleTimeString()}</p>
       </div>
 
       {location && (
         <div className="location">
-          <h2>Location</h2>
+          <h2>Ubicación</h2>
           <p>
             Lat: {location.latitude.toFixed(2)}, Lon:{" "}
             {location.longitude.toFixed(2)}
@@ -68,7 +68,7 @@ const WeatherClockLocation = () => {
 
       {weather && (
         <div className="weather">
-          <h2>Weather</h2>
+          <h2>Clima</h2>
           <p>
             {weather.city}: {weather.temperature}°C, {weather.description}
           </p>
