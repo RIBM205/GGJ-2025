@@ -430,7 +430,7 @@ const storylineAccesoGlobal = [
     
   },
   {
-    id: "1.5",
+    id: "1.4",
     subject: "Democratic governance",
     content: `As global tensions continue to mount, a proposal has been made to establish a democratic global committee to oversee and manage the revolutionary technology. 
     
@@ -986,179 +986,299 @@ const storylineMonopolio = [
 ];
 
 const storylineRegulada = [
-    {
-      id: "2.1",
-      subject: "Quota system controversy",
-      content: `The international committee is under fire as several nations accuse it of favoring economic powers in the distribution of resources derived from the revolutionary technology. Critics argue that the current quota system perpetuates inequality, while proponents claim it ensures efficiency and stability. 
-    
-    Should we defend the existing system, propose a redistribution to address inequities, or leave the matter to individual governments? Each path will shape the future of this committee—and the trust it commands.`,
-      snippet: "Maintain quotas, redistribute, or leave to governments?",
-      options: [
-        {
-          label: "A) Maintain current system",
-          cred: 0,
-          econ: +10,
-          polar: +15,
-          nextStep: "2.2",
-          socialEmails: [
-            {
-              subject: "Support for Current Quotas Divides Opinion",
-              snippet: "Defending the status quo sparks debate.",
-              content: `By supporting the current quota system, we have reinforced the trust of major economic powers, who applaud our commitment to stability and efficiency. 
-    
-              However, smaller nations accuse the committee of prioritizing the interests of wealthier countries. Protests are breaking out in various regions, with calls for a more equitable approach to resource distribution growing louder. Can this system survive the mounting criticism?`,
-            },
-          ],
-          promoEmails: [
-            {
-              subject: "Efficient Allocation Ensured Under Current Quotas",
-              snippet: "Innovation meets stability.",
-              content: `Our decision to uphold the current quotas allows us to continue delivering resources where they are most needed for growth and progress.
-    
-              Discover opportunities to collaborate under a stable and efficient framework.`,
-            },
-          ],
-        },
-        {
-          
-            label: "B) Redistribute resources",
-            cred: +20,
-            econ: -15,
-            polar: -5,
-            nextStep: "2.2",
-            socialEmails: [
-              {
-                subject: "Redistribution Sparks Praise and Concern",
-                snippet: "Equity vs. efficiency debate intensifies.",
-                content: `In a bold move, the committee has decided to advocate for the redistribution of resources, prioritizing equity over traditional efficiency models. Developing nations and equality advocates have lauded this decision, calling it a step toward justice.
-          
-                "This marks a turning point for global fairness," remarked a prominent economist supporting the redistribution effort. Protests demanding more inclusive policies have subsided in several regions, signaling widespread approval from previously marginalized nations.
-          
-                However, this decision has not come without backlash. Economic powers argue that redistributing resources jeopardizes global stability and diminishes innovation. Some nations have begun threatening to withdraw from trade agreements, citing a loss of trust in the committee's leadership. The tension between equity and efficiency has never been more palpable.`,
-              },
-              {
-                subject: "Developing Nations Applaud Redistribution",
-                snippet: "A step toward reducing inequalities.",
-                content: `For decades, smaller economies have struggled to keep up with the technological advances of larger nations. Our recent decision to redistribute resources is being hailed as a long-overdue step toward leveling the playing field.
-          
-                Grassroots organizations in developing regions have expressed overwhelming support, with one activist stating, "Finally, we have a chance to compete on equal footing." However, critics warn that this decision could reduce incentives for innovation among wealthier nations, sparking debates about long-term consequences.
-          
-                As the policy begins to take effect, the world watches closely to see whether equity and growth can truly coexist.`,
-              },
-            ],
-            promoEmails: [
-              {
-                subject: "Empowering Equal Access Through Redistribution",
-                snippet: "Building a fairer future.",
-                content: `By committing to a policy of resource redistribution, we are forging a path toward a more inclusive global system. This decision ensures that even the smallest nations gain access to the tools and technologies necessary for transformative growth.
-          
-                Redistribution isn't just about fairness; it's about unlocking untapped potential worldwide. With equal access to resources, innovation can emerge from the most unexpected corners of the globe.
-          
-                We invite you to join us in supporting this initiative to build a future where no nation is left behind. Together, we can redefine the global narrative and foster a truly interconnected world.`,
-              },
-              {
-                subject: "Transformative Opportunities for All Nations",
-                snippet: "Special offers for equitable development.",
-                content: `As part of the global redistribution initiative, we are launching a series of promotions aimed at empowering nations previously left behind in the technological race. These exclusive deals include discounted access to cutting-edge tools, infrastructure support, and collaborative research platforms.
-          
-                By participating in this initiative, you are not just investing in technology—you are investing in a more balanced, equitable future for everyone. Together, we can turn the promise of redistribution into reality, fostering growth and innovation where it is needed most.`,
-              },
-            ],
+  {
+    id: "2.1",
+    subject: "Quota system controversy",
+    content: `The international committee is under fire as several nations accuse it of favoring economic powers in the distribution of resources derived from the revolutionary technology. Critics argue that the current quota system perpetuates inequality, while proponents claim it ensures efficiency and stability.
+  
+  Should we defend the existing system, propose a redistribution to address inequities, or leave the matter to individual governments? Each path will shape the future of this committee—and the trust it commands.`,
+    snippet: "Maintain quotas, redistribute, or leave to governments?",
+    options: [
+      {
+        label: "A) Maintain current system",
+        cred: -15,
+        econ: +15,
+        polar: +25,
+        nextStep: "2.2",
+        socialEmails: [
+          {
+            subject: "Support for Current Quotas Divides Opinion",
+            snippet: "Defending the status quo sparks debate.",
+            content: `By supporting the current quota system, we have reinforced the trust of major economic powers, who applaud our commitment to stability and efficiency.
+  
+  However, smaller nations accuse the committee of prioritizing the interests of wealthier countries. Protests are breaking out in various regions, with calls for a more equitable approach to resource distribution growing louder. Can this system survive the mounting criticism?`
           },
-          
-        {
-          label: "C) Leave to governments",
-          cred: -5,
-          econ: +5,
-          polar: +20,
-          nextStep: "2.2",
-          socialEmails: [
-            {
-              subject: "Decentralization Sparks Chaos",
-              snippet: "Governments clash over resource control.",
-              content: `Our decision to leave resource distribution to individual governments has caused a surge in geopolitical conflicts. 
-    
-              "This is a recipe for disaster," warned one analyst, as powerful nations begin leveraging their influence to secure larger shares of resources. Smaller nations feel abandoned, and trust in the committee's ability to lead is rapidly eroding.`,
-            },
-          ],
-          promoEmails: [
-            {
-              subject: "Decentralized Solutions for Local Needs",
-              snippet: "Flexibility for governments.",
-              content: `By stepping back and allowing governments to take control, we ensure resources are distributed according to local priorities.
-    
-              Explore the opportunities for independent collaboration under this new approach.`,
-            },
-          ],
-        },
-      ],
-    
+        ],
+        promoEmails: [
+          {
+            subject: "Efficient Allocation Ensured Under Current Quotas",
+            snippet: "Innovation meets stability.",
+            content: `Our decision to uphold the current quotas allows us to continue delivering resources where they are most needed for growth and progress.
+  
+  Discover opportunities to collaborate under a stable and efficient framework.`
+          },
+        ],
+      },
+      {
+        label: "B) Redistribute resources",
+        cred: +25,
+        econ: -15,
+        polar: -15,
+        nextStep: "2.2",
+        socialEmails: [
+          {
+            subject: "Redistribution Sparks Praise and Concern",
+            snippet: "Equity vs. efficiency debate intensifies.",
+            content: `In a bold move, the committee has decided to advocate for the redistribution of resources, prioritizing equity over traditional efficiency models. Developing nations and equality advocates have lauded this decision, calling it a step toward justice.
+  
+  "This marks a turning point for global fairness," remarked a prominent economist supporting the redistribution effort. Protests demanding more inclusive policies have subsided in several regions, signaling widespread approval from previously marginalized nations.
+  
+  However, this decision has not come without backlash. Economic powers argue that redistributing resources jeopardizes global stability and diminishes innovation. Some nations have begun threatening to withdraw from trade agreements, citing a loss of trust in the committee's leadership. The tension between equity and efficiency has never been more palpable.`
+          },
+          {
+            subject: "Developing Nations Applaud Redistribution",
+            snippet: "A step toward reducing inequalities.",
+            content: `For decades, smaller economies have struggled to keep up with the technological advances of larger nations. Our recent decision to redistribute resources is being hailed as a long-overdue step toward leveling the playing field.
+  
+  Grassroots organizations in developing regions have expressed overwhelming support, with one activist stating, "Finally, we have a chance to compete on equal footing." However, critics warn that this decision could reduce incentives for innovation among wealthier nations, sparking debates about long-term consequences.
+  
+  As the policy begins to take effect, the world watches closely to see whether equity and growth can truly coexist.`
+          },
+        ],
+        promoEmails: [
+          {
+            subject: "Empowering Equal Access Through Redistribution",
+            snippet: "Building a fairer future.",
+            content: `By committing to a policy of resource redistribution, we are forging a path toward a more inclusive global system. This decision ensures that even the smallest nations gain access to the tools and technologies necessary for transformative growth.
+  
+  Redistribution isn't just about fairness; it's about unlocking untapped potential worldwide. With equal access to resources, innovation can emerge from the most unexpected corners of the globe.
+  
+  We invite you to join us in supporting this initiative to build a future where no nation is left behind. Together, we can redefine the global narrative and foster a truly interconnected world.`
+          },
+          {
+            subject: "Transformative Opportunities for All Nations",
+            snippet: "Special offers for equitable development.",
+            content: `As part of the global redistribution initiative, we are launching a series of promotions aimed at empowering nations previously left behind in the technological race. These exclusive deals include discounted access to cutting-edge tools, infrastructure support, and collaborative research platforms.
+  
+  By participating in this initiative, you are not just investing in technology—you are investing in a more balanced, equitable future for everyone. Together, we can turn the promise of redistribution into reality, fostering growth and innovation where it is needed most.`
+          },
+        ],
+      },
+      {
+        label: "C) Leave to governments",
+        cred: -15,
+        econ: +15,
+        polar: +20,
+        nextStep: "2.2",
+        socialEmails: [
+          {
+            subject: "Decentralization Sparks Chaos",
+            snippet: "Governments clash over resource control.",
+            content: `Our decision to leave resource distribution to individual governments has caused a surge in geopolitical conflicts.
+  
+  "This is a recipe for disaster," warned one analyst, as powerful nations begin leveraging their influence to secure larger shares of resources. Smaller nations feel abandoned, and trust in the committee's ability to lead is rapidly eroding.`
+          },
+        ],
+        promoEmails: [
+          {
+            subject: "Decentralized Solutions for Local Needs",
+            snippet: "Flexibility for governments.",
+            content: `By stepping back and allowing governments to take control, we ensure resources are distributed according to local priorities.
+  
+  Explore the opportunities for independent collaboration under this new approach.`
+          },
+        ],
+      },
+    ],
   },
+  
   {
     id: "2.2",
     subject: "Prioritization dilemma",
-    content: `Energy resources are being disproportionately used for industrial growth rather than addressing humanitarian crises. 
-Which sector should take priority?`,
+    content: `Energy resources are being disproportionately used for industrial growth rather than addressing humanitarian crises.
+  Which sector should take priority?`,
     snippet: "Prioritize humanitarian or industrial use?",
     options: [
       {
         label: "A) Prioritize humanitarian needs",
         cred: +15,
         econ: -20,
-        polar: 0,
+        polar: -15,
         nextStep: "2.3",
+        socialEmails: [
+          {
+            subject: "Global Praise for Compassion Over Profit",
+            snippet: "Commendations from humanitarian groups.",
+            content: `Your decision to channel critical energy resources into humanitarian aid has resonated worldwide.
+              
+  "At last, a leadership that values human lives above industrial gains," said a spokesperson from a major relief organization.
+              
+  However, industrial stakeholders warn of potential setbacks in research and development. Many wonder if this approach, although morally commendable, could hinder technological progress.`
+          },
+        ],
+        promoEmails: [
+          {
+            subject: "Join the Humanitarian Initiative",
+            snippet: "Put people first—make an immediate impact.",
+            content: `By prioritizing the wellbeing of vulnerable populations, we're ushering in a new era of empathy-driven progress.
+              
+  Don't miss this opportunity to partner with us in delivering life-saving resources to those who need them most. Together, we can fuel hope and inspire global unity!`
+          },
+        ],
       },
       {
         label: "B) Prioritize industrial growth",
-        cred: -10,
+        cred: -15,
         econ: +20,
-        polar: +10,
+        polar: +15,
         nextStep: "2.3",
+        socialEmails: [
+          {
+            subject: "Critics Condemn Focus on Industry",
+            snippet: "Humanitarian needs left behind?",
+            content: `Your choice to funnel energy resources into industrial growth at the expense of urgent humanitarian efforts has sparked fierce backlash on social media.
+              
+  "Corporate greed on a global scale," one angry activist declared.
+              
+  Despite the protests, some business leaders celebrate your bold stance, predicting an era of unprecedented technological advances and economic gains.`
+          },
+        ],
+        promoEmails: [
+          {
+            subject: "Seize Industrial Opportunities Now",
+            snippet: "Innovation, expansion, and unparalleled profits.",
+            content: `Take advantage of the surge in energy allocated to the industrial sector.
+              
+  This is your chance to invest in groundbreaking technologies and secure a top spot in a rapidly evolving global market. Act fast—progress waits for no one!`
+          },
+        ],
       },
       {
         label: "C) Strike a balance",
-        cred: +5,
-        econ: -10,
-        polar: +5,
+        cred: +20,
+        econ: -15,
+        polar: +15,
         nextStep: "2.3",
+        socialEmails: [
+          {
+            subject: "Mixed Reactions to Compromise Approach",
+            snippet: "Is balance the best or worst of both worlds?",
+            content: `By attempting to balance humanitarian priorities with industrial expansion, you've sparked a lively debate.
+              
+  Some praise the middle-ground approach, saying it shows compassion without stifling innovation. Others argue it's a hesitant strategy that might fail to fully solve either crisis.
+              
+  "The committee is trying to do too many things at once," says one critic, questioning whether resources will be spread too thin.`
+          },
+        ],
+        promoEmails: [
+          {
+            subject: "A New Era of Shared Progress",
+            snippet: "Collaborate for humanitarian and industrial gains.",
+            content: `We believe in a future where humanity and industry grow hand in hand.
+              
+  Be part of an initiative that balances cutting-edge development with crucial humanitarian support. Join us to help shape a sustainable model that fosters both innovation and global well-being!`
+          },
+        ],
       },
     ],
   },
+  
   {
     id: "2.3",
     subject: "Transparency demands",
-    content: `Activist groups are demanding full transparency of the committee's agreements with governments. 
-How should we respond?`,
+    content: `Activist groups are demanding full transparency of the committee's agreements with governments.
+  How should we respond?`,
     snippet: "Reveal, redact, or maintain confidentiality?",
     options: [
       {
         label: "A) Publish all agreements",
-        cred: +10,
-        econ: -10,
+        cred: +15,
+        econ: -15,
         polar: -15,
         nextStep: "2.4",
+        socialEmails: [
+          {
+            subject: "Activists Applaud Full Disclosure",
+            snippet: "A triumph for openness or a threat to strategy?",
+            content: `Your decision to publish all agreements in full has garnered international support from transparency advocates and activist groups. 
+              
+  "Finally, proof that honesty can prevail in global governance," said one prominent watchdog organization. 
+              
+  However, some government officials warn that revealing every detail could strain diplomatic ties, potentially jeopardizing future collaborations.`
+          },
+        ],
+        promoEmails: [
+          {
+            subject: "Full Disclosure, Full Confidence",
+            snippet: "Show the world your unwavering commitment to integrity.",
+            content: `By choosing total transparency, you've taken a bold stand for accountability and public trust. 
+              
+  Highlight your brand as one that values honesty—partners and investors will appreciate your dedication to an open exchange of information in a rapidly evolving global market.`
+          },
+        ],
       },
       {
         label: "B) Maintain confidentiality",
-        cred: -10,
-        econ: 0,
-        polar: +15,
+        cred: -15,
+        econ: +15,
+        polar: +20,
         nextStep: "2.4",
+        socialEmails: [
+          {
+            subject: "Secrecy Sparks Outrage",
+            snippet: "Critics accuse you of hiding critical details.",
+            content: `Opting to keep agreements confidential has incited protests and online campaigns demanding accountability. 
+              
+  "Secret deals erode public trust," declared a leading civil rights organization. 
+              
+  Nonetheless, business stakeholders applaud your caution, citing potential risks to competitive advantage and national security if sensitive information were made public.`
+          },
+        ],
+        promoEmails: [
+          {
+            subject: "Protected Deals, Protected Interests",
+            snippet: "Confidentiality as a strategic advantage.",
+            content: `By safeguarding key information, you ensure that competitive insights and sensitive negotiations remain secure. 
+              
+  In an era of escalating global tensions, maintaining confidentiality can be a defining edge—assuring partners that critical data won't fall into the wrong hands.`
+          },
+        ],
       },
       {
         label: "C) Publish partially redacted agreements",
-        cred: 0,
-        econ: -5,
-        polar: +10,
+        cred: +15,
+        econ: -15,
+        polar: +15,
         nextStep: "2.4",
+        socialEmails: [
+          {
+            subject: "Partial Transparency: Enough or Not?",
+            snippet: "Mixed reactions to selective disclosure.",
+            content: `Your decision to release some details while withholding others has prompted a range of responses. 
+              
+  Proponents say it's a balanced approach that respects both public demand for transparency and governmental need for secrecy. Critics argue that hiding any portion of the agreements undermines the spirit of openness.
+              
+  "What else are they not telling us?" one analyst asked, reflecting widespread uncertainty.`
+          },
+        ],
+        promoEmails: [
+          {
+            subject: "A Balanced Approach to Public Trust",
+            snippet: "Reveal critical info while safeguarding sensitive data.",
+            content: `By opting for a partially redacted release, you demonstrate a nuanced commitment to informing the public without jeopardizing delicate negotiations. 
+              
+  Show stakeholders you can strike the right balance—building credibility and maintaining strategic flexibility in a highly scrutinized environment.`
+          },
+        ],
       },
     ],
   },
+  
   {
     id: "2.4",
     subject: "International conflict resolution",
-    content: `Two major powers are locked in a dispute over access to the technology. 
-Should we intervene, mediate, or allow them to resolve it independently?`,
+    content: `Two major powers are locked in a dispute over access to the technology.
+  Should we intervene, mediate, or allow them to resolve it independently?`,
     snippet: "Intervene, mediate, or let them handle it?",
     options: [
       {
@@ -1167,60 +1287,162 @@ Should we intervene, mediate, or allow them to resolve it independently?`,
         econ: -15,
         polar: -20,
         nextStep: "2.5",
+        socialEmails: [
+          {
+            subject: "World Divided Over Intervention",
+            snippet: "Decisive action or unwarranted intrusion?",
+            content: `The committee's direct intervention has triggered international controversy. 
+              
+  "You're playing with fire," warns one geopolitical analyst, while others commend the decisive stand against further escalation. Many fear an overstep could lead to broader conflicts—yet supporters argue it's the only way to ensure a swift resolution.`
+          },
+        ],
+        promoEmails: [
+          {
+            subject: "Immediate Action, Lasting Impact",
+            snippet: "Secure leadership in global crisis management.",
+            content: `By intervening directly, you've positioned the committee as a powerful entity willing to act in times of crisis. 
+              
+  Partner with us to leverage this bold stance and demonstrate strong leadership to stakeholders who value stability and decisive governance.`
+          },
+        ],
       },
       {
         label: "B) Propose mediation",
-        cred: +10,
-        econ: -10,
-        polar: -10,
+        cred: +15,
+        econ: -15,
+        polar: -15,
         nextStep: "2.5",
+        socialEmails: [
+          {
+            subject: "Diplomacy Gains Ground",
+            snippet: "Praise for seeking a peaceful resolution.",
+            content: `Your proposal to mediate the dispute has been welcomed by many nations, especially those fatigued by escalating tensions. 
+              
+  "Finally, a chance to cool things down," tweeted a foreign policy expert. Others worry that mediation may delay a definitive outcome, prolonging uncertainty and halting economic progress.`
+          },
+        ],
+        promoEmails: [
+          {
+            subject: "Broker Peace and Prosperity",
+            snippet: "Collaborate for stability and growth.",
+            content: `By stepping in as a mediator, you open doors for diplomatic collaboration and shared interests. 
+              
+  This approach can bolster your reputation as a bridge-builder—attracting support from governments, NGOs, and industries seeking steady, conflict-free growth.`
+          },
+        ],
       },
       {
         label: "C) Do not intervene",
-        cred: -10,
-        econ: 0,
-        polar: +15,
+        cred: -15,
+        econ: +15,
+        polar: +20,
         nextStep: "2.5",
+        socialEmails: [
+          {
+            subject: "Global Silence Fuels Tensions",
+            snippet: "Critics fear uncontrolled escalation.",
+            content: `Your choice to remain on the sidelines has sparked warnings of an unchecked power struggle. 
+              
+  "Without intervention, both sides could intensify their standoff," states a concerned international observer. Some applaud the committee for respecting national sovereignty, but many worry about the humanitarian and economic fallout if tensions escalate.`
+          },
+        ],
+        promoEmails: [
+          {
+            subject: "Opportunity in Neutrality",
+            snippet: "Stay clear of conflict. Focus on profit.",
+            content: `Remaining uninvolved preserves your resources and keeps you away from international entanglements. 
+              
+  For investors and partners seeking a more pragmatic approach, neutrality can offer stability—allowing you to keep your focus on economic growth without the burdens of diplomatic crises.`
+          },
+        ],
       },
     ],
-  },
-  {
-    id: "2.5",
-    subject: "Internal vs external conflicts",
-    content: `Internal disagreements within the committee are rising, while international tensions worsen. 
+  },{
+  id: "2.5",
+  subject: "Internal vs external conflicts",
+  content: `Internal disagreements within the committee are rising, while international tensions worsen.
 Where should we focus our efforts?`,
-    snippet: "Resolve internal or external disputes?",
-    options: [
-      {
-        label: "A) Resolve internal conflicts",
-        cred: -10,
-        econ: 0,
-        polar: -10,
-        nextStep: "end",
-      },
-      {
-        label: "B) Focus on external tensions",
-        cred: +15,
-        econ: 0,
-        polar: +10,
-        nextStep: "end",
-      },
-      {
-        label: "C) Balance both efforts",
-        cred: +5,
-        econ: -10,
-        polar: -5,
-        nextStep: "end",
-      },
-    ],
-  },
-  {
-    id: "end",
-    subject: "Final Outcome",
-    content: `Evaluate the final state of credibility, economy, and polarization to determine the ending.`,
-    snippet: "Your decisions lead to the final outcome.",
-    options: [],
-  },
+  snippet: "Resolve internal or external disputes?",
+  options: [
+    {
+      label: "A) Resolve internal conflicts",
+      cred: -15,
+      econ: -15,
+      polar: -15,
+      nextStep: "end",
+      socialEmails: [
+        {
+          subject: "A House Divided: Internal Strife Exposed",
+          snippet: "Critics worry about global repercussions.",
+          content: `By dedicating resources to resolving internal committee disputes, you're aiming to restore unity and trust within the organization. 
+            
+However, critics argue that turning inward ignores pressing global challenges. "While they bicker internally, the world waits," wrote one frustrated commentator, warning that a lack of external engagement could lead to bigger issues down the road.`
+        },
+      ],
+      promoEmails: [
+        {
+          subject: "Stabilize from Within",
+          snippet: "Regain trust through internal harmony.",
+          content: `Show the world a united front by addressing disputes head-on. 
+            
+When internal conflicts are resolved, we pave the way for focused leadership and clearer decision-making—benefits that resonate beyond the organization. Together, let's rebuild a committee that can effectively meet global expectations.`
+        },
+      ],
+    },
+    {
+      label: "B) Focus on external tensions",
+      cred: +15,
+      econ: -15,
+      polar: +20,
+      nextStep: "end",
+      socialEmails: [
+        {
+          subject: "Global Outreach or Internal Neglect?",
+          snippet: "Committee splits on where to concentrate efforts.",
+          content: `Prioritizing external conflicts has positioned the committee as an active global player seeking to prevent further international crises. 
+            
+However, some members feel internal issues remain unresolved. "They're putting a global spotlight on diplomacy, yet neglecting their own backyard," said one insider, highlighting concerns about long-term organizational stability.`
+        },
+      ],
+      promoEmails: [
+        {
+          subject: "Leading the World Stage",
+          snippet: "Demonstrate diplomatic prowess globally.",
+          content: `By tackling international tensions head-on, you're proving the committee can guide the world through complex geopolitical challenges. 
+            
+This approach not only helps avert crises but also boosts the committee's global standing, attracting alliances and partnerships from those seeking strong, outward-looking leadership.`
+        },
+      ],
+    },
+    {
+      label: "C) Balance both efforts",
+      cred: +15,
+      econ: -20,
+      polar: -15,
+      nextStep: "end",
+      socialEmails: [
+        {
+          subject: "A Delicate Balancing Act",
+          snippet: "Can the committee handle it all?",
+          content: `Striving to address both internal disputes and external tensions has won you praise for attempting a holistic approach. 
+            
+Still, some observers question whether the committee risks spreading itself too thin. "It's noble, but is it feasible?" asked one political analyst, voicing doubts about whether the leadership can effectively multitask such high-stakes challenges.`
+        },
+      ],
+      promoEmails: [
+        {
+          subject: "A Holistic Path Forward",
+          snippet: "Tackle conflicts on all fronts for shared success.",
+          content: `By committing to resolve internal strife while also engaging on the global stage, you showcase a leadership style that values comprehensive solutions. 
+            
+This dual focus can foster both unity within the committee and respect abroad—ultimately creating an environment ripe for sustainable progress and collaboration.`
+        },
+      ],
+    },
+  ],
+},
+ 
+  
 ];
 
 const initialEmail = {
@@ -1242,40 +1464,78 @@ const initialEmail = {
 const initialSocialPool = [
   {
     id: 101,
-    subject: "Invitation to a social event",
-    snippet: "Galactic party next Saturday...",
-    content: "Social mail #1...",
+    subject: "Invitation to the Annual Resource Allocation Summit",
+    snippet: "Join leaders and activists for a global development forum.",
+    content: `Hello,
+    
+We are delighted to invite you to our Annual Resource Allocation Summit. This exclusive event will bring together committee members, government representatives, and humanitarian organizations to discuss the ongoing controversies around the distribution of our groundbreaking technology.
+
+Participants will have the opportunity to:
+- Explore new strategies for equitable resource quotas
+- Debate the prioritization of humanitarian vs. industrial needs
+- Share insights on balancing internal and external conflicts
+
+Your voice matters in shaping the future of this initiative. We hope you'll join us for a day of collaboration and forward-thinking solutions.`,
     revisado: false,
     starred: false,
   },
   {
     id: 102,
-    subject: "Meeting of stellar neighbors",
-    snippet: "We're getting together to celebrate...",
-    content: "Social mail #2...",
+    subject: "Coalition Meetup: Advocating Equitable Tech Access",
+    snippet: "Grassroots groups unite for fair distribution.",
+    content: `Greetings,
+
+We’re hosting a grassroots meetup to address concerns over the global use and allocation of revolutionary technology. With tensions rising between nations and within the committee itself, our goal is to create a space where activists, local leaders, and community members can speak openly about:
+- The impact of resource quotas on smaller or developing nations
+- Ensuring transparency in government agreements
+- Strategies for conflict resolution and inclusive progress
+
+Come prepared to share your experiences, questions, and proposed solutions. Together, we can make sure life-changing advancements are accessible to everyone—without compromising our collective future.`,
     revisado: false,
     starred: false,
   },
 ];
 
+
 const initialPromotionsPool = [
   {
     id: 201,
-    subject: "Interstellar discounts",
-    snippet: "Travel offers...",
-    content: "Promotions on galactic routes.",
+    subject: "Exclusive Offer: Boost Your Industrial Edge",
+    snippet: "Expand your operations with cutting-edge innovations.",
+    content: `Greetings,
+
+Take advantage of our special promotion designed to bolster industrial growth amid the latest resource allocations. 
+Secure priority access to advanced manufacturing equipment and streamlined logistics—perfect for those aiming to stay ahead in a fast-paced market.
+
+Highlights:
+• Priority shipping for next-gen industrial tech
+• Discounted rates on large-scale implementations
+• 24/7 technical support for seamless integration
+
+Don’t miss this chance to supercharge your operations, while resources remain abundant. Act now to claim your early-bird benefits!`,
     revisado: false,
     starred: false,
   },
   {
     id: 202,
-    subject: "Special coupon",
-    snippet: "20% discount...",
-    content: "Limited promotion.",
+    subject: "Special Discount: Humanitarian Tech Solutions",
+    snippet: "Empower relief efforts with powerful tools.",
+    content: `Hello,
+
+We are excited to introduce a limited-time offer on our humanitarian-focused technology packages. 
+If you’re prioritizing relief initiatives, this is your opportunity to access advanced tools at a fraction of the usual cost.
+
+What’s included:
+• Customizable infrastructure kits for disaster relief
+• Energy-efficient solutions for remote communities
+• Training materials and expert guidance
+
+Join us in championing accessible innovation for those who need it most. Secure your discount today and help foster a brighter, more equitable future!`,
     revisado: false,
     starred: false,
   },
 ];
+
 
 function App() {
   const [brokenScreenActive, setBrokenScreenActive] = useState(false);

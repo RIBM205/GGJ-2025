@@ -1,51 +1,67 @@
 import React, { useEffect, useRef, useState } from "react";
 import mainMusic from "../../music/Main.wav";
+import polarityMusic from "../../music/polarity.wav";
+import economyMusic from "../../music/economi.wav";
 
 const MusicPlayer = ({
   economy,
   credibility,
-  polarization, 
+  polarization,
   isMusicMuted,
-  musicVolume
+  musicVolume,
 }) => {
   const audioRef = useRef(null);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(null);
-  const [unlockedTracks, setUnlockedTracks] = useState([0]);
+  const [unlockedTracks, setUnlockedTracks] = useState([0]); // Solo la primera pista desbloqueada
   const [userInteracted, setUserInteracted] = useState(false);
 
   const tracks = [
-    { name: "Neutral Theme", src: mainMusic, id: "neutral" },
-    // Add more tracks here as needed
+    {
+      name: "Neutral Theme",
+      src: mainMusic,
+      id: "neutral",
+      condition: () => true, // Siempre desbloqueada
+    },
+    {
+      name: "Economy Theme",
+      src: economyMusic,
+      id: "economy",
+      condition: () => economy < 50, // Se desbloquea cuando economía > 50
+    },
+    {
+      name: "Polarity Theme",
+      src: polarityMusic,
+      id: "polarity",
+      condition: () => polarization > 50, // Se desbloquea cuando polarización > 50
+    },
   ];
 
-  // Handle track selection by the user
+  // Seleccionar y reproducir pista
   const handleTrackSelection = (index) => {
-    if (!unlockedTracks.includes(index)) return;
+    if (!unlockedTracks.includes(index)) return; // Evita seleccionar pistas bloqueadas
     setCurrentTrackIndex(index);
-    if (audioRef.current) {
-      audioRef.current.src = tracks[index].src;
-      audioRef.current.play().catch((error) => {
-        console.error("Error playing audio:", error);
-      });
-      audioRef.current.volume = 0.5;
-    }
   };
 
-  // Handle user interaction to start playing music
+  // Manejo de reproducción automática y volumen
+  useEffect(() => {
+    if (currentTrackIndex !== null && audioRef.current) {
+      audioRef.current.src = tracks[currentTrackIndex].src;
+      audioRef.current.play().catch((error) => {
+        console.error("Error al reproducir la pista:", error);
+      });
+      audioRef.current.volume = isMusicMuted ? 0 : musicVolume / 100;
+    }
+  }, [currentTrackIndex, isMusicMuted, musicVolume]);
+
+  // Manejar la interacción del usuario
   const handleUserInteraction = () => {
     if (!userInteracted) {
       setUserInteracted(true);
-      if (audioRef.current && tracks[0]) {
-        audioRef.current.src = tracks[0].src;
-        audioRef.current.play().catch((error) => {
-          console.error("Error playing audio after interaction:", error);
-        });
-        audioRef.current.volume = 0.5;
-      }
+      setCurrentTrackIndex(0); // Comenzar con la primera pista desbloqueada
     }
   };
 
-  // Set up event listeners for user interactions
+  // Configurar eventos de interacción del usuario
   useEffect(() => {
     window.addEventListener("click", handleUserInteraction);
     window.addEventListener("keydown", handleUserInteraction);
@@ -56,29 +72,32 @@ const MusicPlayer = ({
     };
   }, [userInteracted]);
 
-  // Evaluate and unlock tracks based on current state
+  // Evaluar desbloqueo de pistas al cambiar el estado del juego
   useEffect(() => {
     if (userInteracted) {
       evaluateTrackUnlock();
     }
   }, [economy, credibility, polarization, userInteracted]);
 
-  // Set initial volume based on mute state and volume level
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = isMusicMuted ? 0 : musicVolume / 100;
-      audioRef.current.muted = isMusicMuted; // Ensure mute works correctly
-    }
-  }, [musicVolume, isMusicMuted]);
-
-  // Function to evaluate and unlock new tracks
+  // Evaluar y desbloquear nuevas pistas automáticamente
   const evaluateTrackUnlock = () => {
     const newUnlocked = [...unlockedTracks];
+    let newTrackToPlay = null;
+
     tracks.forEach((track, i) => {
       if (track.condition && track.condition() && !newUnlocked.includes(i)) {
         newUnlocked.push(i);
+        if (newTrackToPlay === null) {
+          newTrackToPlay = i; // Guarda el índice de la primera nueva pista desbloqueada
+        }
       }
     });
+
+    // Si se desbloquea una nueva pista, cambia automáticamente
+    if (newTrackToPlay !== null) {
+      setCurrentTrackIndex(newTrackToPlay);
+    }
+
     setUnlockedTracks(newUnlocked);
   };
 
