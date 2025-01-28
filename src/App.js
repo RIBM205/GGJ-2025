@@ -21,6 +21,9 @@ import Button from "./components/StyledButton";
 import Options from "./components/options/Options";
 import StartMenu from "./components/startMenu/StartMenu";
 
+import CountDown from "./loop/countdownBeep.wav";
+import OldDisc from "./loop/oldDisc.wav";
+import Ring from "./loop/ring.wav";
 
 const SPECTRUM_COLORS = [
   "#000000", 
@@ -1595,8 +1598,27 @@ const handleFinalOutcome = () => {
   finalAudio.play().catch(() => {});
 
   // Activa un efecto visual (puedes usar `triggerGlitchEffect` o crear uno nuevo)
-  triggerGlitchEffect(5000);
+  triggerGlitchEffect(3000);
+  setTimeout(() => {
+  resetGame();
+  }, 3000);
 };
+
+const sounds = [Ring, OldDisc,CountDown]; // Lista de sonidos
+let lastPlayedIndex = -1; // Variable para rastrear el último sonido reproducido
+
+function playRandomSound() {
+  let availableIndexes = sounds.map((_, index) => index).filter(index => index !== lastPlayedIndex);
+  
+  if (availableIndexes.length === 0) return; // Evita errores si la lista está vacía
+
+  const randomIndex = availableIndexes[Math.floor(Math.random() * availableIndexes.length)];
+  lastPlayedIndex = randomIndex; // Actualiza el índice del último sonido reproducido
+
+  const audio = new Audio(sounds[randomIndex]);
+  audio.volume = isSfxMuted ? 0 : sfxVolume / 100; // Ajusta el volumen según configuración
+  audio.play().catch(() => {});
+}
 
   const handleLineDecision = (option) => {
     const unreadSocial = socialPool.some((email) => !email.revisado);
@@ -1646,6 +1668,8 @@ const handleFinalOutcome = () => {
     const nextIndex = line.findIndex((stepObj) => stepObj.id === option.nextStep);
     if (nextIndex >= 0) {
       setCurrentStepIndex(nextIndex);
+      setTimeout(() => {  playRandomSound();}, 1000);
+    
       setSelectedEmail(null);
       // Detecta si el próximo paso es el final
       if (line[nextIndex].id === "end") {
@@ -1654,6 +1678,7 @@ const handleFinalOutcome = () => {
     } else {
       alert("You've reached an ending (or the next step was not found).");
       setSelectedEmail(null);
+      resetGame();
     }
   };
   
@@ -1706,6 +1731,7 @@ const handleFinalOutcome = () => {
     }
   };
  // Inside your App component
+
 
 const resetGame = () => {
   setCredibilidad(100);

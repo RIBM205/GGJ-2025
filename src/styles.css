@@ -535,13 +535,15 @@ body {
 }
 
 
+
 .menu-background {
   position: absolute;
   top: 0;
-  left: 0;
-  width: auto;
-  height: auto;
-  z-index: 1;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  
+  z-index: -1;
 }
 
 .menu-buttons {
@@ -652,12 +654,16 @@ body {
   background: #ff6666;
 }
 
-
+/* =========================
+   Start Menu
+   ========================= */
    .start-menu {
-
+    /* Make it a Win95-type popup style */
     position: fixed;
-    width: 90vw;
-    height: 50vh;
+    top: 0; 
+    left: 0;
+    width: 65vw;
+    height: 45vh;
     background-color: var(--color-bg-outset);
     border: 2px outset var(--color-shadow-inset);
     box-shadow: 4px 4px 0 var(--color-shadow-win95);
@@ -675,9 +681,9 @@ body {
   /* Start menu buttons in Win95 style */
   .menu-buttons {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 10px;
-    margin-top: 1rem;
+    margin-top: 30vh  ;
   }
   .menu-buttons button {
     border: 2px outset var(--color-bg-outset);
